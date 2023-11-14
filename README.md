@@ -1,2 +1,2 @@
 # UnrealLearning
-Project for learning UE5
+Project for learning C++ for UE5 via making game prototype
