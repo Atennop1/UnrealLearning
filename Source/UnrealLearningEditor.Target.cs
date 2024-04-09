@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class UnrealLearningEditorTarget : TargetRules
 {
-	public UnrealLearningEditorTarget( TargetInfo Target) : base(Target)
+	public UnrealLearningEditorTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Editor;
 		DefaultBuildSettings = BuildSettingsVersion.V2;

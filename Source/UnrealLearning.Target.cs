@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class UnrealLearningTarget : TargetRules
 {
-	public UnrealLearningTarget( TargetInfo Target) : base(Target)
+	public UnrealLearningTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Game;
 		DefaultBuildSettings = BuildSettingsVersion.V2;
