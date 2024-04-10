@@ -9,28 +9,6 @@
   <component name="ChangeListManager">
     <list default="true" id="98e955f8-459d-4b7c-a1bf-60b9e3065afb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UnrealLearning/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnrealLearning/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/SillyDancing1_Blueprint.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/SillyDancing1_Blueprint.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/StarterContent/Props/Materials/M_Chair.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/StarterContent/Props/Materials/M_Chair.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TestContent/MonsterSong.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TestContent/MonsterSongAttenuation.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TestContent/MonsterSongAttenuation.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TestContent/MonsterSongCue.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TestContent/MonsterSongCue.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TestContent/OutlineMaterial.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TestContent/OutlineMaterial.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TestContent/SwatGuy/Ch15_1001_Diffuse.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TestContent/SwatGuy/Ch15_1001_Glossiness.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TestContent/SwatGuy/Ch15_1001_Normal.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TestContent/SwatGuy/Ch15_1001_Specular.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TestContent/SwatGuy/Ch15_1002_Diffuse.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TestContent/SwatGuy/Ch15_1002_Emissive.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TestContent/SwatGuy/Ch15_1002_Glossiness.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TestContent/SwatGuy/Ch15_1002_Normal.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TestContent/SwatGuy/Ch15_1002_Specular.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TestContent/SwatGuy/Ch15_body.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TestContent/SwatGuy/Ch15_body1.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TestContent/SwatGuy/Flair.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TestContent/SwatGuy/SillyDancing.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TestContent/SwatGuy/SwatGuy.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TestContent/SwatGuy/SwatGuy_PhysicsAsset.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TestContent/SwatGuy/SwatGuy_Skeleton.uasset" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,6 +113,7 @@
       <updated>1712656544134</updated>
       <workItem from="1712656545251" duration="521000" />
       <workItem from="1712752515961" duration="34000" />
+      <workItem from="1712760071189" duration="785000" />
     </task>
     <task id="LOCAL-00001" summary="Updated project type from Plain to FPS, moved assets to another folders">
       <created>1712656635776</created>
@@ -143,7 +122,14 @@
       <option name="project" value="LOCAL" />
       <updated>1712656635776</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added the MaterialsTest scene">
+      <created>1712760362747</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1712760362747</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -153,6 +139,7 @@
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Updated project type from Plain to FPS, moved assets to another folders" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated project type from Plain to FPS, moved assets to another folders" />
+    <MESSAGE value="Added the MaterialsTest scene" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added the MaterialsTest scene" />
   </component>
 </project>
