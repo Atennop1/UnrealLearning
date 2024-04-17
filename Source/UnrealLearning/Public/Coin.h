@@ -8,7 +8,7 @@
 #include "Coin.generated.h"
 
 UCLASS()
-class UNREALLEARNING_API ACoin : public AActor, public IPickUpable
+class UNREALLEARNING_API ACoin : public AActor, public IPickupable
 {
 	GENERATED_BODY()
 

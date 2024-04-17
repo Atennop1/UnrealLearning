@@ -9,7 +9,7 @@ ACoin::ACoin()
 
 void ACoin::PickUp()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 20.f, FColor::Red, FString("Coin picked up"));
+	GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, FString("Coin picked up"));
 	Destroy();
 }
 

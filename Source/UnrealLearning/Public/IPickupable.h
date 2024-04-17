@@ -7,12 +7,12 @@
 #include "IPickupable.generated.h"
 
 UINTERFACE()
-class UPickUpable : public UInterface
+class UPickupable : public UInterface
 {
 	GENERATED_BODY()
 };
 
-class UNREALLEARNING_API IPickUpable
+class UNREALLEARNING_API IPickupable
 {
 	GENERATED_BODY()
 
