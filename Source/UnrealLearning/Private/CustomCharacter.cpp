@@ -10,7 +10,10 @@ void ACustomCharacter::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, 
 	IPickupable* PickUpable = Cast<IPickupable>(OtherActor);
 	
 	if (PickUpable)
-		PickUpable->PickUp();		
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, FString("[DEBUG] Overlap"));
+		PickUpable->PickUp();
+	}
 }
 
 void ACustomCharacter::BeginPlay()

@@ -13,8 +13,3 @@ void ACoin::PickUp()
 	Destroy();
 }
 
-void ACoin::BeginPlay()
-{
-	Super::BeginPlay();
-}
-

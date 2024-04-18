@@ -12,9 +12,6 @@ class UNREALLEARNING_API ACoin : public AActor, public IPickupable
 {
 	GENERATED_BODY()
 
-private:
-	virtual void BeginPlay() override;
-	
 public:	
 	ACoin();
 	virtual void PickUp() override;
