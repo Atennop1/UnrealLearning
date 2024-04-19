@@ -9,6 +9,9 @@ ACoinCreator::ACoinCreator()
 
 void ACoinCreator::PickUp()
 {
-	GetWorld()->SpawnActor<AActor>(Cast<UClass>(Coin), SpawnPosition, SpawnRotator, FActorSpawnParameters());
+	GetWorld()->SpawnActor<AActor>(Cast<UClass>(Coin),
+		FVector(FMath::RandRange(0.0f, SpawnPositionSpread) * (FMath::RandBool() ? -1 : 1),
+		FMath::RandRange(0.0f, SpawnPositionSpread) * (FMath::RandBool() ? -1 : 1), SpawnPositionZ),
+		SpawnRotator);
 }
 

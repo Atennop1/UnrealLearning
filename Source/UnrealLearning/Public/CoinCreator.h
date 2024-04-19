@@ -18,10 +18,13 @@ private:
 	TSubclassOf<ACoin> Coin;
 
 	UPROPERTY(EditDefaultsOnly)
-	FVector SpawnPosition;
-
-	UPROPERTY(EditDefaultsOnly)
 	FRotator SpawnRotator;
+	
+	UPROPERTY(EditDefaultsOnly)
+	float SpawnPositionZ;
+	
+	UPROPERTY(EditDefaultsOnly)
+	float SpawnPositionSpread;
 	
 public:
 	ACoinCreator();
