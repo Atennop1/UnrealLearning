@@ -1,8 +1,8 @@
 // Copyright Atennop. All Rights Reserved.
 
-#include "CustomCharacter.h"
-#include "IPickupable.h"
+#include "Pickup/CustomCharacter.h"
 #include "Components/CapsuleComponent.h"
+#include "Pickup/IPickupable.h"
 
 // ReSharper disable once CppMemberFunctionMayBeConst
 void ACustomCharacter::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool FromSweep, const FHitResult& SweepResult)

@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UnrealLearning/UnrealLearningCharacter.h"
+#include "FirstPerson/UnrealLearningCharacter.h"
 #include "CustomCharacter.generated.h"
 
 UCLASS(Meta=(BlueprintSpawnableComponent))

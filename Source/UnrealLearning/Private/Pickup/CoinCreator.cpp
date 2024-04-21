@@ -1,6 +1,6 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
-#include "CoinCreator.h"
+#include "Pickup/CoinCreator.h"
 
 ACoinCreator::ACoinCreator()
 {
@@ -9,7 +9,7 @@ ACoinCreator::ACoinCreator()
 
 void ACoinCreator::PickUp()
 {
-	GetWorld()->SpawnActor<AActor>(Coin->GetClass(),
+	GetWorld()->SpawnActor<ACoin>(Coin,
 		FVector(FMath::RandRange(0.0f, SpawnPositionSpread) * (FMath::RandBool() ? -1 : 1),
 		FMath::RandRange(0.0f, SpawnPositionSpread) * (FMath::RandBool() ? -1 : 1), SpawnPositionZ),
 		SpawnRotator);

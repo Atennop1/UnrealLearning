@@ -1,9 +1,9 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 
-#include "TP_WeaponComponent.h"
-#include "UnrealLearningCharacter.h"
-#include "UnrealLearningProjectile.h"
+#include "FirstPerson/TP_WeaponComponent.h"
+#include "FirstPerson/UnrealLearningCharacter.h"
+#include "FirstPerson/UnrealLearningProjectile.h"
 #include "GameFramework/PlayerController.h"
 #include "Camera/PlayerCameraManager.h"
 #include "Kismet/GameplayStatics.h"

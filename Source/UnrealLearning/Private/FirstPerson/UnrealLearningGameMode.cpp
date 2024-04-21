@@ -1,7 +1,6 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
-#include "UnrealLearningGameMode.h"
-#include "UnrealLearningCharacter.h"
+#include "FirstPerson/UnrealLearningGameMode.h"
 #include "UObject/ConstructorHelpers.h"
 
 AUnrealLearningGameMode::AUnrealLearningGameMode()

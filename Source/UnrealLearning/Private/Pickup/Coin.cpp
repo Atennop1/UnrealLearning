@@ -1,6 +1,6 @@
 // Copyright Atennop. All Rights Reserved.
 
-#include "Coin.h"
+#include "Pickup/Coin.h"
 
 ACoin::ACoin()
 {

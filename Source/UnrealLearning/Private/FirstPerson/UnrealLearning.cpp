@@ -1,6 +1,6 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
-#include "UnrealLearning.h"
+#include "FirstPerson/UnrealLearning.h"
 #include "Modules/ModuleManager.h"
 
 IMPLEMENT_PRIMARY_GAME_MODULE( FDefaultGameModuleImpl, UnrealLearning, "UnrealLearning" );
