@@ -1,6 +1,5 @@
 // Copyright Atennop. All Rights Reserved.
 
-
 #include "Minecraft/MinecraftCharacter.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"

@@ -18,15 +18,21 @@ void UCharacterBlockPlacerComponent::PlaceBlock(const FInputActionValue& Value)
 	FCollisionQueryParams CollisionParameters;
 	CollisionParameters.AddIgnoredActor(GetOwner());
 	
-	const UCameraComponent* Camera = Cast<AMinecraftCharacter>(GetOwner())->GetFirstPersonCameraComponent();
-	const FVector Start = Camera->GetComponentTransform().GetLocation();
-	const FVector End = Start + Camera->GetForwardVector() * LineTraceLength;
+	const UCameraComponent* CameraComponent = Cast<AMinecraftCharacter>(GetOwner())->GetFirstPersonCameraComponent();
+	const FVector StartPosition = CameraComponent->GetComponentTransform().GetLocation();
+	const FVector TheoreticalEndPosition = StartPosition + CameraComponent->GetForwardVector() * LineTraceLength;
 
-	GetWorld()->LineTraceSingleByChannel(HitResult, Start, End, ECC_WorldStatic, CollisionParameters);
-	UKismetSystemLibrary::DrawDebugLine(GetWorld(), Start, HitResult.GetActor() != nullptr ? HitResult.ImpactPoint : End, FColor::Red, 100);
+	GetWorld()->LineTraceSingleByChannel(HitResult, StartPosition, TheoreticalEndPosition, ECC_WorldStatic, CollisionParameters);
+	bool WasHit = HitResult.GetActor() != nullptr;
+	FVector PracticalEndPosition = WasHit ? HitResult.Location : TheoreticalEndPosition;
+
+	if (WasHit)
+		GetWorld()->SpawnActor(BlockBlueprint, &PracticalEndPosition, &FRotator::ZeroRotator);
 	
-	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Blue, "[DEBUG] Hit object name: " + (HitResult.GetActor() != nullptr ? HitResult.GetActor()->GetName() : "No hit object"));
-	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Blue, "[DEBUG] Hit position: " + UKismetStringLibrary::Conv_VectorToString(HitResult.ImpactPoint));
+	// DEBUG SECTION
+	UKismetSystemLibrary::DrawDebugLine(GetWorld(), StartPosition, PracticalEndPosition, FColor::Red, 10);
+	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Blue, "[DEBUG] Hit object name: " + (WasHit ? HitResult.GetActor()->GetName() : "no hit object"));
+	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Blue, "[DEBUG] Hit position: " + (WasHit ? UKismetStringLibrary::Conv_VectorToString(PracticalEndPosition) : "none"));
 }
 
 

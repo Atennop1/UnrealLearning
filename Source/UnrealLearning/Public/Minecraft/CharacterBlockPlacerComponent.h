@@ -6,15 +6,19 @@
 #include "Components/ActorComponent.h"
 #include "CharacterBlockPlacerComponent.generated.h"
 
-UCLASS(ClassGroup=(Custom), Blueprintable, meta=(BlueprintSpawnableComponent))
+UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class UNREALLEARNING_API UCharacterBlockPlacerComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
-public:
-	UPROPERTY(EditDefaultsOnly, Category=BlockPlacing)
+private:
+	UPROPERTY(EditDefaultsOnly)
 	float LineTraceLength;
-	
+
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<AActor> BlockBlueprint;
+
+public:
 	UCharacterBlockPlacerComponent();
 	void PlaceBlock(const struct FInputActionValue &Value);	
 };
