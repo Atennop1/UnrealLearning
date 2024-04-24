@@ -22,7 +22,7 @@ void UCharacterBlockPlacerComponent::PlaceBlock(const FInputActionValue& Value)
 	const FVector StartPosition = CameraComponent->GetComponentTransform().GetLocation();
 	const FVector TheoreticalEndPosition = StartPosition + CameraComponent->GetForwardVector() * LineTraceLength;
 
-	GetWorld()->LineTraceSingleByChannel(HitResult, StartPosition, TheoreticalEndPosition, ECC_WorldStatic, CollisionParameters);
+	GetWorld()->LineTraceSingleByChannel(HitResult, StartPosition, TheoreticalEndPosition, ECC_Visibility, CollisionParameters);
 	bool WasHit = HitResult.GetActor() != nullptr;
 	FVector PracticalEndPosition = WasHit ? HitResult.Location : TheoreticalEndPosition;
 
