@@ -13,6 +13,9 @@ class UNREALLEARNING_API UCharacterBlockPlacerComponent : public UActorComponent
 
 private:
 	UPROPERTY(EditDefaultsOnly)
+	bool Debug;
+
+	UPROPERTY(EditDefaultsOnly)
 	float LineTraceLength;
 
 	UPROPERTY(EditDefaultsOnly)

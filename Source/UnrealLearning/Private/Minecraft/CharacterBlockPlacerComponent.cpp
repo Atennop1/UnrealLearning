@@ -4,6 +4,7 @@
 #include "Camera/CameraComponent.h"
 #include "Kismet/KismetStringLibrary.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "Minecraft/Block.h"
 #include "Minecraft/MinecraftCharacter.h"
 
 UCharacterBlockPlacerComponent::UCharacterBlockPlacerComponent()
@@ -27,12 +28,19 @@ void UCharacterBlockPlacerComponent::PlaceBlock(const FInputActionValue& Value)
 	FVector PracticalEndPosition = WasHit ? HitResult.Location : TheoreticalEndPosition;
 
 	if (WasHit)
-		GetWorld()->SpawnActor(BlockBlueprint, &PracticalEndPosition, &FRotator::ZeroRotator);
+	{
+		TArray<AActor*> OverlappedActors;
+		FVector SpawnLocation = (PracticalEndPosition - CameraComponent->GetForwardVector() * LineTraceLength * 0.015f).GridSnap(100);
+		UKismetSystemLibrary::SphereOverlapActors(GetWorld(), SpawnLocation, 30.0f, TArray<TEnumAsByte<EObjectTypeQuery>>(), nullptr, TArray<AActor*>(), OverlappedActors);
+		
+		if (!OverlappedActors.ContainsByPredicate([&](const AActor* Actor) { return Cast<ACharacter>(Actor) || Cast<ABlock>(Actor); }))
+			GetWorld()->SpawnActor(BlockBlueprint, &SpawnLocation);
+	}
+
+	if (!Debug)
+		return;
 	
-	// DEBUG SECTION
 	UKismetSystemLibrary::DrawDebugLine(GetWorld(), StartPosition, PracticalEndPosition, FColor::Red, 10);
 	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Blue, "[DEBUG] Hit object name: " + (WasHit ? HitResult.GetActor()->GetName() : "no hit object"));
 	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Blue, "[DEBUG] Hit position: " + (WasHit ? UKismetStringLibrary::Conv_VectorToString(PracticalEndPosition) : "none"));
 }
-
-
