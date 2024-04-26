@@ -19,7 +19,14 @@ private:
 	UInputAction *PlaceBlockInputAction;
 	
 	UPROPERTY(EditDefaultsOnly)
+	UInputAction *DestroyBlockInputAction;
+
+	
+	UPROPERTY(EditDefaultsOnly)
 	class UCharacterBlockPlacerComponent *CharacterBlockPlacer;
+
+	UPROPERTY(EditDefaultsOnly)
+	class UCharacterBlockDestroyerComponent *CharacterBlockDestroyer;
 
 	AMinecraftCharacter();
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;

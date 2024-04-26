@@ -3,12 +3,14 @@
 #include "Minecraft/MinecraftCharacter.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "Minecraft/CharacterBlockDestroyerComponent.h"
 #include "Minecraft/CharacterBlockPlacerComponent.h"
 
 AMinecraftCharacter::AMinecraftCharacter()
 {
 	PrimaryActorTick.bCanEverTick = false;
 	CharacterBlockPlacer = CreateDefaultSubobject<UCharacterBlockPlacerComponent>(TEXT("CharacterBlockPlacer"));
+	CharacterBlockDestroyer = CreateDefaultSubobject<UCharacterBlockDestroyerComponent>(TEXT("CharacterBlockDestroyer"));
 }
 
 void AMinecraftCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -24,5 +26,6 @@ void AMinecraftCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInput
 	}
 
 	auto *EnhancedInputComponent = Cast<UEnhancedInputComponent>(InputComponent);
-	EnhancedInputComponent->BindAction(PlaceBlockInputAction, ETriggerEvent::Started, CharacterBlockPlacer, &UCharacterBlockPlacerComponent::PlaceBlock);
+	EnhancedInputComponent->BindAction(PlaceBlockInputAction, ETriggerEvent::Triggered, CharacterBlockPlacer, &UCharacterBlockPlacerComponent::PlaceBlock);
+	EnhancedInputComponent->BindAction(DestroyBlockInputAction, ETriggerEvent::Triggered, CharacterBlockDestroyer, &UCharacterBlockDestroyerComponent::DestroyBlock);
 }

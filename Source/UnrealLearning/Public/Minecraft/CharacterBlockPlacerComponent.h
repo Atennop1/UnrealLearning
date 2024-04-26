@@ -16,10 +16,15 @@ private:
 	bool Debug;
 
 	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<AActor> BlockBlueprint;
+
+	UPROPERTY(EditDefaultsOnly)
 	float LineTraceLength;
 
 	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<AActor> BlockBlueprint;
+	float Cooldown;
+	bool CanPlace = true;
+	FTimerHandle CooldownTimerHandle;
 
 public:
 	UCharacterBlockPlacerComponent();
