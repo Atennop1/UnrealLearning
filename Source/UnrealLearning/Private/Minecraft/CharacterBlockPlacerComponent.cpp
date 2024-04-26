@@ -4,7 +4,7 @@
 #include "Camera/CameraComponent.h"
 #include "Kismet/KismetStringLibrary.h"
 #include "Kismet/KismetSystemLibrary.h"
-#include "Minecraft/Block.h"
+#include "Minecraft/IBlock.h"
 #include "Minecraft/MinecraftCharacter.h"
 
 UCharacterBlockPlacerComponent::UCharacterBlockPlacerComponent()
@@ -33,7 +33,7 @@ void UCharacterBlockPlacerComponent::PlaceBlock(const FInputActionValue& Value)
 		FVector SpawnLocation = (PracticalEndPosition - CameraComponent->GetForwardVector() * LineTraceLength * 0.015f).GridSnap(100);
 		UKismetSystemLibrary::SphereOverlapActors(GetWorld(), SpawnLocation, 30.0f, TArray<TEnumAsByte<EObjectTypeQuery>>(), nullptr, TArray<AActor*>(), OverlappedActors);
 		
-		if (!OverlappedActors.ContainsByPredicate([&](const AActor* Actor) { return Cast<ACharacter>(Actor) || Cast<ABlock>(Actor); }))
+		if (!OverlappedActors.ContainsByPredicate([&](const AActor* Actor) { return Cast<ACharacter>(Actor) || Cast<IBlock>(Actor); }))
 			GetWorld()->SpawnActor(BlockBlueprint, &SpawnLocation);
 	}
 
