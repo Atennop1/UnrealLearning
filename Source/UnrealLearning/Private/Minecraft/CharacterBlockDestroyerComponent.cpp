@@ -1,7 +1,6 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
 #include "Minecraft/CharacterBlockDestroyerComponent.h"
-
 #include "Camera/CameraComponent.h"
 #include "Minecraft/MinecraftCharacter.h"
 #include "Minecraft/Blocks/IBlock.h"
@@ -14,11 +13,8 @@ UCharacterBlockDestroyerComponent::UCharacterBlockDestroyerComponent()
 }
 
 // ReSharper disable once CppMemberFunctionMayBeConst
-void UCharacterBlockDestroyerComponent::DestroyBlock(const FInputActionValue& Value)
+void UCharacterBlockDestroyerComponent::StartBlockDestroying(const FInputActionValue& Value)
 {
-	if (!CanPlace)
-		return;
-	
 	FCollisionQueryParams CollisionParameters;
 	CollisionParameters.AddIgnoredActor(GetOwner());
 	
@@ -30,10 +26,29 @@ void UCharacterBlockDestroyerComponent::DestroyBlock(const FInputActionValue& Va
 	{
 		if (IBlock *Block = Cast<IBlock>(Result.GetActor()); Block != nullptr)
 		{
-			CanPlace = false;
-			Block->Destroy();
-			GetOwner()->GetWorldTimerManager().SetTimer(CooldownTimerHandle, [&] { CanPlace = true; }, Cooldown, false, Cooldown);
+			if (CurrentBlock == Block || !CanDestroy)
+				return;
+			
+			CanDestroy = false;
+			StopBlockDestroying(NULL);
+			CurrentBlock.SetInterface(Block);
+			CurrentBlock.SetObject(Cast<UObject>(Block));
+			
+			CurrentBlock->StartDestroying();
+			GetOwner()->GetWorldTimerManager().SetTimer(CooldownTimerHandle, [&] { CanDestroy = true; }, Cooldown, false, Cooldown);
+			return;
 		}
 	}
+
+	StopBlockDestroying(NULL);
+}
+
+// ReSharper disable once CppMemberFunctionMayBeConst
+void UCharacterBlockDestroyerComponent::StopBlockDestroying(const FInputActionValue& Value)
+{
+	if (CurrentBlock != nullptr)
+		CurrentBlock->StopDestroying();
+
+	CurrentBlock = nullptr;
 }
 

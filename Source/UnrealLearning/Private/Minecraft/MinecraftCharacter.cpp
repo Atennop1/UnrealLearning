@@ -26,6 +26,7 @@ void AMinecraftCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInput
 	}
 
 	auto *EnhancedInputComponent = Cast<UEnhancedInputComponent>(InputComponent);
-	EnhancedInputComponent->BindAction(PlaceBlockInputAction, ETriggerEvent::Triggered, CharacterBlockPlacer, &UCharacterBlockPlacerComponent::PlaceBlock);
-	EnhancedInputComponent->BindAction(DestroyBlockInputAction, ETriggerEvent::Triggered, CharacterBlockDestroyer, &UCharacterBlockDestroyerComponent::DestroyBlock);
+	EnhancedInputComponent->BindAction(PlaceBlockAction, ETriggerEvent::Triggered, CharacterBlockPlacer, &UCharacterBlockPlacerComponent::PlaceBlock);
+	EnhancedInputComponent->BindAction(DestroyBlockStartAction, ETriggerEvent::Triggered, CharacterBlockDestroyer, &UCharacterBlockDestroyerComponent::StartBlockDestroying);
+	EnhancedInputComponent->BindAction(DestroyBlockStopAction, ETriggerEvent::Triggered, CharacterBlockDestroyer, &UCharacterBlockDestroyerComponent::StopBlockDestroying);
 }

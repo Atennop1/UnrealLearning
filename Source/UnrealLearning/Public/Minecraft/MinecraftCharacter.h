@@ -16,10 +16,13 @@ private:
 	UInputMappingContext *InputMappingContext;
 	
 	UPROPERTY(EditDefaultsOnly)
-	UInputAction *PlaceBlockInputAction;
+	UInputAction *PlaceBlockAction;
 	
 	UPROPERTY(EditDefaultsOnly)
-	UInputAction *DestroyBlockInputAction;
+	UInputAction *DestroyBlockStartAction;
+
+	UPROPERTY(EditDefaultsOnly)
+	UInputAction *DestroyBlockStopAction;
 
 	
 	UPROPERTY(EditDefaultsOnly)

@@ -25,8 +25,9 @@ private:
 	float Cooldown;
 	bool CanPlace = true;
 	FTimerHandle CooldownTimerHandle;
-
-public:
+	
 	UCharacterBlockPlacerComponent();
+	
+public:
 	void PlaceBlock(const struct FInputActionValue &Value);	
 };

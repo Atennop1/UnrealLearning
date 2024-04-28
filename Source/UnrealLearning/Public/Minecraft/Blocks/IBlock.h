@@ -17,5 +17,6 @@ class UNREALLEARNING_API IBlock
 	GENERATED_BODY()
 	
 public:
-	virtual void Destroy() = 0;
+	virtual void StartDestroying() = 0;
+	virtual void StopDestroying() = 0;
 };

@@ -17,9 +17,6 @@ UCharacterBlockPlacerComponent::UCharacterBlockPlacerComponent()
 // ReSharper disable once CppMemberFunctionMayBeConst
 void UCharacterBlockPlacerComponent::PlaceBlock(const FInputActionValue& Value)
 {
-	if (!CanPlace)
-		return;
-	
 	FHitResult HitResult;
 	FCollisionQueryParams CollisionParameters;
 	CollisionParameters.AddIgnoredActor(GetOwner());
@@ -35,9 +32,9 @@ void UCharacterBlockPlacerComponent::PlaceBlock(const FInputActionValue& Value)
 	{
 		TArray<AActor*> OverlappedActors;
 		FVector SpawnLocation = (PracticalEndPosition - CameraComponent->GetForwardVector() * LineTraceLength * 0.015f).GridSnap(100);
-		UKismetSystemLibrary::SphereOverlapActors(GetWorld(), SpawnLocation, 30.0f, TArray<TEnumAsByte<EObjectTypeQuery>>(), nullptr, TArray<AActor*>(), OverlappedActors);
+		UKismetSystemLibrary::SphereOverlapActors(GetWorld(), SpawnLocation, 45.0f, TArray<TEnumAsByte<EObjectTypeQuery>>(), nullptr, TArray<AActor*>(), OverlappedActors);
 		
-		if (!OverlappedActors.ContainsByPredicate([&](const AActor* Actor) { return Cast<ACharacter>(Actor) || Cast<IBlock>(Actor); }))
+		if (!OverlappedActors.ContainsByPredicate([&](const AActor* Actor) { return Cast<ACharacter>(Actor) || Cast<IBlock>(Actor); }) && CanPlace)
 		{
 			CanPlace = false;
 			GetWorld()->SpawnActor(BlockBlueprint, &SpawnLocation);

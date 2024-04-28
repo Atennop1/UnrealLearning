@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Blocks/IBlock.h"
 #include "Components/ActorComponent.h"
 #include "CharacterBlockDestroyerComponent.generated.h"
 
@@ -17,11 +18,15 @@ private:
 	
 	UPROPERTY(EditDefaultsOnly)
 	float Cooldown;
-	bool CanPlace = true;
+	bool CanDestroy = true;
 	FTimerHandle CooldownTimerHandle;
+
+	UPROPERTY()
+	TScriptInterface<IBlock> CurrentBlock = TScriptInterface<IBlock>();
 	
 	UCharacterBlockDestroyerComponent();
 
 public:
-	void DestroyBlock(const struct FInputActionValue &Value);
+	void StartBlockDestroying(const struct FInputActionValue &Value);
+	void StopBlockDestroying(const FInputActionValue &Value);
 };
