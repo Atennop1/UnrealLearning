@@ -24,12 +24,18 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	UInputAction *DestroyBlockStopAction;
 
+	UPROPERTY(EditDefaultsOnly)
+	UInputAction *SelectBlockAction;
+
 	
 	UPROPERTY(EditDefaultsOnly)
 	class UCharacterBlockPlacerComponent *CharacterBlockPlacer;
 
 	UPROPERTY(EditDefaultsOnly)
 	class UCharacterBlockDestroyerComponent *CharacterBlockDestroyer;
+
+	UPROPERTY(EditDefaultsOnly)
+	class UCharacterBlockSelectorComponent *CharacterBlockSelector;
 
 	AMinecraftCharacter();
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;

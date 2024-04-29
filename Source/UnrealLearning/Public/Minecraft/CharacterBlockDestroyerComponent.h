@@ -27,6 +27,6 @@ private:
 	UCharacterBlockDestroyerComponent();
 
 public:
-	void StartBlockDestroying(const struct FInputActionValue &Value);
-	void StopBlockDestroying(const FInputActionValue &Value);
+	void StartDestroying(const struct FInputActionValue &Value);
+	void StopDestroying(const FInputActionValue &Value);
 };

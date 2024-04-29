@@ -14,7 +14,7 @@ void ADefaultBlock::BeginPlay()
 	FOnTimelineFloat ProgressUpdate;
 	FOnTimelineEvent FinishedEvent;
 	
-	MaterialInstance = UMaterialInstanceDynamic::Create(MaterialInterface, this);
+	MaterialInstance = UMaterialInstanceDynamic::Create(Mesh->GetMaterial(0), this);
 	Mesh->SetMaterial(0, MaterialInstance);
 	MaterialInstance->SetScalarParameterValue("DestroyingProgress", 0);
 
@@ -22,6 +22,7 @@ void ADefaultBlock::BeginPlay()
 	FinishedEvent.BindUFunction(this, FName("OnDestroyingFinished"));
 	DestroyingTimeline.AddInterpFloat(DestroyingCurve, ProgressUpdate);
 	DestroyingTimeline.SetTimelineFinishedFunc(FinishedEvent);
+	DestroyingTimeline.SetPlayRate(CurveSpeed);
 }
 
 void ADefaultBlock::Tick(float DeltaSeconds)

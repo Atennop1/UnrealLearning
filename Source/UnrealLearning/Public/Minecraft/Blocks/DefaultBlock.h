@@ -17,11 +17,11 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	UStaticMeshComponent *Mesh;
 
-	UPROPERTY(EditDefaultsOnly)
-	UMaterialInterface *MaterialInterface;
-
 	UPROPERTY()
 	UMaterialInstanceDynamic *MaterialInstance;
+	
+	UPROPERTY(EditDefaultsOnly)
+	float CurveSpeed;
 	
 	UPROPERTY(EditDefaultsOnly)
 	UCurveFloat *DestroyingCurve;

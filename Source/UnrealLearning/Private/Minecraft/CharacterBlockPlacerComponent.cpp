@@ -14,8 +14,13 @@ UCharacterBlockPlacerComponent::UCharacterBlockPlacerComponent()
 	Cooldown = 0.15f;
 }
 
+void UCharacterBlockPlacerComponent::Select(const TSubclassOf<AActor> Block)
+{
+	BlockBlueprint = Block;
+}
+
 // ReSharper disable once CppMemberFunctionMayBeConst
-void UCharacterBlockPlacerComponent::PlaceBlock(const FInputActionValue& Value)
+void UCharacterBlockPlacerComponent::Place(const FInputActionValue& Value)
 {
 	FHitResult HitResult;
 	FCollisionQueryParams CollisionParameters;

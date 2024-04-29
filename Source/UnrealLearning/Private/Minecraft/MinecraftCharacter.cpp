@@ -5,12 +5,14 @@
 #include "EnhancedInputSubsystems.h"
 #include "Minecraft/CharacterBlockDestroyerComponent.h"
 #include "Minecraft/CharacterBlockPlacerComponent.h"
+#include "Minecraft/CharacterBlockSelectorComponent.h"
 
 AMinecraftCharacter::AMinecraftCharacter()
 {
 	PrimaryActorTick.bCanEverTick = false;
 	CharacterBlockPlacer = CreateDefaultSubobject<UCharacterBlockPlacerComponent>(TEXT("CharacterBlockPlacer"));
 	CharacterBlockDestroyer = CreateDefaultSubobject<UCharacterBlockDestroyerComponent>(TEXT("CharacterBlockDestroyer"));
+	CharacterBlockSelector = CreateDefaultSubobject<UCharacterBlockSelectorComponent>(TEXT("CharacterBlockSelector"));
 }
 
 void AMinecraftCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -26,7 +28,8 @@ void AMinecraftCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInput
 	}
 
 	auto *EnhancedInputComponent = Cast<UEnhancedInputComponent>(InputComponent);
-	EnhancedInputComponent->BindAction(PlaceBlockAction, ETriggerEvent::Triggered, CharacterBlockPlacer, &UCharacterBlockPlacerComponent::PlaceBlock);
-	EnhancedInputComponent->BindAction(DestroyBlockStartAction, ETriggerEvent::Triggered, CharacterBlockDestroyer, &UCharacterBlockDestroyerComponent::StartBlockDestroying);
-	EnhancedInputComponent->BindAction(DestroyBlockStopAction, ETriggerEvent::Triggered, CharacterBlockDestroyer, &UCharacterBlockDestroyerComponent::StopBlockDestroying);
+	EnhancedInputComponent->BindAction(PlaceBlockAction, ETriggerEvent::Triggered, CharacterBlockPlacer, &UCharacterBlockPlacerComponent::Place);
+	EnhancedInputComponent->BindAction(DestroyBlockStartAction, ETriggerEvent::Triggered, CharacterBlockDestroyer, &UCharacterBlockDestroyerComponent::StartDestroying);
+	EnhancedInputComponent->BindAction(DestroyBlockStopAction, ETriggerEvent::Triggered, CharacterBlockDestroyer, &UCharacterBlockDestroyerComponent::StopDestroying);
+	EnhancedInputComponent->BindAction(SelectBlockAction, ETriggerEvent::Triggered, CharacterBlockSelector, &UCharacterBlockSelectorComponent::Select);
 }

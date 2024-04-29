@@ -13,7 +13,7 @@ UCharacterBlockDestroyerComponent::UCharacterBlockDestroyerComponent()
 }
 
 // ReSharper disable once CppMemberFunctionMayBeConst
-void UCharacterBlockDestroyerComponent::StartBlockDestroying(const FInputActionValue& Value)
+void UCharacterBlockDestroyerComponent::StartDestroying(const FInputActionValue& Value)
 {
 	FCollisionQueryParams CollisionParameters;
 	CollisionParameters.AddIgnoredActor(GetOwner());
@@ -30,7 +30,7 @@ void UCharacterBlockDestroyerComponent::StartBlockDestroying(const FInputActionV
 				return;
 			
 			CanDestroy = false;
-			StopBlockDestroying(NULL);
+			StopDestroying(NULL);
 			CurrentBlock.SetInterface(Block);
 			CurrentBlock.SetObject(Cast<UObject>(Block));
 			
@@ -40,11 +40,11 @@ void UCharacterBlockDestroyerComponent::StartBlockDestroying(const FInputActionV
 		}
 	}
 
-	StopBlockDestroying(NULL);
+	StopDestroying(NULL);
 }
 
 // ReSharper disable once CppMemberFunctionMayBeConst
-void UCharacterBlockDestroyerComponent::StopBlockDestroying(const FInputActionValue& Value)
+void UCharacterBlockDestroyerComponent::StopDestroying(const FInputActionValue& Value)
 {
 	if (CurrentBlock != nullptr)
 		CurrentBlock->StopDestroying();

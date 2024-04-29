@@ -16,18 +16,19 @@ private:
 	bool Debug;
 
 	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<AActor> BlockBlueprint;
-
-	UPROPERTY(EditDefaultsOnly)
 	float LineTraceLength;
 
 	UPROPERTY(EditDefaultsOnly)
 	float Cooldown;
 	bool CanPlace = true;
 	FTimerHandle CooldownTimerHandle;
+
+	UPROPERTY()
+	TSubclassOf<AActor> BlockBlueprint;
 	
 	UCharacterBlockPlacerComponent();
 	
 public:
-	void PlaceBlock(const struct FInputActionValue &Value);	
+	void Select(TSubclassOf<AActor> Block);
+	void Place(const struct FInputActionValue &Value);	
 };
