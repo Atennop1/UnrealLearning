@@ -25,7 +25,7 @@ private:
 	FTimeline DestroyingTimeline;
 
 	UPROPERTY()
-	TArray<UMaterialInstanceDynamic*> MaterialInstances;
+	UMaterialInstanceDynamic* MaterialInstance;
 	
 	UFUNCTION()
 	void OnDestroyingTick(float Alpha) const;
@@ -34,6 +34,8 @@ private:
 	void OnDestroyingFinished();
 
 protected:
+	UStaticMeshComponent* GetMesh() { return Mesh; }
+	
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
 	ADefaultBlock();

@@ -18,11 +18,12 @@ void ADefaultBlock::BeginPlay()
 	for (const auto Component : Components)
 	{
 		Mesh = Cast<UStaticMeshComponent>(Component);
-		UMaterialInstanceDynamic *Instance = UMaterialInstanceDynamic::Create(Mesh->GetMaterial(0), this);
 		
-		Instance->SetScalarParameterValue("DestroyingProgress", 0);
-		Mesh->SetMaterial(0, Instance);
-		MaterialInstances.Add(Instance);
+		if (MaterialInstance == nullptr)
+			MaterialInstance = UMaterialInstanceDynamic::Create(Mesh->GetMaterial(0), this);
+		
+		MaterialInstance->SetScalarParameterValue("DestroyingProgress", 0);
+		Mesh->SetMaterial(0, MaterialInstance);
 	}
 	
 	FOnTimelineFloat ProgressUpdate;
@@ -43,8 +44,7 @@ void ADefaultBlock::Tick(float DeltaSeconds)
 
 void ADefaultBlock::OnDestroyingTick(float Alpha) const
 {
-	for (const auto Instance : MaterialInstances)
-		Instance->SetScalarParameterValue("DestroyingProgress", Alpha);
+	MaterialInstance->SetScalarParameterValue("DestroyingProgress", Alpha);
 }
 
 void ADefaultBlock::OnDestroyingFinished()
@@ -59,9 +59,7 @@ void ADefaultBlock::StartDestroying()
 
 void ADefaultBlock::StopDestroying()
 {
-	for (const auto Instance : MaterialInstances)
-		Instance->SetScalarParameterValue("DestroyingProgress", 0);
-	
+	MaterialInstance->SetScalarParameterValue("DestroyingProgress", 0);
 	DestroyingTimeline.Stop();
 }
 

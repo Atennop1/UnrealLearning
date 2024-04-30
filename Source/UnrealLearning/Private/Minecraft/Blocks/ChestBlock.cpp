@@ -23,7 +23,8 @@ void AChestBlock::Interact()
 void AChestBlock::OnTimelineTick(float Value) const
 {
 	const FTransform Transform = LidPivot->GetComponentTransform() ;
-	LidPivot->SetWorldTransform(FTransform(FRotator(Value, 0, 0), Transform.GetTranslation(), Transform.GetScale3D()));
+	const FRotator Rotator = Transform.Rotator();
+	LidPivot->SetWorldTransform(FTransform(FRotator(Value, Rotator.Yaw, Rotator.Roll), Transform.GetTranslation(), Transform.GetScale3D()));
 }
 
 void AChestBlock::BeginPlay()
