@@ -29,7 +29,7 @@ void UCharacterBlockPlacerComponent::Place(const FInputActionValue& Value)
 	if (Pointing->GetPointingObject() != nullptr)
 	{
 		TArray<AActor*> OverlappedActors;
-		const FVector SpawnLocation = (Pointing->GetPointLocation() - Cast<AMinecraftCharacter>(GetOwner())->GetFirstPersonCameraComponent()->GetForwardVector()).GridSnap(100);
+		const FVector SpawnLocation = (Pointing->GetPointLocation() - Cast<AMinecraftCharacter>(GetOwner())->GetFirstPersonCameraComponent()->GetForwardVector() * 7.5f).GridSnap(100);
 		UKismetSystemLibrary::SphereOverlapActors(GetWorld(), SpawnLocation, 45.0f, TArray<TEnumAsByte<EObjectTypeQuery>>(), nullptr, TArray<AActor*>(), OverlappedActors);
 		
 		if (!OverlappedActors.ContainsByPredicate([&](const AActor* Actor) { return Cast<ACharacter>(Actor) || Cast<IBlock>(Actor); }) && CanPlace)

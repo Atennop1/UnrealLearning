@@ -12,18 +12,27 @@ ADefaultBlock::ADefaultBlock()
 void ADefaultBlock::BeginPlay()
 {
 	Super::BeginPlay();
+	TArray<UActorComponent*> Components;
+	GetComponents(UStaticMeshComponent::StaticClass(), Components);
+	
+	for (const auto Component : Components)
+	{
+		Mesh = Cast<UStaticMeshComponent>(Component);
+		UMaterialInstanceDynamic *Instance = UMaterialInstanceDynamic::Create(Mesh->GetMaterial(0), this);
+		
+		Instance->SetScalarParameterValue("DestroyingProgress", 0);
+		Mesh->SetMaterial(0, Instance);
+		MaterialInstances.Add(Instance);
+	}
+	
 	FOnTimelineFloat ProgressUpdate;
 	FOnTimelineEvent FinishedEvent;
-	
-	MaterialInstance = UMaterialInstanceDynamic::Create(Mesh->GetMaterial(0), this);
-	Mesh->SetMaterial(0, MaterialInstance);
-	MaterialInstance->SetScalarParameterValue("DestroyingProgress", 0);
-
 	ProgressUpdate.BindUFunction(this, FName("OnDestroyingTick"));
 	FinishedEvent.BindUFunction(this, FName("OnDestroyingFinished"));
+	
 	DestroyingTimeline.AddInterpFloat(DestroyingCurve, ProgressUpdate);
 	DestroyingTimeline.SetTimelineFinishedFunc(FinishedEvent);
-	DestroyingTimeline.SetPlayRate(CurveSpeed);
+	DestroyingTimeline.SetPlayRate(DestroyingCurveSpeed);
 }
 
 void ADefaultBlock::Tick(float DeltaSeconds)
@@ -32,10 +41,10 @@ void ADefaultBlock::Tick(float DeltaSeconds)
 	DestroyingTimeline.TickTimeline(DeltaSeconds);
 }
 
-// ReSharper disable once CppMemberFunctionMayBeConst
-void ADefaultBlock::OnDestroyingTick(float Alpha)
-{	
-	MaterialInstance->SetScalarParameterValue("DestroyingProgress", Alpha);
+void ADefaultBlock::OnDestroyingTick(float Alpha) const
+{
+	for (const auto Instance : MaterialInstances)
+		Instance->SetScalarParameterValue("DestroyingProgress", Alpha);
 }
 
 void ADefaultBlock::OnDestroyingFinished()
@@ -50,7 +59,9 @@ void ADefaultBlock::StartDestroying()
 
 void ADefaultBlock::StopDestroying()
 {
-	MaterialInstance->SetScalarParameterValue("DestroyingProgress", 0);
+	for (const auto Instance : MaterialInstances)
+		Instance->SetScalarParameterValue("DestroyingProgress", 0);
+	
 	DestroyingTimeline.Stop();
 }
 

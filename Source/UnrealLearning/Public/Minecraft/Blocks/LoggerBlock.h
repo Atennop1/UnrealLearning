@@ -13,10 +13,11 @@ class UNREALLEARNING_API ALoggerBlock : public ADefaultBlock, public IInteractab
 {
 	GENERATED_BODY()
 
-public:
+protected:
 	ALoggerBlock();
 	
-	virtual void StartDestroying() override { ADefaultBlock::StartDestroying(); }
-	virtual void StopDestroying() override { ADefaultBlock::StopDestroying(); }
+public:
+	virtual void StartDestroying() override { Super::StartDestroying(); }
+	virtual void StopDestroying() override { Super::StopDestroying(); }
 	virtual void Interact() override;
 };

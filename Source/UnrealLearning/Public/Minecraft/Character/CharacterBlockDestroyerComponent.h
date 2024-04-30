@@ -24,10 +24,11 @@ private:
 	UPROPERTY()
 	TScriptInterface<IBlock> CurrentBlock;
 
+protected:
 	virtual void BeginPlay() override;
-
-public:
 	UCharacterBlockDestroyerComponent();
+	
+public:
 	void StartDestroying(const struct FInputActionValue &Value);
 	void StopDestroying(const FInputActionValue &Value);
 };

@@ -16,9 +16,10 @@ private:
 	UPROPERTY()
 	UCharacterPointingComponent *Pointing;
 
+protected:
 	virtual void BeginPlay() override;
-
-public:
 	UCharacterBlockInteractorComponent();
+	
+public:
 	void Interact(const struct FInputActionValue &Value);
 };

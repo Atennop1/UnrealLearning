@@ -24,10 +24,11 @@ private:
 	UPROPERTY()
 	TSubclassOf<AActor> BlockBlueprint;
 
+protected:
 	virtual void BeginPlay() override;
+	UCharacterBlockPlacerComponent();
 	
 public:
-	UCharacterBlockPlacerComponent();
 	void Select(TSubclassOf<AActor> Block);
 	void Place(const struct FInputActionValue &Value);	
 };

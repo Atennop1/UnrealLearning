@@ -18,26 +18,27 @@ private:
 	UStaticMeshComponent *Mesh;
 	
 	UPROPERTY(EditDefaultsOnly)
-	float CurveSpeed;
+	float DestroyingCurveSpeed;
 	
 	UPROPERTY(EditDefaultsOnly)
 	UCurveFloat *DestroyingCurve;
 	FTimeline DestroyingTimeline;
 
 	UPROPERTY()
-	UMaterialInstanceDynamic *MaterialInstance;
+	TArray<UMaterialInstanceDynamic*> MaterialInstances;
 	
 	UFUNCTION()
-	void OnDestroyingTick(float Alpha);
+	void OnDestroyingTick(float Alpha) const;
 	
 	UFUNCTION()
 	void OnDestroyingFinished();
 
+protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
-
-public:
 	ADefaultBlock();
+	
+public:
 	virtual void StartDestroying() override;
 	virtual void StopDestroying() override;
 };

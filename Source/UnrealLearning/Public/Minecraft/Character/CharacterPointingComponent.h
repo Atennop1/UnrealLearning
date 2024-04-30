@@ -25,11 +25,12 @@ private:
 	bool WasCalculatedThisFrame = false;
 
 	void Calculate();
+	
+protected:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	UCharacterPointingComponent();
 	
 public:
-	UCharacterPointingComponent();
-
 	UObject* GetPointingObject();
 	IBlock* GetPointingBlock();
 	FVector GetPointLocation();

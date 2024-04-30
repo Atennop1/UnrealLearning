@@ -19,9 +19,10 @@ private:
 	UPROPERTY()
 	UCharacterBlockPlacerComponent *BlockPlacer;
 
+protected:
 	virtual void BeginPlay() override;
-
-public:
 	UCharacterBlockSelectorComponent();
+	
+public:
 	void Select(const FInputActionValue &Value);
 };

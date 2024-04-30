@@ -45,7 +45,8 @@ private:
 	
 	UPROPERTY(EditDefaultsOnly)
 	class UCharacterPointingComponent *CharacterPointing;
-	
+
+protected:
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 
 public:
