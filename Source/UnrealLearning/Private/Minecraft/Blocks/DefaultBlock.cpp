@@ -6,6 +6,7 @@ ADefaultBlock::ADefaultBlock()
 {
 	PrimaryActorTick.bCanEverTick = true;
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+	Mesh->SetupAttachment(RootComponent);
 }
 
 void ADefaultBlock::BeginPlay()

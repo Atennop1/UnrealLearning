@@ -9,5 +9,5 @@ ALoggerBlock::ALoggerBlock() : Super()
 
 void ALoggerBlock::Interact()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, "Interacted using RMB");
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, "Interacted using E button");
 }

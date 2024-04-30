@@ -2,7 +2,6 @@
 
 #include "Minecraft/Character/CharacterBlockPlacerComponent.h"
 #include "Camera/CameraComponent.h"
-#include "Kismet/KismetStringLibrary.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "Minecraft/Character/MinecraftCharacter.h"
 #include "Minecraft/Blocks/IBlock.h"
@@ -10,8 +9,13 @@
 UCharacterBlockPlacerComponent::UCharacterBlockPlacerComponent()
 {
 	PrimaryComponentTick.bCanEverTick = false;
-	LineTraceLength = 500;
 	Cooldown = 0.15f;
+}
+
+void UCharacterBlockPlacerComponent::BeginPlay()
+{
+	Super::BeginPlay();
+	Pointing = Cast<UCharacterPointingComponent>(GetOwner()->GetComponentByClass(UCharacterPointingComponent::StaticClass()));
 }
 
 void UCharacterBlockPlacerComponent::Select(const TSubclassOf<AActor> Block)
@@ -22,21 +26,10 @@ void UCharacterBlockPlacerComponent::Select(const TSubclassOf<AActor> Block)
 // ReSharper disable once CppMemberFunctionMayBeConst
 void UCharacterBlockPlacerComponent::Place(const FInputActionValue& Value)
 {
-	FHitResult HitResult;
-	FCollisionQueryParams CollisionParameters;
-	CollisionParameters.AddIgnoredActor(GetOwner());
-	
-	const UCameraComponent* CameraComponent = Cast<AMinecraftCharacter>(GetOwner())->GetFirstPersonCameraComponent();
-	const FVector StartPosition = CameraComponent->GetComponentTransform().GetLocation();
-	const FVector TheoreticalEndPosition = StartPosition + CameraComponent->GetForwardVector() * LineTraceLength;
-
-	bool WasHit = GetWorld()->LineTraceSingleByChannel(HitResult, StartPosition, TheoreticalEndPosition, ECC_Visibility, CollisionParameters);
-	FVector PracticalEndPosition = WasHit ? HitResult.Location : TheoreticalEndPosition;
-
-	if (WasHit)
+	if (Pointing->GetPointingObject() != nullptr)
 	{
 		TArray<AActor*> OverlappedActors;
-		FVector SpawnLocation = (PracticalEndPosition - CameraComponent->GetForwardVector() * LineTraceLength * 0.015f).GridSnap(100);
+		const FVector SpawnLocation = (Pointing->GetPointLocation() - Cast<AMinecraftCharacter>(GetOwner())->GetFirstPersonCameraComponent()->GetForwardVector()).GridSnap(100);
 		UKismetSystemLibrary::SphereOverlapActors(GetWorld(), SpawnLocation, 45.0f, TArray<TEnumAsByte<EObjectTypeQuery>>(), nullptr, TArray<AActor*>(), OverlappedActors);
 		
 		if (!OverlappedActors.ContainsByPredicate([&](const AActor* Actor) { return Cast<ACharacter>(Actor) || Cast<IBlock>(Actor); }) && CanPlace)
@@ -46,11 +39,4 @@ void UCharacterBlockPlacerComponent::Place(const FInputActionValue& Value)
 			GetOwner()->GetWorldTimerManager().SetTimer(CooldownTimerHandle, [&] { CanPlace = true; }, Cooldown, false, Cooldown);
 		}
 	}
-
-	if (!Debug)
-		return;
-	
-	UKismetSystemLibrary::DrawDebugLine(GetWorld(), StartPosition, PracticalEndPosition, FColor::Red, 10);
-	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Blue, "[DEBUG] Hit object name: " + (WasHit ? HitResult.GetActor()->GetName() : "no hit object"));
-	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Blue, "[DEBUG] Hit position: " + (WasHit ? UKismetStringLibrary::Conv_VectorToString(PracticalEndPosition) : "none"));
 }

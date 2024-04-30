@@ -3,10 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "InputActionValue.h"
+#include "CharacterPointingComponent.h"
 #include "Components/ActorComponent.h"
 #include "CharacterBlockInteractorComponent.generated.h"
-
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class UNREALLEARNING_API UCharacterBlockInteractorComponent : public UActorComponent
@@ -14,15 +13,12 @@ class UNREALLEARNING_API UCharacterBlockInteractorComponent : public UActorCompo
 	GENERATED_BODY()
 
 private:
-	UPROPERTY(EditDefaultsOnly)
-	float LineTraceLength;
-	
-	UPROPERTY(EditDefaultsOnly)
-	float Cooldown;
-	bool CanDestroy = true;
-	FTimerHandle CooldownTimerHandle;
+	UPROPERTY()
+	UCharacterPointingComponent *Pointing;
+
+	virtual void BeginPlay() override;
 
 public:
 	UCharacterBlockInteractorComponent();
-	void Interact(const FInputActionValue &Value);
+	void Interact(const struct FInputActionValue &Value);
 };

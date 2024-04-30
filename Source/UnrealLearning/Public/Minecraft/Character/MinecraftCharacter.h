@@ -43,6 +43,9 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	class UCharacterBlockInteractorComponent *CharacterBlockInteractor;
 	
+	UPROPERTY(EditDefaultsOnly)
+	class UCharacterPointingComponent *CharacterPointing;
+	
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 
 public:

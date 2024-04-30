@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CharacterPointingComponent.h"
 #include "Components/ActorComponent.h"
 #include "CharacterBlockPlacerComponent.generated.h"
 
@@ -13,18 +14,17 @@ class UNREALLEARNING_API UCharacterBlockPlacerComponent : public UActorComponent
 
 private:
 	UPROPERTY(EditDefaultsOnly)
-	bool Debug;
-
-	UPROPERTY(EditDefaultsOnly)
-	float LineTraceLength;
-
-	UPROPERTY(EditDefaultsOnly)
 	float Cooldown;
 	bool CanPlace = true;
 	FTimerHandle CooldownTimerHandle;
 
 	UPROPERTY()
+	UCharacterPointingComponent *Pointing;
+	
+	UPROPERTY()
 	TSubclassOf<AActor> BlockBlueprint;
+
+	virtual void BeginPlay() override;
 	
 public:
 	UCharacterBlockPlacerComponent();

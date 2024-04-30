@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CharacterPointingComponent.h"
 #include "Components/ActorComponent.h"
 #include "CharacterBlockDestroyerComponent.generated.h"
 
@@ -13,15 +14,17 @@ class UNREALLEARNING_API UCharacterBlockDestroyerComponent : public UActorCompon
 
 private:
 	UPROPERTY(EditDefaultsOnly)
-	float LineTraceLength;
-	
-	UPROPERTY(EditDefaultsOnly)
 	float Cooldown;
 	bool CanDestroy = true;
 	FTimerHandle CooldownTimerHandle;
 
 	UPROPERTY()
-	TScriptInterface<class IBlock> CurrentBlock = TScriptInterface<IBlock>();
+	UCharacterPointingComponent *Pointing;
+
+	UPROPERTY()
+	TScriptInterface<IBlock> CurrentBlock;
+
+	virtual void BeginPlay() override;
 
 public:
 	UCharacterBlockDestroyerComponent();

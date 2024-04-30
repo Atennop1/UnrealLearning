@@ -1,46 +1,41 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
 #include "Minecraft/Character/CharacterBlockDestroyerComponent.h"
-#include "Camera/CameraComponent.h"
 #include "Minecraft/Character/MinecraftCharacter.h"
 #include "Minecraft/Blocks/IBlock.h"
 
 UCharacterBlockDestroyerComponent::UCharacterBlockDestroyerComponent()
 {
 	PrimaryComponentTick.bCanEverTick = false;
-	LineTraceLength = 500;
 	Cooldown = 0.15f;
+}
+
+void UCharacterBlockDestroyerComponent::BeginPlay()
+{
+	Super::BeginPlay();
+	Pointing = Cast<UCharacterPointingComponent>(GetOwner()->GetComponentByClass(UCharacterPointingComponent::StaticClass()));
 }
 
 // ReSharper disable once CppMemberFunctionMayBeConst
 void UCharacterBlockDestroyerComponent::StartDestroying(const FInputActionValue& Value)
 {
-	FCollisionQueryParams CollisionParameters;
-	CollisionParameters.AddIgnoredActor(GetOwner());
+	IBlock *Block = Pointing->GetPointingBlock();
+	if (CurrentBlock == Block || !CanDestroy)
+		return;
 	
-	const UCameraComponent* CameraComponent = Cast<AMinecraftCharacter>(GetOwner())->GetFirstPersonCameraComponent();
-	const FVector StartPosition = CameraComponent->GetComponentTransform().GetLocation();
-	const FVector EndPosition = StartPosition + CameraComponent->GetForwardVector() * LineTraceLength;
-
-	if (FHitResult Result; GetWorld()->LineTraceSingleByChannel(Result, StartPosition, EndPosition, ECC_Visibility, CollisionParameters))
+	if (Block == nullptr)
 	{
-		if (IBlock *Block = Cast<IBlock>(Result.GetActor()); Block != nullptr)
-		{
-			if (CurrentBlock == Block || !CanDestroy)
-				return;
-
-			CanDestroy = false;
-			StopDestroying(NULL);
-			CurrentBlock.SetInterface(Block);
-			CurrentBlock.SetObject(Cast<UObject>(Block));
-			
-			CurrentBlock->StartDestroying();
-			GetOwner()->GetWorldTimerManager().SetTimer(CooldownTimerHandle, [&] { CanDestroy = true; }, Cooldown, false, Cooldown);
-			return;
-		}
+		StopDestroying(NULL);
+		return;
 	}
 
+	CanDestroy = false;
 	StopDestroying(NULL);
+	CurrentBlock.SetInterface(Block);
+	CurrentBlock.SetObject(Cast<UObject>(Block));
+	
+	CurrentBlock->StartDestroying();
+	GetOwner()->GetWorldTimerManager().SetTimer(CooldownTimerHandle, [&] { CanDestroy = true; }, Cooldown, false, Cooldown);
 }
 
 // ReSharper disable once CppMemberFunctionMayBeConst
@@ -51,4 +46,3 @@ void UCharacterBlockDestroyerComponent::StopDestroying(const FInputActionValue& 
 
 	CurrentBlock = nullptr;
 }
-

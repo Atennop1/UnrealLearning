@@ -14,7 +14,8 @@ AMinecraftCharacter::AMinecraftCharacter()
 	CharacterBlockPlacer = CreateDefaultSubobject<UCharacterBlockPlacerComponent>(TEXT("CharacterBlockPlacer"));
 	CharacterBlockDestroyer = CreateDefaultSubobject<UCharacterBlockDestroyerComponent>(TEXT("CharacterBlockDestroyer"));
 	CharacterBlockSelector = CreateDefaultSubobject<UCharacterBlockSelectorComponent>(TEXT("CharacterBlockSelector"));
-	CharacterBlockInteractor = CreateDefaultSubobject<UCharacterBlockInteractorComponent>(TEXT("CharacterBlcokInteractor"));
+	CharacterBlockInteractor = CreateDefaultSubobject<UCharacterBlockInteractorComponent>(TEXT("CharacterBlockInteractor"));
+	CharacterPointing = CreateDefaultSubobject<UCharacterPointingComponent>(TEXT("CharacterPointing"));
 }
 
 void AMinecraftCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
