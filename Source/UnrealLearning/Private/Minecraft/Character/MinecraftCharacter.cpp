@@ -1,11 +1,12 @@
 // Copyright Atennop. All Rights Reserved.
 
-#include "Minecraft/MinecraftCharacter.h"
+#include "Minecraft/Character/MinecraftCharacter.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
-#include "Minecraft/CharacterBlockDestroyerComponent.h"
-#include "Minecraft/CharacterBlockPlacerComponent.h"
-#include "Minecraft/CharacterBlockSelectorComponent.h"
+#include "Minecraft/Character/CharacterBlockDestroyerComponent.h"
+#include "Minecraft/Character/CharacterBlockInteractorComponent.h"
+#include "Minecraft/Character/CharacterBlockPlacerComponent.h"
+#include "Minecraft/Character/CharacterBlockSelectorComponent.h"
 
 AMinecraftCharacter::AMinecraftCharacter()
 {
@@ -13,6 +14,7 @@ AMinecraftCharacter::AMinecraftCharacter()
 	CharacterBlockPlacer = CreateDefaultSubobject<UCharacterBlockPlacerComponent>(TEXT("CharacterBlockPlacer"));
 	CharacterBlockDestroyer = CreateDefaultSubobject<UCharacterBlockDestroyerComponent>(TEXT("CharacterBlockDestroyer"));
 	CharacterBlockSelector = CreateDefaultSubobject<UCharacterBlockSelectorComponent>(TEXT("CharacterBlockSelector"));
+	CharacterBlockInteractor = CreateDefaultSubobject<UCharacterBlockInteractorComponent>(TEXT("CharacterBlcokInteractor"));
 }
 
 void AMinecraftCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -32,4 +34,5 @@ void AMinecraftCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInput
 	EnhancedInputComponent->BindAction(DestroyBlockStartAction, ETriggerEvent::Triggered, CharacterBlockDestroyer, &UCharacterBlockDestroyerComponent::StartDestroying);
 	EnhancedInputComponent->BindAction(DestroyBlockStopAction, ETriggerEvent::Triggered, CharacterBlockDestroyer, &UCharacterBlockDestroyerComponent::StopDestroying);
 	EnhancedInputComponent->BindAction(SelectBlockAction, ETriggerEvent::Triggered, CharacterBlockSelector, &UCharacterBlockSelectorComponent::Select);
+	EnhancedInputComponent->BindAction(InteractBlockAction, ETriggerEvent::Triggered, CharacterBlockInteractor, &UCharacterBlockInteractorComponent::Interact);
 }

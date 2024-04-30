@@ -33,7 +33,7 @@ void ADefaultBlock::Tick(float DeltaSeconds)
 
 // ReSharper disable once CppMemberFunctionMayBeConst
 void ADefaultBlock::OnDestroyingTick(float Alpha)
-{
+{	
 	MaterialInstance->SetScalarParameterValue("DestroyingProgress", Alpha);
 }
 

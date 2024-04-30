@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Blocks/IBlock.h"
 #include "Components/ActorComponent.h"
 #include "CharacterBlockDestroyerComponent.generated.h"
 
@@ -22,11 +21,10 @@ private:
 	FTimerHandle CooldownTimerHandle;
 
 	UPROPERTY()
-	TScriptInterface<IBlock> CurrentBlock = TScriptInterface<IBlock>();
-	
-	UCharacterBlockDestroyerComponent();
+	TScriptInterface<class IBlock> CurrentBlock = TScriptInterface<IBlock>();
 
 public:
+	UCharacterBlockDestroyerComponent();
 	void StartDestroying(const struct FInputActionValue &Value);
 	void StopDestroying(const FInputActionValue &Value);
 };

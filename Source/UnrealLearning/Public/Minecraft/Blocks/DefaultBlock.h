@@ -3,9 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "IBlock.h"
 #include "Components/TimelineComponent.h"
 #include "GameFramework/Actor.h"
+#include "IBlock.h"
 #include "DefaultBlock.generated.h"
 
 UCLASS()
@@ -16,9 +16,6 @@ class UNREALLEARNING_API ADefaultBlock : public AActor, public IBlock
 private:
 	UPROPERTY(EditDefaultsOnly)
 	UStaticMeshComponent *Mesh;
-
-	UPROPERTY()
-	UMaterialInstanceDynamic *MaterialInstance;
 	
 	UPROPERTY(EditDefaultsOnly)
 	float CurveSpeed;
@@ -26,6 +23,9 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	UCurveFloat *DestroyingCurve;
 	FTimeline DestroyingTimeline;
+
+	UPROPERTY()
+	UMaterialInstanceDynamic *MaterialInstance;
 	
 	UFUNCTION()
 	void OnDestroyingTick(float Alpha);
@@ -35,9 +35,9 @@ private:
 
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
-	ADefaultBlock();
-	
+
 public:
+	ADefaultBlock();
 	virtual void StartDestroying() override;
 	virtual void StopDestroying() override;
 };

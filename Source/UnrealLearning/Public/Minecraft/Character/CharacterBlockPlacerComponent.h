@@ -26,9 +26,8 @@ private:
 	UPROPERTY()
 	TSubclassOf<AActor> BlockBlueprint;
 	
-	UCharacterBlockPlacerComponent();
-	
 public:
+	UCharacterBlockPlacerComponent();
 	void Select(TSubclassOf<AActor> Block);
 	void Place(const struct FInputActionValue &Value);	
 };

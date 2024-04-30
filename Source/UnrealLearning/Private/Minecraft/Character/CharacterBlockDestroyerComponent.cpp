@@ -1,8 +1,8 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
-#include "Minecraft/CharacterBlockDestroyerComponent.h"
+#include "Minecraft/Character/CharacterBlockDestroyerComponent.h"
 #include "Camera/CameraComponent.h"
-#include "Minecraft/MinecraftCharacter.h"
+#include "Minecraft/Character/MinecraftCharacter.h"
 #include "Minecraft/Blocks/IBlock.h"
 
 UCharacterBlockDestroyerComponent::UCharacterBlockDestroyerComponent()
@@ -28,7 +28,7 @@ void UCharacterBlockDestroyerComponent::StartDestroying(const FInputActionValue&
 		{
 			if (CurrentBlock == Block || !CanDestroy)
 				return;
-			
+
 			CanDestroy = false;
 			StopDestroying(NULL);
 			CurrentBlock.SetInterface(Block);

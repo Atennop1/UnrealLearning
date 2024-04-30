@@ -27,6 +27,9 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	UInputAction *SelectBlockAction;
 
+	UPROPERTY(EditDefaultsOnly)
+	UInputAction *InteractBlockAction;
+
 	
 	UPROPERTY(EditDefaultsOnly)
 	class UCharacterBlockPlacerComponent *CharacterBlockPlacer;
@@ -36,7 +39,12 @@ private:
 
 	UPROPERTY(EditDefaultsOnly)
 	class UCharacterBlockSelectorComponent *CharacterBlockSelector;
-
-	AMinecraftCharacter();
+	
+	UPROPERTY(EditDefaultsOnly)
+	class UCharacterBlockInteractorComponent *CharacterBlockInteractor;
+	
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
+
+public:
+	AMinecraftCharacter();
 };

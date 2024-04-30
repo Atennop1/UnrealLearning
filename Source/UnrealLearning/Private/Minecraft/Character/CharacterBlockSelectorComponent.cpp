@@ -1,6 +1,6 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
-#include "Minecraft/CharacterBlockSelectorComponent.h"
+#include "Minecraft/Character/CharacterBlockSelectorComponent.h"
 #include "InputActionValue.h"
 
 UCharacterBlockSelectorComponent::UCharacterBlockSelectorComponent()

@@ -14,6 +14,7 @@ private:
 	
 	UFUNCTION()
 	void OnBeginOverlap(UPrimitiveComponent *OverlappedComponent, AActor *OtherActor, UPrimitiveComponent *OtherComponent, int32 OtherBodyIndex, bool FromSweep, const FHitResult &SweepResult);
+	
 	virtual void BeginPlay() override;
 };
 

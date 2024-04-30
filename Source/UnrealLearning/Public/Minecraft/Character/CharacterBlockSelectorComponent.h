@@ -20,8 +20,8 @@ private:
 	UCharacterBlockPlacerComponent *BlockPlacer;
 
 	virtual void BeginPlay() override;
-	UCharacterBlockSelectorComponent();
 
 public:
-	void Select(const struct FInputActionValue &Value);
+	UCharacterBlockSelectorComponent();
+	void Select(const FInputActionValue &Value);
 };

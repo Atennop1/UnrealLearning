@@ -1,10 +1,10 @@
 // Copyright Atennop. All Rights Reserved.
 
-#include "Minecraft/CharacterBlockPlacerComponent.h"
+#include "Minecraft/Character/CharacterBlockPlacerComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Kismet/KismetStringLibrary.h"
 #include "Kismet/KismetSystemLibrary.h"
-#include "Minecraft/MinecraftCharacter.h"
+#include "Minecraft/Character/MinecraftCharacter.h"
 #include "Minecraft/Blocks/IBlock.h"
 
 UCharacterBlockPlacerComponent::UCharacterBlockPlacerComponent()
