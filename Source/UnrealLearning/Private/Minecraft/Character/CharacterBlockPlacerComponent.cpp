@@ -1,7 +1,6 @@
 // Copyright Atennop. All Rights Reserved.
 
 #include "Minecraft/Character/CharacterBlockPlacerComponent.h"
-#include "Camera/CameraComponent.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "Minecraft/Character/MinecraftCharacter.h"
 #include "Minecraft/Blocks/IBlock.h"
@@ -26,13 +25,14 @@ void UCharacterBlockPlacerComponent::Select(const TSubclassOf<AActor> Block)
 // ReSharper disable once CppMemberFunctionMayBeConst
 void UCharacterBlockPlacerComponent::Place(const FInputActionValue& Value)
 {
-	if (Pointing->GetPointingObject() != nullptr)
+	if (Pointing->IsPointingAtSomething() && Pointing != nullptr)
 	{
 		TArray<AActor*> OverlappedActors;
 		const AMinecraftCharacter *Character = Cast<AMinecraftCharacter>(GetOwner());
-		const UCameraComponent *CameraComponent = Character->GetFirstPersonCameraComponent();
-		const FTransform SpawnTransform = FTransform(FRotator(0, Character->GetControlRotation().Yaw + 180, 0).GridSnap(FRotator(90, 90, 90)), (Pointing->GetPointLocation() - CameraComponent->GetForwardVector() * 7.5f).GridSnap(100), FVector::OneVector);
-		UKismetSystemLibrary::SphereOverlapActors(GetWorld(), SpawnTransform.GetLocation(), 45.0f, TArray<TEnumAsByte<EObjectTypeQuery>>(), nullptr, TArray<AActor*>(), OverlappedActors);
+		const FRotator SpawnRotator = FRotator(0, Character->GetControlRotation().Yaw + 180, 0).GridSnap(FRotator(90, 90, 90));
+		const FVector SpawnPosition = (Pointing->GetHit().Location + Pointing->GetHit().ImpactNormal * 60.f).GridSnap(100);
+		const FTransform SpawnTransform = FTransform(SpawnRotator, SpawnPosition, FVector::OneVector);
+		UKismetSystemLibrary::SphereOverlapActors(GetWorld(), SpawnPosition, 45.0f, TArray<TEnumAsByte<EObjectTypeQuery>>(), nullptr, TArray<AActor*>(), OverlappedActors);
 		
 		if (!OverlappedActors.ContainsByPredicate([&](const AActor* Actor) { return Cast<ACharacter>(Actor) || Cast<IBlock>(Actor); }) && CanPlace)
 		{

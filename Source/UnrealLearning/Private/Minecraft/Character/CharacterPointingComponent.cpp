@@ -18,7 +18,6 @@ void UCharacterPointingComponent::Calculate()
 	if (WasCalculatedThisFrame)
 		return;
 	
-	FHitResult HitResult;
 	FCollisionQueryParams CollisionParameters;
 	CollisionParameters.AddIgnoredActor(GetOwner());
 	
@@ -26,17 +25,16 @@ void UCharacterPointingComponent::Calculate()
 	const FVector StartPosition = CameraComponent->GetComponentTransform().GetLocation();
 	const FVector TheoreticalEndPosition = StartPosition + CameraComponent->GetForwardVector() * LineTraceLength;
 
-	bool IsPointingAtSomething = GetWorld()->LineTraceSingleByChannel(HitResult, StartPosition, TheoreticalEndPosition, ECC_Visibility, CollisionParameters);
-	PointLocation = IsPointingAtSomething ? HitResult.Location : TheoreticalEndPosition;
-	PointedObject = HitResult.GetActor();
 	WasCalculatedThisFrame = true;
+	IsPointing = GetWorld()->LineTraceSingleByChannel(HitResult, StartPosition, TheoreticalEndPosition, ECC_Visibility, CollisionParameters);
+	const FVector PointLocation = IsPointing ? HitResult.Location : TheoreticalEndPosition;
 	
 	if (!Debug)
 		return;
 	
 	UKismetSystemLibrary::DrawDebugLine(GetWorld(), StartPosition, PointLocation, FColor::Red, 10);
-	GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Blue, "[DEBUG] Hit object name: " + (IsPointingAtSomething ? HitResult.GetActor()->GetName() : "no hit object"));
-	GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Blue, "[DEBUG] Hit position: " + (IsPointingAtSomething ? UKismetStringLibrary::Conv_VectorToString(PointLocation) : "none"));
+	GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Blue, "[DEBUG] Hit object name: " + (IsPointing ? HitResult.GetActor()->GetName() : "no hit object"));
+	GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Blue, "[DEBUG] Hit position: " + (IsPointing ? UKismetStringLibrary::Conv_VectorToString(PointLocation) : "none"));
 }
 
 void UCharacterPointingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
@@ -45,20 +43,20 @@ void UCharacterPointingComponent::TickComponent(float DeltaTime, ELevelTick Tick
 	WasCalculatedThisFrame = false;
 }
 
-UObject* UCharacterPointingComponent::GetPointingObject()
+bool UCharacterPointingComponent::IsPointingAtSomething()
 {
 	Calculate();
-	return PointedObject;
+	return IsPointing;
 }
 
 IBlock* UCharacterPointingComponent::GetPointingBlock()
 {
 	Calculate();
-	return Cast<IBlock>(PointedObject);
+	return Cast<IBlock>(HitResult.GetActor());
 }
 
-FVector UCharacterPointingComponent::GetPointLocation()
+FHitResult& UCharacterPointingComponent::GetHit()
 {
 	Calculate();
-	return PointLocation;
+	return HitResult;
 }

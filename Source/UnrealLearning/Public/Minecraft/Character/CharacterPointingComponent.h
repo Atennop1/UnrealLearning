@@ -19,9 +19,8 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	float LineTraceLength;
 	
-	UPROPERTY()
-	UObject* PointedObject = nullptr;
-	FVector PointLocation = FVector::ZeroVector;
+	FHitResult HitResult;
+	bool IsPointing = false;
 	bool WasCalculatedThisFrame = false;
 
 	void Calculate();
@@ -31,7 +30,7 @@ protected:
 	UCharacterPointingComponent();
 	
 public:
-	UObject* GetPointingObject();
+	bool IsPointingAtSomething();
 	IBlock* GetPointingBlock();
-	FVector GetPointLocation();
+	FHitResult& GetHit();
 };
