@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "PortalCaptureComponent.h"
 #include "GameFramework/Actor.h"
 #include "Portal.generated.h"
 
@@ -13,7 +14,7 @@ class UNREALLEARNING_API APortal : public AActor
 
 private:
 	UPROPERTY(EditInstanceOnly)
-	APortal *OtherPortal;
+	APortal *LinkedPortal;
 	
 	UPROPERTY(EditDefaultsOnly)
 	USceneComponent *Root;
@@ -23,6 +24,9 @@ private:
 
 	UPROPERTY(EditDefaultsOnly)
 	UStaticMeshComponent *PortalMesh;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta=(AllowPrivateAccess="true"))
+	UPortalCaptureComponent *CaptureComponent;
 
 	UPROPERTY()
 	UMaterialInstanceDynamic *PortalMaterial;
@@ -34,10 +38,11 @@ private:
 
 protected:
 	virtual void BeginPlay() override;
-	virtual void Tick(float DeltaSeconds) override;
 	
 public:
 	APortal();
 	void Link(APortal *Portal);
-	USceneCaptureComponent2D *GetCamera() const { return Capture; }
+	
+	APortal *GetLinkedPortal() const { return LinkedPortal; }
+	USceneCaptureComponent2D *GetCapture() const { return Capture; }
 };
