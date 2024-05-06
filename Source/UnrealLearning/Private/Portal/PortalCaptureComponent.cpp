@@ -1,7 +1,6 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
 #include "../../Public/Portal/PortalCaptureComponent.h"
-#include <cassert>
 #include "Components/SceneCaptureComponent2D.h"
 #include "Engine/TextureRenderTarget2D.h"
 #include "Kismet/GameplayStatics.h"
@@ -16,10 +15,9 @@ UPortalCaptureComponent::UPortalCaptureComponent()
 void UPortalCaptureComponent::BeginPlay()
 {
 	Super::BeginPlay();
-	assert(Cast<APortal>(GetOwner()));
+	check(Cast<APortal>(GetOwner()) && Capture != nullptr && ForwardDirection != nullptr);
 
 	Owner = Cast<APortal>(GetOwner());
-	Capture = Cast<USceneCaptureComponent2D>(GetOwner()->GetComponentByClass(USceneCaptureComponent2D::StaticClass()));
 	Capture->bEnableClipPlane = true;
 	
 	Capture->ClipPlaneNormal = ForwardDirection->GetForwardVector();
@@ -33,7 +31,7 @@ void UPortalCaptureComponent::TickComponent(float DeltaTime, ELevelTick TickType
 	if (Owner->GetLinkedPortal() == nullptr)
 		return;
 
-	if (const FVector2D ViewportSize = GEngine->GameViewport->Viewport->GetSizeXY(); Capture->TextureTarget->SizeX != ViewportSize.X || Capture->TextureTarget->SizeY != ViewportSize.Y)
+	if (const FVector2D ViewportSize = GEngine->GameViewport->Viewport->GetSizeXY(); Capture->TextureTarget != nullptr && (Capture->TextureTarget->SizeX != ViewportSize.X || Capture->TextureTarget->SizeY != ViewportSize.Y))
 		Capture->TextureTarget->ResizeTarget(ViewportSize.X, ViewportSize.Y);
 	
 	const FTransform Transform = GetOwner()->GetActorTransform();

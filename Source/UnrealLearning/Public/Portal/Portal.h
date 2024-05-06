@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "PortalCaptureComponent.h"
+#include "PortalTeleportationComponent.h"
 #include "GameFramework/Actor.h"
 #include "Portal.generated.h"
 
@@ -16,17 +17,17 @@ private:
 	UPROPERTY(EditInstanceOnly)
 	APortal *LinkedPortal;
 	
-	UPROPERTY(EditDefaultsOnly)
-	USceneComponent *Root;
-	
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess="true"))
 	USceneCaptureComponent2D *Capture;
 
-	UPROPERTY(EditDefaultsOnly)
-	UStaticMeshComponent *PortalMesh;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess="true"))
+	UStaticMeshComponent *Mesh;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta=(AllowPrivateAccess="true"))
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess="true"))
 	UPortalCaptureComponent *CaptureComponent;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess="true"))
+	UPortalTeleportationComponent *TeleportationComponent;
 
 	UPROPERTY()
 	UMaterialInstanceDynamic *PortalMaterial;
