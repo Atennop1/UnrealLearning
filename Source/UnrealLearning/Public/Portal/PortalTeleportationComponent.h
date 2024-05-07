@@ -14,6 +14,15 @@ class UNREALLEARNING_API UPortalTeleportationComponent : public UActorComponent
 private:
 	UPROPERTY()
 	class APortal *Owner;
+
+	UPROPERTY(EditDefaultsOnly)
+	class UArrowComponent *ForwardDirection;
+
+	FVector LastPosition;
+	bool LastInFront;
+
+	bool IsCrossing(const ACharacter *Character);
+	void Teleport(ACharacter *Character) const;
 	
 protected:
 	virtual void BeginPlay() override;

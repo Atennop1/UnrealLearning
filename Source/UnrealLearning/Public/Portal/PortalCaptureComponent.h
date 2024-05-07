@@ -16,10 +16,10 @@ private:
 	UPROPERTY()
 	class APortal *Owner;
 	
-	UPROPERTY(EditDefaultsOnly, meta=(AllowPrivateAccess="true"))
-	TObjectPtr<USceneCaptureComponent2D> Capture;
+	UPROPERTY(EditDefaultsOnly)
+	USceneCaptureComponent2D *Capture;
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess="true"))
+	UPROPERTY(EditDefaultsOnly)
 	UArrowComponent *ForwardDirection;
 
 protected:

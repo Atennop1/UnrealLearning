@@ -39,7 +39,7 @@ private:
 
 protected:
 	virtual void BeginPlay() override;
-	
+
 public:
 	APortal();
 	void Link(APortal *Portal);
