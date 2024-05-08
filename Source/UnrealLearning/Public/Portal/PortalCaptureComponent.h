@@ -21,6 +21,10 @@ private:
 	
 	UPROPERTY(EditDefaultsOnly)
 	UArrowComponent *ForwardDirection;
+	
+	UPROPERTY(EditDefaultsOnly)
+	UStaticMeshComponent *PortalMesh;
+	
 
 protected:
 	virtual void BeginPlay() override;

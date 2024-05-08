@@ -2,9 +2,11 @@
 
 #include "Portal/PortalTeleportationComponent.h"
 #include "GameFramework/Character.h"
+#include "GameFramework/PawnMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Portal/Portal.h"
+#include "Portal/PortalMathHelper.h"
 
 UPortalTeleportationComponent::UPortalTeleportationComponent()
 {
@@ -52,22 +54,17 @@ bool UPortalTeleportationComponent::IsCrossing(const ACharacter* Character)
 
 void UPortalTeleportationComponent::Teleport(ACharacter* Character) const
 {
-	const FTransform Transform = GetOwner()->GetActorTransform();
-	const FVector PortalScale = Transform.GetScale3D();
+	const FTransform Transform = Owner->GetActorTransform();
 	const FTransform OtherTransform = Owner->GetLinkedPortal()->GetActorTransform();
-	
-	const FVector NewPosition = UKismetMathLibrary::TransformLocation(OtherTransform, UKismetMathLibrary::InverseTransformLocation(FTransform(Transform.GetRotation(), Transform.GetLocation(), FVector(-PortalScale.X, -PortalScale.Y, PortalScale.Z)), Character->GetTransform().GetLocation()));
-	const FRotator NewRotator = UKismetMathLibrary::MakeRotationFromAxes(
-		UKismetMathLibrary::TransformDirection(OtherTransform, UKismetMathLibrary::MirrorVectorByNormal(UKismetMathLibrary::MirrorVectorByNormal(UKismetMathLibrary::InverseTransformDirection(Transform, Character->GetTransform().GetRotation().GetAxisX()), FVector(1, 0, 0)), FVector(0, 1, 0))),
-		UKismetMathLibrary::TransformDirection(OtherTransform, UKismetMathLibrary::MirrorVectorByNormal(UKismetMathLibrary::MirrorVectorByNormal(UKismetMathLibrary::InverseTransformDirection(Transform, Character->GetTransform().GetRotation().GetAxisY()), FVector(1, 0, 0)), FVector(0, 1, 0))),
-		UKismetMathLibrary::TransformDirection(OtherTransform, UKismetMathLibrary::MirrorVectorByNormal(UKismetMathLibrary::MirrorVectorByNormal(UKismetMathLibrary::InverseTransformDirection(Transform, Character->GetTransform().GetRotation().GetAxisZ()), FVector(1, 0, 0)), FVector(0, 1, 0))));
 
-	AController *Controller = UGameplayStatics::GetPlayerController(this->GetWorld(), 0);
-	const FRotator NewControlRotator = UKismetMathLibrary::MakeRotationFromAxes(
-		UKismetMathLibrary::TransformDirection(OtherTransform, UKismetMathLibrary::MirrorVectorByNormal(UKismetMathLibrary::MirrorVectorByNormal(UKismetMathLibrary::InverseTransformDirection(Transform, Controller->GetControlRotation().Quaternion().GetAxisX()), FVector(1, 0, 0)), FVector(0, 1, 0))),
-		UKismetMathLibrary::TransformDirection(OtherTransform, UKismetMathLibrary::MirrorVectorByNormal(UKismetMathLibrary::MirrorVectorByNormal(UKismetMathLibrary::InverseTransformDirection(Transform, Controller->GetControlRotation().Quaternion().GetAxisY()), FVector(1, 0, 0)), FVector(0, 1, 0))),
-		UKismetMathLibrary::TransformDirection(OtherTransform, UKismetMathLibrary::MirrorVectorByNormal(UKismetMathLibrary::MirrorVectorByNormal(UKismetMathLibrary::InverseTransformDirection(Transform, Controller->GetControlRotation().Quaternion().GetAxisZ()), FVector(1, 0, 0)), FVector(0, 1, 0))));
-
+	const FVector NewPosition = UPortalMathHelper::CalculateNewPosition(Transform, OtherTransform, Character->GetTransform().GetLocation());
+	const FRotator NewRotator = UPortalMathHelper::CalculateNewRotation(Transform, OtherTransform, Character->GetTransform().GetRotation());
 	Character->SetActorTransform(FTransform(NewRotator, NewPosition, FVector::One()));
+	
+	AController *Controller = UGameplayStatics::GetPlayerController(this->GetWorld(), 0);
+	const FRotator NewControlRotator = UPortalMathHelper::CalculateNewRotation(Transform, OtherTransform, Controller->GetControlRotation().Quaternion());
 	Controller->SetControlRotation(NewControlRotator);
+
+	UPawnMovementComponent *CharacterMovement = Character->GetMovementComponent();
+	CharacterMovement->Velocity = CharacterMovement->Velocity.Size() * UKismetMathLibrary::TransformDirection(OtherTransform, UKismetMathLibrary::MirrorVectorByNormal(UKismetMathLibrary::MirrorVectorByNormal(UKismetMathLibrary::InverseTransformDirection(Transform, CharacterMovement->Velocity.GetSafeNormal()), FVector(1, 0, 0)), FVector(0, 1, 0)));
 }

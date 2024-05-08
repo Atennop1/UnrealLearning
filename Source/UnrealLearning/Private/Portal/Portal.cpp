@@ -3,7 +3,6 @@
 #include "Portal/Portal.h"
 #include "Components/SceneCaptureComponent2D.h"
 #include "Engine/TextureRenderTarget2D.h"
-#include "GameFramework/Character.h"
 #include "Kismet/KismetRenderingLibrary.h"
 
 APortal::APortal()
