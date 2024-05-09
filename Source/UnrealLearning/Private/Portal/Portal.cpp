@@ -13,7 +13,7 @@ APortal::APortal()
 void APortal::BeginPlay()
 {
 	Super::BeginPlay();
-	check(Capture != nullptr && CaptureComponent != nullptr && TeleportationComponent != nullptr && Mesh != nullptr);
+	check(Capture && ForwardDirection && Mesh);
 	Link(LinkedPortal);
 }
 
@@ -38,7 +38,7 @@ void APortal::Link(APortal* Portal)
 	Portal->Setup();
 	
 	LinkedPortal = Portal;
-	Portal->LinkedPortal = this;
+	LinkedPortal->LinkedPortal = this;
 
 	LinkedPortal->PortalMaterial->SetTextureParameterValue("RenderTexture", RenderTexture);
 	PortalMaterial->SetTextureParameterValue("RenderTexture", LinkedPortal->RenderTexture);

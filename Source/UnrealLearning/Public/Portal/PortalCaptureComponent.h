@@ -3,9 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Portal.h"
 #include "Components/ActorComponent.h"
-#include "Components/ArrowComponent.h"
 #include "PortalCaptureComponent.generated.h"
+
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class UNREALLEARNING_API UPortalCaptureComponent : public UActorComponent
@@ -14,17 +15,10 @@ class UNREALLEARNING_API UPortalCaptureComponent : public UActorComponent
 
 private:
 	UPROPERTY()
-	class APortal *Owner;
-	
-	UPROPERTY(EditDefaultsOnly)
+	APortal *Owner;
+
+	UPROPERTY()
 	USceneCaptureComponent2D *Capture;
-	
-	UPROPERTY(EditDefaultsOnly)
-	UArrowComponent *ForwardDirection;
-	
-	UPROPERTY(EditDefaultsOnly)
-	UStaticMeshComponent *PortalMesh;
-	
 
 protected:
 	virtual void BeginPlay() override;

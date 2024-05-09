@@ -14,10 +14,7 @@ class UNREALLEARNING_API UPortalTeleportationComponent : public UActorComponent
 private:
 	UPROPERTY()
 	class APortal *Owner;
-
-	UPROPERTY(EditDefaultsOnly)
-	class UArrowComponent *ForwardDirection;
-
+	
 	FVector LastPosition;
 	bool LastInFront;
 

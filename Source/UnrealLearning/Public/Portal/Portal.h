@@ -3,8 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "PortalCaptureComponent.h"
-#include "PortalTeleportationComponent.h"
+#include "Components/ArrowComponent.h"
 #include "GameFramework/Actor.h"
 #include "Portal.generated.h"
 
@@ -24,10 +23,7 @@ private:
 	UStaticMeshComponent *Mesh;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess="true"))
-	UPortalCaptureComponent *CaptureComponent;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess="true"))
-	UPortalTeleportationComponent *TeleportationComponent;
+	UArrowComponent *ForwardDirection;
 
 	UPROPERTY()
 	UMaterialInstanceDynamic *PortalMaterial;
@@ -46,4 +42,5 @@ public:
 	
 	APortal *GetLinkedPortal() const { return LinkedPortal; }
 	USceneCaptureComponent2D *GetCapture() const { return Capture; }
+	FVector GetForwardDirection() const { return ForwardDirection->GetForwardVector(); }
 };

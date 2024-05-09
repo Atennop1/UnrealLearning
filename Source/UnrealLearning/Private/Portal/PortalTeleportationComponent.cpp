@@ -16,10 +16,8 @@ UPortalTeleportationComponent::UPortalTeleportationComponent()
 void UPortalTeleportationComponent::BeginPlay()
 {
 	Super::BeginPlay();
-	
-	ForwardDirection = Cast<UArrowComponent>(GetOwner()->GetComponentByClass(UArrowComponent::StaticClass()));
 	Owner = Cast<APortal>(GetOwner());
-	check(Owner && ForwardDirection);
+	check(Owner);
 }
 
 void UPortalTeleportationComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
@@ -39,7 +37,7 @@ void UPortalTeleportationComponent::TickComponent(float DeltaTime, ELevelTick Ti
 bool UPortalTeleportationComponent::IsCrossing(const ACharacter* Character)
 {
 	const FVector Point = Character->GetTransform().GetLocation();
-	const FVector Normal = ForwardDirection->GetForwardVector();
+	const FVector Normal = Owner->GetForwardDirection();
 
 	float IntersectionT = 0.0f;
 	FVector Intersection = FVector::Zero();
@@ -59,9 +57,9 @@ void UPortalTeleportationComponent::Teleport(ACharacter* Character) const
 
 	const FVector NewPosition = UPortalMathHelper::CalculateNewPosition(Transform, OtherTransform, Character->GetTransform().GetLocation());
 	const FRotator NewRotator = UPortalMathHelper::CalculateNewRotation(Transform, OtherTransform, Character->GetTransform().GetRotation());
-	Character->SetActorTransform(FTransform(NewRotator, NewPosition, FVector::One()));
+	Character->SetActorLocationAndRotation(NewPosition, NewRotator);
 	
-	AController *Controller = UGameplayStatics::GetPlayerController(this->GetWorld(), 0);
+	AController *Controller = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 	const FRotator NewControlRotator = UPortalMathHelper::CalculateNewRotation(Transform, OtherTransform, Controller->GetControlRotation().Quaternion());
 	Controller->SetControlRotation(NewControlRotator);
 

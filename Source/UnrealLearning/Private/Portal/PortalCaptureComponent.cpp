@@ -16,15 +16,13 @@ void UPortalCaptureComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	ForwardDirection = Cast<UArrowComponent>(GetOwner()->GetComponentByClass(UArrowComponent::StaticClass()));
-	Capture = Cast<USceneCaptureComponent2D>(GetOwner()->GetComponentByClass(USceneCaptureComponent2D::StaticClass()));
-	PortalMesh = Cast<UStaticMeshComponent>(GetOwner()->GetComponentByClass(UStaticMeshComponent::StaticClass()));
 	Owner = Cast<APortal>(GetOwner());
-	check(Owner && Capture && ForwardDirection && PortalMesh);
+	Capture = Cast<USceneCaptureComponent2D>(GetOwner()->GetComponentByClass(USceneCaptureComponent2D::StaticClass()));
+	check(Owner && Capture);
 	
 	Capture->bEnableClipPlane = true;
-	Capture->ClipPlaneNormal = ForwardDirection->GetForwardVector();
-	Capture->ClipPlaneBase = PortalMesh->GetComponentLocation() + ForwardDirection->GetForwardVector() * -3;
+	Capture->ClipPlaneNormal = Owner->GetLinkedPortal()->GetForwardDirection();
+	Capture->ClipPlaneBase = Owner->GetLinkedPortal()->GetActorLocation();
 }
 
 void UPortalCaptureComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
@@ -33,7 +31,7 @@ void UPortalCaptureComponent::TickComponent(float DeltaTime, ELevelTick TickType
 
 	if (Owner->GetLinkedPortal() == nullptr)
 		return;
-
+	
 	if (const FVector2D ViewportSize = GEngine->GameViewport->Viewport->GetSizeXY(); Capture->TextureTarget != nullptr && (Capture->TextureTarget->SizeX != ViewportSize.X || Capture->TextureTarget->SizeY != ViewportSize.Y))
 		Capture->TextureTarget->ResizeTarget(ViewportSize.X, ViewportSize.Y);
 	
@@ -41,7 +39,7 @@ void UPortalCaptureComponent::TickComponent(float DeltaTime, ELevelTick TickType
 	const FTransform OtherTransform = Owner->GetLinkedPortal()->GetActorTransform();
 	const FTransform CameraTransform = UGameplayStatics::GetPlayerCameraManager(GetWorld(), 0)->GetTransformComponent()->GetComponentTransform();
 	
-	const FVector NewPosition = UPortalMathHelper::CalculateNewPosition(Transform, OtherTransform, CameraTransform.GetLocation());
-	const FRotator NewRotation = UPortalMathHelper::CalculateNewRotation(Transform, OtherTransform, CameraTransform.GetRotation());
+	const FVector NewPosition = UPortalMathHelper::CalculateNewPosition(OtherTransform, Transform, CameraTransform.GetLocation());
+	const FRotator NewRotation = UPortalMathHelper::CalculateNewRotation(OtherTransform, Transform, CameraTransform.GetRotation());
 	Owner->GetLinkedPortal()->GetCapture()->SetWorldLocationAndRotation(NewPosition, NewRotation);
 }
