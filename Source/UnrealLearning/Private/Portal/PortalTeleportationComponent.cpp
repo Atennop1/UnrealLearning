@@ -54,7 +54,7 @@ void UPortalTeleportationComponent::Teleport(ACharacter* Character) const
 {
 	const FTransform Transform = Owner->GetActorTransform();
 	const FTransform OtherTransform = Owner->GetLinkedPortal()->GetActorTransform();
-
+	
 	const FVector NewPosition = UPortalMathHelper::CalculateNewPosition(Transform, OtherTransform, Character->GetTransform().GetLocation());
 	const FRotator NewRotator = UPortalMathHelper::CalculateNewRotation(Transform, OtherTransform, Character->GetTransform().GetRotation());
 	Character->SetActorLocationAndRotation(NewPosition, NewRotator);

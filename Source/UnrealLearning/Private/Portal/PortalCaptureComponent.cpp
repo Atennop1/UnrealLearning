@@ -21,8 +21,8 @@ void UPortalCaptureComponent::BeginPlay()
 	check(Owner && Capture);
 	
 	Capture->bEnableClipPlane = true;
-	Capture->ClipPlaneNormal = Owner->GetLinkedPortal()->GetForwardDirection();
-	Capture->ClipPlaneBase = Owner->GetLinkedPortal()->GetActorLocation();
+	Capture->ClipPlaneNormal = Owner->GetForwardDirection();
+	Capture->ClipPlaneBase = Owner->GetActorLocation();
 }
 
 void UPortalCaptureComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
@@ -38,8 +38,8 @@ void UPortalCaptureComponent::TickComponent(float DeltaTime, ELevelTick TickType
 	const FTransform Transform = Owner->GetActorTransform();
 	const FTransform OtherTransform = Owner->GetLinkedPortal()->GetActorTransform();
 	const FTransform CameraTransform = UGameplayStatics::GetPlayerCameraManager(GetWorld(), 0)->GetTransformComponent()->GetComponentTransform();
-	
-	const FVector NewPosition = UPortalMathHelper::CalculateNewPosition(OtherTransform, Transform, CameraTransform.GetLocation());
-	const FRotator NewRotation = UPortalMathHelper::CalculateNewRotation(OtherTransform, Transform, CameraTransform.GetRotation());
+
+	const FVector NewPosition = UPortalMathHelper::CalculateNewPosition(Transform, OtherTransform, CameraTransform.GetLocation());
+	const FRotator NewRotation = UPortalMathHelper::CalculateNewRotation(Transform, OtherTransform, CameraTransform.GetRotation());
 	Owner->GetLinkedPortal()->GetCapture()->SetWorldLocationAndRotation(NewPosition, NewRotation);
 }

@@ -27,6 +27,7 @@ void APortal::Setup()
 	
 	const FVector2D TextureSize = GEngine->GameViewport->Viewport->GetSizeXY();
 	RenderTexture = UKismetRenderingLibrary::CreateRenderTarget2D(this, TextureSize.X, TextureSize.Y, RTF_RGBA16f);
+	PortalMaterial->SetTextureParameterValue("RenderTexture", RenderTexture);
 }
 
 void APortal::Link(APortal* Portal)
@@ -39,9 +40,6 @@ void APortal::Link(APortal* Portal)
 	
 	LinkedPortal = Portal;
 	LinkedPortal->LinkedPortal = this;
-
-	LinkedPortal->PortalMaterial->SetTextureParameterValue("RenderTexture", RenderTexture);
-	PortalMaterial->SetTextureParameterValue("RenderTexture", LinkedPortal->RenderTexture);
 
 	LinkedPortal->Capture->TextureTarget = RenderTexture;
 	Capture->TextureTarget = LinkedPortal->RenderTexture;
