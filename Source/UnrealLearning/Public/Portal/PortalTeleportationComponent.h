@@ -18,8 +18,8 @@ private:
 	FVector LastPosition;
 	bool LastInFront;
 
-	bool IsCrossing(const ACharacter *Character);
-	void Teleport(ACharacter *Character) const;
+	bool IsCrossing(const class APortalCharacter *Character);
+	void Teleport(APortalCharacter *Character) const;
 	
 protected:
 	virtual void BeginPlay() override;
