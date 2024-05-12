@@ -28,7 +28,7 @@ void UPortalCaptureComponent::BeginPlay()
 void UPortalCaptureComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
+	
 	if (Owner->GetLinkedPortal() == nullptr)
 		return;
 	
