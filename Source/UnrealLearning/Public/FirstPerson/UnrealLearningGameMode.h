@@ -6,7 +6,7 @@
 #include "GameFramework/GameModeBase.h"
 #include "UnrealLearningGameMode.generated.h"
 
-UCLASS(minimalapi)
+UCLASS()
 class AUnrealLearningGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
