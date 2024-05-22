@@ -13,7 +13,7 @@ class UNREALLEARNING_API ASavingCharacter : public AUnrealLearningCharacter
 {
 	GENERATED_BODY()
 
-protected:
+private:
 	UPROPERTY(EditDefaultsOnly)
 	UCharacterSaveLoadComponent *SaveLoadComponent;
 	
