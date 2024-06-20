@@ -1,6 +1,6 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
-#include "Minecraft/Blocks/DefaultBlock.h"
+#include "Blocks/DefaultBlock.h"
 
 ADefaultBlock::ADefaultBlock()
 {

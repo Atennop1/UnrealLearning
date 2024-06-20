@@ -1,6 +1,6 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
-#include "Minecraft/Blocks/ChestBlock.h"
+#include "Blocks/ChestBlock.h"
 
 AChestBlock::AChestBlock() : Super()
 {

@@ -1,6 +1,6 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
-#include "Minecraft/Blocks/ShrinkBlock.h"
+#include "Blocks/ShrinkBlock.h"
 
 AShrinkBlock::AShrinkBlock() : Super()
 {

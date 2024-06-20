@@ -1,6 +1,6 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
-#include "Minecraft/Blocks/LoggerBlock.h"
+#include "Blocks/LoggerBlock.h"
 
 ALoggerBlock::ALoggerBlock() : Super()
 {

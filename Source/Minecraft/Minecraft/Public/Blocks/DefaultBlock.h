@@ -9,7 +9,7 @@
 #include "DefaultBlock.generated.h"
 
 UCLASS()
-class UNREALLEARNING_API ADefaultBlock : public AActor, public IBlock
+class MINECRAFT_API ADefaultBlock : public AActor, public IBlock
 {
 	GENERATED_BODY()
 
@@ -34,7 +34,7 @@ private:
 	void OnDestroyingFinished();
 
 protected:
-	UStaticMeshComponent* GetMesh() { return Mesh; }
+	UStaticMeshComponent* GetMesh() const { return Mesh; }
 	
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;

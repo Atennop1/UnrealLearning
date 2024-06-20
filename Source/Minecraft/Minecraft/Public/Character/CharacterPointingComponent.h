@@ -4,11 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "Minecraft/Blocks/IBlock.h"
+#include "Blocks/IBlock.h"
 #include "CharacterPointingComponent.generated.h"
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
-class UNREALLEARNING_API UCharacterPointingComponent : public UActorComponent
+class MINECRAFT_API UCharacterPointingComponent : public UActorComponent
 {
 	GENERATED_BODY()
 

@@ -8,7 +8,7 @@
 #include "CharacterBlockSelectorComponent.generated.h"
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
-class UNREALLEARNING_API UCharacterBlockSelectorComponent : public UActorComponent
+class MINECRAFT_API UCharacterBlockSelectorComponent : public UActorComponent
 {
 	GENERATED_BODY()
 

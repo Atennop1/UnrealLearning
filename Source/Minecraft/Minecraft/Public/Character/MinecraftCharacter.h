@@ -3,11 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "FirstPerson/UnrealLearningCharacter.h"
+#include "InputAction.h"
+#include "EnhancedInputSubsystemInterface.h"
+#include "GameFramework/Character.h"
 #include "MinecraftCharacter.generated.h"
 
 UCLASS()
-class UNREALLEARNING_API AMinecraftCharacter : public AUnrealLearningCharacter
+class MINECRAFT_API AMinecraftCharacter : public ACharacter
 {
 	GENERATED_BODY()
 

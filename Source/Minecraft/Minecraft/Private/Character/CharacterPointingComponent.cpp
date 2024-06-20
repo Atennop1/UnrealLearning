@@ -1,11 +1,11 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
-#include "Minecraft/Character/CharacterPointingComponent.h"
+#include "Character/CharacterPointingComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Kismet/KismetStringLibrary.h"
 #include "Kismet/KismetSystemLibrary.h"
-#include "Minecraft/Blocks/IBlock.h"
-#include "Minecraft/Character/MinecraftCharacter.h"
+#include "Blocks/IBlock.h"
+#include "Character/MinecraftCharacter.h"
 
 UCharacterPointingComponent::UCharacterPointingComponent()
 {
@@ -21,7 +21,7 @@ void UCharacterPointingComponent::Calculate()
 	FCollisionQueryParams CollisionParameters;
 	CollisionParameters.AddIgnoredActor(GetOwner());
 	
-	const UCameraComponent* CameraComponent = Cast<AMinecraftCharacter>(GetOwner())->GetFirstPersonCameraComponent();
+	const UCameraComponent* CameraComponent = Cast<AMinecraftCharacter>(GetOwner())->GetComponentByClass<UCameraComponent>();
 	const FVector StartPosition = CameraComponent->GetComponentTransform().GetLocation();
 	const FVector TheoreticalEndPosition = StartPosition + CameraComponent->GetForwardVector() * LineTraceLength;
 

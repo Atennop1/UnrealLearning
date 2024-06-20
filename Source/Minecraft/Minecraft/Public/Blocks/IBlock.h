@@ -12,7 +12,7 @@ class UBlock : public UInterface
 	GENERATED_BODY()
 };
 
-class UNREALLEARNING_API IBlock
+class MINECRAFT_API IBlock
 {
 	GENERATED_BODY()
 	

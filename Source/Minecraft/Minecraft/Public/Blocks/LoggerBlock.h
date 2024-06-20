@@ -5,23 +5,19 @@
 #include "CoreMinimal.h"
 #include "DefaultBlock.h"
 #include "IInteractableBlock.h"
-#include "ShrinkBlock.generated.h"
+#include "GameFramework/Actor.h"
+#include "LoggerBlock.generated.h"
 
 UCLASS()
-class UNREALLEARNING_API AShrinkBlock : public ADefaultBlock, public IInteractableBlock
+class MINECRAFT_API ALoggerBlock : public ADefaultBlock, public IInteractableBlock
 {
 	GENERATED_BODY()
 
-private:
-	bool IsDecreasing = true;
-	int AmountOfShrinks = 3;
-	int CurrentAmountOfShrinks = 0;
-
 protected:
-	AShrinkBlock();
-
+	ALoggerBlock();
+	
 public:
-	virtual void Interact() override;
 	virtual void StartDestroying() override { Super::StartDestroying(); }
 	virtual void StopDestroying() override { Super::StopDestroying(); }
+	virtual void Interact() override;
 };

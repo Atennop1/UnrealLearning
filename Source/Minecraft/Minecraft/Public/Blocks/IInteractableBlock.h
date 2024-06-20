@@ -13,7 +13,7 @@ class UInteractableBlock : public UBlock
 	GENERATED_BODY()
 };
 
-class UNREALLEARNING_API IInteractableBlock : public IBlock
+class MINECRAFT_API IInteractableBlock : public IBlock
 {
 	GENERATED_BODY()
 

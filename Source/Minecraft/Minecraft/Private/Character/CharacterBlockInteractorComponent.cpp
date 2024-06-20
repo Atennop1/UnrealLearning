@@ -1,9 +1,9 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
-#include "Minecraft/Character/CharacterBlockInteractorComponent.h"
-#include "Minecraft/Blocks/IInteractableBlock.h"
-#include "Minecraft/Character/CharacterPointingComponent.h"
-#include "Minecraft/Character/MinecraftCharacter.h"
+#include "Character/CharacterBlockInteractorComponent.h"
+#include "Blocks/IInteractableBlock.h"
+#include "Character/CharacterPointingComponent.h"
+#include "Character/MinecraftCharacter.h"
 
 UCharacterBlockInteractorComponent::UCharacterBlockInteractorComponent()
 {

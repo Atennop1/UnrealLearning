@@ -1,8 +1,8 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
-#include "Minecraft/Character/CharacterBlockDestroyerComponent.h"
-#include "Minecraft/Character/MinecraftCharacter.h"
-#include "Minecraft/Blocks/IBlock.h"
+#include "Character/CharacterBlockDestroyerComponent.h"
+#include "Character/MinecraftCharacter.h"
+#include "Blocks/IBlock.h"
 
 UCharacterBlockDestroyerComponent::UCharacterBlockDestroyerComponent()
 {

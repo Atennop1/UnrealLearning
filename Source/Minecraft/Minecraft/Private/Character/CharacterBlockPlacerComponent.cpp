@@ -1,9 +1,9 @@
 // Copyright Atennop. All Rights Reserved.
 
-#include "Minecraft/Character/CharacterBlockPlacerComponent.h"
+#include "Character/CharacterBlockPlacerComponent.h"
 #include "Kismet/KismetSystemLibrary.h"
-#include "Minecraft/Character/MinecraftCharacter.h"
-#include "Minecraft/Blocks/IBlock.h"
+#include "Character/MinecraftCharacter.h"
+#include "Blocks/IBlock.h"
 
 UCharacterBlockPlacerComponent::UCharacterBlockPlacerComponent()
 {

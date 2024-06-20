@@ -9,7 +9,7 @@
 #include "ChestBlock.generated.h"
 
 UCLASS()
-class UNREALLEARNING_API AChestBlock : public ADefaultBlock, public IInteractableBlock
+class MINECRAFT_API AChestBlock : public ADefaultBlock, public IInteractableBlock
 {
 	GENERATED_BODY()
 

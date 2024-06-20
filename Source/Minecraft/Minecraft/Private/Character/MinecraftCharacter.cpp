@@ -1,12 +1,12 @@
 // Copyright Atennop. All Rights Reserved.
 
-#include "Minecraft/Character/MinecraftCharacter.h"
+#include "Character/MinecraftCharacter.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
-#include "Minecraft/Character/CharacterBlockDestroyerComponent.h"
-#include "Minecraft/Character/CharacterBlockInteractorComponent.h"
-#include "Minecraft/Character/CharacterBlockPlacerComponent.h"
-#include "Minecraft/Character/CharacterBlockSelectorComponent.h"
+#include "Character/CharacterBlockDestroyerComponent.h"
+#include "Character/CharacterBlockInteractorComponent.h"
+#include "Character/CharacterBlockPlacerComponent.h"
+#include "Character/CharacterBlockSelectorComponent.h"
 
 AMinecraftCharacter::AMinecraftCharacter()
 {

@@ -1,34 +1,34 @@
-// Copyright Atennop. All Rights Reserved.
+﻿// Copyright Atennop. All Rights Reserved.
 
 #pragma once
 
 #include "CoreMinimal.h"
 #include "CharacterPointingComponent.h"
 #include "Components/ActorComponent.h"
-#include "CharacterBlockPlacerComponent.generated.h"
+#include "CharacterBlockDestroyerComponent.generated.h"
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
-class UNREALLEARNING_API UCharacterBlockPlacerComponent : public UActorComponent
+class MINECRAFT_API UCharacterBlockDestroyerComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
 private:
 	UPROPERTY(EditDefaultsOnly)
 	float Cooldown;
-	bool CanPlace = true;
+	bool CanDestroy = true;
 	FTimerHandle CooldownTimerHandle;
 
 	UPROPERTY()
 	UCharacterPointingComponent *Pointing;
-	
+
 	UPROPERTY()
-	TSubclassOf<AActor> BlockBlueprint;
+	TScriptInterface<IBlock> CurrentBlock;
 
 protected:
 	virtual void BeginPlay() override;
-	UCharacterBlockPlacerComponent();
+	UCharacterBlockDestroyerComponent();
 	
 public:
-	void Select(TSubclassOf<AActor> Block);
-	void Place(const struct FInputActionValue &Value);	
+	void StartDestroying(const struct FInputActionValue &Value);
+	void StopDestroying(const FInputActionValue &Value);
 };
