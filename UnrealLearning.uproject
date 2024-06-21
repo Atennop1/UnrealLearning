@@ -5,7 +5,7 @@
 	"Description": "",
 	"Modules": [
 		{
-			"Name": "UnrealLearning",
+			"Name": "FirstPerson",
 			"Type": "Runtime",
 			"LoadingPhase": "Default",
 			"AdditionalDependencies": [
@@ -16,7 +16,27 @@
 			"Name": "Minecraft",
 			"Type": "Runtime",
 			"LoadingPhase": "Default"
-		}
+		},
+		{
+			"Name": "PickupsTest",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		},
+		{
+			"Name": "DataTablesTest",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		},
+		{
+			"Name": "SavingTest",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		},
+		{
+			"Name": "Portals",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		},
 	],
 	"Plugins": [
 		{
