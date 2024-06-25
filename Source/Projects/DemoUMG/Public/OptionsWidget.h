@@ -8,7 +8,7 @@
 #include "OptionsWidget.generated.h"
 
 UCLASS()
-class MENU_API UOptionsWidget : public UUserWidget
+class DEMOUMG_API UOptionsWidget : public UUserWidget
 {
 	GENERATED_BODY()
 

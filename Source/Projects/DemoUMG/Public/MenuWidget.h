@@ -8,7 +8,7 @@
 #include "MenuWidget.generated.h"
 
 UCLASS()
-class MENU_API UMenuWidget : public UUserWidget
+class DEMOUMG_API UMenuWidget : public UUserWidget
 {
 	GENERATED_BODY()
 

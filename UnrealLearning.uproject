@@ -38,7 +38,7 @@
 			"LoadingPhase": "Default"
 		},
 		{
-			"Name": "Menu",
+			"Name": "DemoUMG",
 			"Type": "Runtime",
 			"LoadingPhase": "Default"
 		}
