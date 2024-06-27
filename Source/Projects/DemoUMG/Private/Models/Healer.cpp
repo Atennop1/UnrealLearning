@@ -1,7 +1,7 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
-#include "Game/Healer.h"
-#include "Game/HealthComponent.h"
+#include "Models/Healer.h"
+#include "Models/HealthComponent.h"
 
 AHealer::AHealer()
 {
