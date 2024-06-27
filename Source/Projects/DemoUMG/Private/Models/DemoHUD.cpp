@@ -1,7 +1,7 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
 #include "Models/DemoHUD.h"
-#include "Models/HealthComponent.h"
+#include "Models/Health/HealthComponent.h"
 #include "GameFramework/Character.h"
 #include "Kismet/GameplayStatics.h"
 

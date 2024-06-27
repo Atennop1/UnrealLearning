@@ -1,6 +1,6 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
-#include "Models/HealthComponent.h"
+#include "Models/Health/HealthComponent.h"
 
 UHealthComponent::UHealthComponent()
 {

@@ -1,7 +1,7 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
-#include "Models/Damager.h"
-#include "Models/HealthComponent.h"
+#include "Models/Health/Damager.h"
+#include "Models/Health/HealthComponent.h"
 
 ADamager::ADamager()
 {

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/Button.h"
+#include "Components/WidgetSwitcher.h"
 #include "OptionsWidget.generated.h"
 
 UCLASS()
@@ -16,11 +17,26 @@ private:
 	UPROPERTY(meta=(BindWidget))
 	UButton *BackButton;
 
+	UPROPERTY(meta=(BindWidget))
+	UButton *GameTabButton;
+
+	UPROPERTY(meta=(BindWidget))
+	UButton *GraphicsTabButton;
+
+	UPROPERTY(meta=(BindWidget))
+	UWidgetSwitcher *TabsWidgetSwitcher;
+
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UUserWidget> MenuWidgetClass;
 
+	virtual void NativeConstruct() override;
+	
 	UFUNCTION()
 	void OnBackButtonPressed();
+
+	UFUNCTION()
+	void OnGameTabButton();
 	
-	virtual void NativeConstruct() override;
+	UFUNCTION()
+	void OnGraphicsTabButton();	
 };

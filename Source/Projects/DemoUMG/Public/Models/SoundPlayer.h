@@ -20,7 +20,7 @@ protected:
 
 private:
 	UPROPERTY(EditAnywhere)
-	USoundBase *SoundToPlay;
+	USoundBase *SoundToPlay = nullptr;
 
 	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess))
 	UPrimitiveComponent *Collision = nullptr;

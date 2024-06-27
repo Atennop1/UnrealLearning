@@ -16,8 +16,10 @@ private:
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UComboBoxString> LanguageComboBox;
 	TMap<FString, FString> CulturesNames;
+	bool bCanSelectLanguage = true;
 
 	UFUNCTION()
 	void OnLanguageSelected(FString SelectedItem, ESelectInfo::Type SelectionType);
+	void CreateCulturesName();
 	virtual void NativeConstruct() override;
 };

@@ -6,6 +6,27 @@
 void UChangeLanguageWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
+	CreateCulturesName();
+	LanguageComboBox->OnSelectionChanged.AddDynamic(this, &UChangeLanguageWidget::OnLanguageSelected);
+}
+
+// ReSharper disable once CppMemberFunctionMayBeConst
+// ReSharper disable once CppPassValueParameterByConstReference
+void UChangeLanguageWidget::OnLanguageSelected(FString SelectedItem, ESelectInfo::Type SelectionType)
+{
+	if (!bCanSelectLanguage)
+		return;
+
+	bCanSelectLanguage = false;
+	UKismetInternationalizationLibrary::SetCurrentCulture(*CulturesNames.Find(SelectedItem));
+	CreateCulturesName();
+	bCanSelectLanguage = true;
+}
+
+void UChangeLanguageWidget::CreateCulturesName()
+{
+	CulturesNames.Reset();
+	LanguageComboBox->ClearOptions();
 	TArray<FString> Cultures = UKismetInternationalizationLibrary::GetLocalizedCultures(true, false, false, false);
 
 	for (const auto Culture : Cultures)
@@ -15,12 +36,4 @@ void UChangeLanguageWidget::NativeConstruct()
 	}
 
 	LanguageComboBox->SetSelectedOption(UKismetInternationalizationLibrary::GetCultureDisplayName(UKismetInternationalizationLibrary::GetCurrentCulture()));
-	LanguageComboBox->OnSelectionChanged.AddDynamic(this, &UChangeLanguageWidget::OnLanguageSelected);
-}
-
-// ReSharper disable once CppMemberFunctionMayBeConst
-// ReSharper disable once CppPassValueParameterByConstReference
-void UChangeLanguageWidget::OnLanguageSelected(FString SelectedItem, ESelectInfo::Type SelectionType)
-{
-	UKismetInternationalizationLibrary::SetCurrentCulture(*CulturesNames.Find(SelectedItem));
 }
