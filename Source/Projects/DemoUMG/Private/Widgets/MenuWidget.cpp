@@ -22,9 +22,18 @@ void UMenuWidget::OnStartButtonClicked()
 
 void UMenuWidget::OnOptionsButtonClicked()
 {
+	TArray<UUserWidget*> OptionsWidgets;
+	UWidgetBlueprintLibrary::GetAllWidgetsOfClass(GetWorld(), OptionsWidgets, OptionsWidgetClass);
+	SetVisibility(ESlateVisibility::Hidden);
+	
+	if (OptionsWidgets.Num() != 0)
+	{
+		OptionsWidgets[0]->SetVisibility(ESlateVisibility::Visible);
+		return;
+	}
+	
 	UUserWidget *OptionsWidget = CreateWidget(GetWorld(), OptionsWidgetClass);
-	OptionsWidget->AddToPlayerScreen();
-	RemoveFromParent();
+	OptionsWidget->AddToViewport();
 }
 
 // ReSharper disable once CppMemberFunctionMayBeConst

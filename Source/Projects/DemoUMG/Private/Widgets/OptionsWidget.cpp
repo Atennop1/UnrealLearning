@@ -1,6 +1,7 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
 #include "Widgets/OptionsWidget.h"
+#include "Blueprint/WidgetBlueprintLibrary.h"
 
 void UOptionsWidget::NativeConstruct()
 {
@@ -12,9 +13,18 @@ void UOptionsWidget::NativeConstruct()
 
 void UOptionsWidget::OnBackButtonPressed()
 {
+	TArray<UUserWidget*> MenuWidgets;
+	UWidgetBlueprintLibrary::GetAllWidgetsOfClass(GetWorld(), MenuWidgets, MenuWidgetClass);
+	SetVisibility(ESlateVisibility::Hidden);
+	
+	if (MenuWidgets.Num() != 0)
+	{
+		MenuWidgets[0]->SetVisibility(ESlateVisibility::Visible);
+		return;
+	}
+	
 	UUserWidget *MenuWidget = CreateWidget(GetWorld(), MenuWidgetClass);
-	MenuWidget->AddToPlayerScreen();
-	RemoveFromParent();
+	MenuWidget->AddToViewport();
 }
 
 // ReSharper disable once CppMemberFunctionMayBeConst

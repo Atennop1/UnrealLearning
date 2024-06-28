@@ -21,7 +21,4 @@ public:
 private:
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UUserWidget> PauseWidgetClass;
-
-	UPROPERTY()
-	UUserWidget *CreatedPauseWidget = nullptr;
 };

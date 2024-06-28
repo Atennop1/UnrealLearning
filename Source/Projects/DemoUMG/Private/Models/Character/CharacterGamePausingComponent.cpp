@@ -10,23 +10,44 @@ UCharacterGamePausingComponent::UCharacterGamePausingComponent()
 	PrimaryComponentTick.bCanEverTick = false;
 }
 
+// ReSharper disable once CppMemberFunctionMayBeConst
 void UCharacterGamePausingComponent::OnPauseActionTriggered(const FInputActionValue& Binding)
 {
 	APlayerController *PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 	
 	if (UGameplayStatics::IsGamePaused(GetWorld()))
 	{
-		CreatedPauseWidget->RemoveFromParent();
+		TArray<UUserWidget*> PauseWidgets;
+		UWidgetBlueprintLibrary::GetAllWidgetsOfClass(GetWorld(), PauseWidgets, PauseWidgetClass);
+	
+		if (PauseWidgets.Num() != 0)
+		{
+			if (!PauseWidgets[0]->IsVisible())
+				return;
+			
+			PauseWidgets[0]->SetVisibility(ESlateVisibility::Hidden);
+		}
+		
 		UGameplayStatics::SetGamePaused(GetWorld(), false);
 		UWidgetBlueprintLibrary::SetInputMode_GameOnly(PlayerController);
 		PlayerController->SetShowMouseCursor(false);
 		return;
 	}
 
-	CreatedPauseWidget = CreateWidget(PlayerController, PauseWidgetClass);
-	CreatedPauseWidget->AddToViewport();
 	PlayerController->SetShowMouseCursor(true);
 	UWidgetBlueprintLibrary::SetInputMode_GameAndUIEx(UGameplayStatics::GetPlayerController(GetWorld(), 0));
 	UGameplayStatics::SetGamePaused(GetWorld(), true);
+
+	TArray<UUserWidget*> PauseWidgets;
+	UWidgetBlueprintLibrary::GetAllWidgetsOfClass(GetWorld(), PauseWidgets, PauseWidgetClass);
+	
+	if (PauseWidgets.Num() != 0)
+	{
+		PauseWidgets[0]->SetVisibility(ESlateVisibility::Visible);
+		return;
+	}
+	
+	UUserWidget *PauseWidget = CreateWidget(PlayerController, PauseWidgetClass);
+	PauseWidget->AddToViewport();
 }
 

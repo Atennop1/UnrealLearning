@@ -13,15 +13,15 @@ void UChangeWindowModeWidget::UpdateText() const
 	switch (CurrentWindowMode)
 	{
 	case EWindowMode::Fullscreen:
-		CurrentWindowModeText->SetText(FText::FromString("Fullscreen"));
+		CurrentWindowModeText->SetText(NSLOCTEXT("SettingsNamespace", "Fullscreen","Fullscreen"));
 		break;
 
 	case EWindowMode::Windowed:
-		CurrentWindowModeText->SetText(FText::FromString("Windowed"));
+		CurrentWindowModeText->SetText(NSLOCTEXT("SettingsNamespace", "Windowed", "Windowed"));
 		break;
 		
 	case EWindowMode::WindowedFullscreen:
-		CurrentWindowModeText->SetText(FText::FromString("Fullscreen Windowed"));
+		CurrentWindowModeText->SetText(NSLOCTEXT("SettingsNamespace", "FullscreenWindowed", "Fullscreen Windowed"));
 		break;
 		
 	default:;

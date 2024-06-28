@@ -14,7 +14,7 @@ void ADemoHUD::BeginPlay()
 		return;
 
 	HealthWidget = Cast<UHealthWidget>(CreateWidget(PlayerController, HealthWidgetClass));
-	HealthWidget->AddToViewport();
+	HealthWidget->AddToViewport(-1);
 
 	const ACharacter *Character = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
 	if (!IsValid(Character))

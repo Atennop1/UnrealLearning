@@ -16,9 +16,18 @@ void UPauseWidget::OnResumeButtonClicked()
 
 void UPauseWidget::OnOptionsButtonClicked()
 {
-	UUserWidget *OptionsWidget = CreateWidget(GetWorld(), OptionsWidgetClass);
-	OptionsWidget->AddToPlayerScreen();
-	RemoveFromParent();
+	TArray<UUserWidget*> OptionsWidgets;
+	UWidgetBlueprintLibrary::GetAllWidgetsOfClass(GetWorld(), OptionsWidgets, OptionsWidgetClass);
+	SetVisibility(ESlateVisibility::Hidden);
+	
+	if (OptionsWidgets.Num() != 0)
+	{
+		OptionsWidgets[0]->SetVisibility(ESlateVisibility::Visible);
+		return;
+	}
+	
+	UUserWidget *OptionsWidget = CreateWidget(UGameplayStatics::GetPlayerController(GetWorld(), 0), OptionsWidgetClass);
+	OptionsWidget->AddToViewport();
 }
 
 // ReSharper disable once CppMemberFunctionMayBeConst
