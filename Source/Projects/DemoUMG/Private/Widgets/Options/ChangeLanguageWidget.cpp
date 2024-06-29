@@ -18,7 +18,7 @@ void UChangeLanguageWidget::OnLanguageSelected(FString SelectedItem, ESelectInfo
 		return;
 
 	bCanSelectLanguage = false;
-	UKismetInternationalizationLibrary::SetCurrentCulture(*CulturesNames.Find(SelectedItem));
+	UKismetInternationalizationLibrary::SetCurrentCulture(*CulturesNames.Find(SelectedItem), true);
 	CreateCulturesName();
 	bCanSelectLanguage = true;
 }
