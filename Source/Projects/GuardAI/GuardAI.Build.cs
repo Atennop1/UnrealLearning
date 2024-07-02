@@ -10,7 +10,9 @@ public class GuardAI : ModuleRules
             new string[]
             {
                 "Core",
-                "EnhancedInput"
+                "EnhancedInput",
+                "AIModule",
+                "GameplayTasks"
             }
         );
 
