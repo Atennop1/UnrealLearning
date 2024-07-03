@@ -21,4 +21,7 @@ protected:
 private:
 	UPROPERTY()
 	class ABreakerCharacter *Character = nullptr;
+
+	UPROPERTY(EditDefaultsOnly)
+	bool IsMakingNoise = false;
 };

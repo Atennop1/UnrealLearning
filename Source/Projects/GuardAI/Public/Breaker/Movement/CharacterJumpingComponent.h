@@ -23,4 +23,10 @@ protected:
 private:
 	UPROPERTY()
 	class ABreakerCharacter *Character = nullptr;
+
+	UPROPERTY(EditDefaultsOnly)
+	bool IsMakingNoise = false;
+
+	UFUNCTION()
+	void OnLanded(const FHitResult& Hit);
 };

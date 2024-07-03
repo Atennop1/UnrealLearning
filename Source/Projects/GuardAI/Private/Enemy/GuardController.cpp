@@ -4,7 +4,7 @@
 
 AGuardController::AGuardController()
 {
-	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bCanEverTick = true;
 }
 
 void AGuardController::BeginPlay()
