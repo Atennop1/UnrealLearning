@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "PatrollingPath.h"
+#include "Enemy/Patrolling/PatrollingPath.h"
 #include "Components/ActorComponent.h"
 #include "CharacterPatrollingComponent.generated.h"
 

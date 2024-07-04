@@ -1,6 +1,6 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
-#include "Enemy/Patrolling/CharacterPatrollingComponent.h"
+#include "Enemy/Components/CharacterPatrollingComponent.h"
 
 UCharacterPatrollingComponent::UCharacterPatrollingComponent()
 {

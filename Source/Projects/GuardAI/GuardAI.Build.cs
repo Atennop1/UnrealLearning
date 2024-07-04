@@ -13,7 +13,8 @@ public class GuardAI : ModuleRules
                 "InputCore",
                 "EnhancedInput",
                 "AIModule",
-                "GameplayTasks"
+                "GameplayTasks",
+                "DemoUMG"
             }
         );
 

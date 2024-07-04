@@ -11,9 +11,9 @@ class GUARDAI_API UFocusTask : public UBTTask_BlackboardBase
 {
 	GENERATED_BODY()
 	
-private:
-	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
-
 public:
 	UFocusTask();
+	
+private:
+	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 };

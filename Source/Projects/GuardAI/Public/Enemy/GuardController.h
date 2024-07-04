@@ -20,4 +20,11 @@ protected:
 private:
 	UPROPERTY(EditDefaultsOnly)
 	UBehaviorTree *BehaviorTree = nullptr;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess))
+	float SmoothRotationSpeed = 360.0f;
+	FRotator SmoothTargetRotation;
+ 
+	virtual void UpdateControlRotation(float DeltaTime, bool bUpdatePawn) override;
 };
+

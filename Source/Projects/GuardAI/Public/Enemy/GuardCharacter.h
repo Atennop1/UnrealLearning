@@ -4,7 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Breaker/BreakerCharacter.h"
-#include "Patrolling/CharacterPatrollingComponent.h"
+#include "Components/CharacterAttackingComponent.h"
+#include "Components/CharacterPatrollingComponent.h"
+#include "Components/CharacterSwordHoldingComponent.h"
 #include "GuardCharacter.generated.h"
 
 UCLASS()
@@ -16,6 +18,8 @@ public:
 	AGuardCharacter();
 
 	UCharacterPatrollingComponent *GetPatrollingComponent() const { return PatrollingComponent; }
+	UCharacterAttackingComponent *GetAttackingComponent() const { return AttackingComponent; }
+	UCharacterSwordHoldingComponent *GetSwordHoldingComponent() const { return SwordHoldingComponent; }
 	
 protected:
 	virtual void BeginPlay() override;
@@ -23,4 +27,10 @@ protected:
 private:
 	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess=true))
 	UCharacterPatrollingComponent *PatrollingComponent = nullptr;
+
+	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess=true))
+	UCharacterAttackingComponent *AttackingComponent = nullptr;
+
+	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess=true))
+	UCharacterSwordHoldingComponent *SwordHoldingComponent = nullptr;
 };

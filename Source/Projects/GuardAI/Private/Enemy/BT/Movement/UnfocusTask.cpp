@@ -1,6 +1,6 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
-#include "Enemy/BT/UnfocusTask.h"
+#include "Enemy/BT/Movement/UnfocusTask.h"
 #include "AIController.h"
 
 UUnfocusTask::UUnfocusTask()
@@ -12,7 +12,7 @@ UUnfocusTask::UUnfocusTask()
 EBTNodeResult::Type UUnfocusTask::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	AAIController *AIController = OwnerComp.GetAIOwner();
-	AIController->GetPawn()->bUseControllerRotationYaw = true;
+	AIController->GetPawn()->bUseControllerRotationYaw = false;
 	AIController->ClearFocus(EAIFocusPriority::Gameplay);
 	
 	FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
