@@ -2,6 +2,7 @@
 
 #include "Enemy/GuardController.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 AGuardController::AGuardController()
 {
