@@ -2,6 +2,9 @@
 
 #include "Models/Health/HealthComponent.h"
 
+#include "Components/CapsuleComponent.h"
+#include "GameFramework/Character.h"
+
 UHealthComponent::UHealthComponent()
 {
 	PrimaryComponentTick.bCanEverTick = false;
@@ -34,7 +37,10 @@ void UHealthComponent::Damage(const int DamageAmount)
 
 	bIsDead = true;
 	CurrentHealth = 0;
-	GetOwner()->Destroy();
+
+	const ACharacter *Character = Cast<ACharacter>(GetOwner());
+	Character->GetMesh()->SetAllBodiesSimulatePhysics(true);
+	Character->GetCapsuleComponent()->DestroyComponent();
 }
 
 void UHealthComponent::Heal(const int HealAmount)
