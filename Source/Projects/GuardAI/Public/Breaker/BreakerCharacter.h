@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Models/Character/CharacterGamePausingComponent.h"
 #include "Movement/CharacterCrouchingComponent.h"
 #include "Movement/CharacterJumpingComponent.h"
 #include "Movement/CharacterMovingComponent.h"
@@ -24,6 +25,7 @@ public:
 	UCharacterCrouchingComponent *GetCrouchingComponent() const { return CrouchingComponent; }
 	UCharacterJumpingComponent *GetJumpingComponent() const { return JumpingComponent; }
 	UCharacterDistractingComponent *GetDistractingComponent() const { return DistractingComponent; }
+	UCharacterGamePausingComponent *GetPausingComponent() const { return GamePausingComponent; }
 	
 protected:
 	virtual void BeginPlay() override;
@@ -43,4 +45,7 @@ private:
 
 	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess=true))
 	UCharacterDistractingComponent *DistractingComponent = nullptr;
+
+	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess=true))
+	UCharacterGamePausingComponent *GamePausingComponent;
 };

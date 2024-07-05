@@ -21,6 +21,7 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 	
 private:
 	UPROPERTY()
@@ -28,4 +29,9 @@ private:
 
 	UPROPERTY(EditDefaultsOnly)
 	USoundCue *FootstepsCue = nullptr;
+
+	UPROPERTY(EditDefaultsOnly)
+	float FootstepCooldown = 0.2f;
+	bool CanFootstep = true;
+	FTimerHandle FootstepCooldownHandle;
 };

@@ -41,6 +41,9 @@ private:
 
 	UPROPERTY(EditDefaultsOnly)
 	UInputAction *DistractAction;
+	
+	UPROPERTY(EditDefaultsOnly)
+	UInputAction *PauseAction;
 
 	void CallMove(const FInputActionValue &Value);
 	void CallRotate(const FInputActionValue &Value);
