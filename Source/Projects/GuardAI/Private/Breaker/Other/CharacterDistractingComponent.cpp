@@ -1,6 +1,6 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
-#include "Breaker/CharacterDistractingComponent.h"
+#include "Breaker/Other/CharacterDistractingComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Enemy/GuardCharacter.h"
 #include "Environment/Distractor.h"
