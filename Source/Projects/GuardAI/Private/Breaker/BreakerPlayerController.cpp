@@ -25,6 +25,7 @@ void ABreakerPlayerController::OnPossess(APawn *PossessingPawn)
 	EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ABreakerPlayerController::CallStopJumping);
 	EnhancedInputComponent->BindAction(StartCrouchAction, ETriggerEvent::Triggered, this, &ABreakerPlayerController::CallStartCrouch);
 	EnhancedInputComponent->BindAction(StopCrouchAction, ETriggerEvent::Completed, this, &ABreakerPlayerController::CallStopCrouch);
+	EnhancedInputComponent->BindAction(DistractAction, ETriggerEvent::Triggered, this, &ABreakerPlayerController::CallDistract);
 }
 
 // ReSharper disable once CppMemberFunctionMayBeConst
@@ -44,3 +45,6 @@ void ABreakerPlayerController::CallStartCrouch(const FInputActionValue& Value) {
 
 // ReSharper disable once CppMemberFunctionMayBeConst
 void ABreakerPlayerController::CallStopCrouch(const FInputActionValue& Value) { if (IsValid(PossessedCharacter)) PossessedCharacter->GetCrouchingComponent()->StopCrouching(); }
+
+// ReSharper disable once CppMemberFunctionMayBeConst
+void ABreakerPlayerController::CallDistract(const FInputActionValue& Value) { if (IsValid(PossessedCharacter)) PossessedCharacter->GetDistractingComponent()->Distract(); }

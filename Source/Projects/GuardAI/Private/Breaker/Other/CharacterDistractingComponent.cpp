@@ -11,6 +11,18 @@ UCharacterDistractingComponent::UCharacterDistractingComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 }
 
+void UCharacterDistractingComponent::Distract()
+{
+	if (!IsValid(CurrentDistractor))
+		return;
+	
+	if (CurrentDistractor->GetCanDistract())
+		CurrentDistractor->Distract();
+
+	if (!CurrentDistractor->GetCanDistract())
+		ClearDistractor();
+}
+
 void UCharacterDistractingComponent::BeginPlay()
 {
 	Super::BeginPlay();
@@ -24,13 +36,41 @@ void UCharacterDistractingComponent::TickComponent(float DeltaTime, ELevelTick T
 	const UCameraComponent *Camera = Character->GetComponentByClass<UCameraComponent>();
 	FHitResult HitResult;
 
-	const bool WasHit = UKismetSystemLibrary::SphereTraceSingleForObjects(GetWorld(), Camera->GetComponentLocation(), Camera->GetComponentLocation() + Camera->GetForwardVector() * 100000, 100,
-		TArray<TEnumAsByte<EObjectTypeQuery>> { ObjectTypeQuery1, ObjectTypeQuery2, ObjectTypeQuery8 }, false, { Character }, EDrawDebugTrace::None, HitResult, true);
+	const bool WasHit = UKismetSystemLibrary::SphereTraceSingleForObjects(GetWorld(), Camera->GetComponentLocation(), Camera->GetComponentLocation() + Camera->GetForwardVector() * 100000, CheckingSphereRadius,
+		TArray<TEnumAsByte<EObjectTypeQuery>> { ObjectTypeQuery8 }, false, { }, EDrawDebugTrace::None, HitResult, true);
 
-	if (WasHit)
-		GEngine->AddOnScreenDebugMessage(-1, 9, FColor::Cyan, HitResult.GetActor()->GetName());
+	const bool IsThereDistractor = WasHit && Cast<ADistractor>(HitResult.GetActor()) != nullptr;
+	ADistractor *Distractor = IsThereDistractor ? Cast<ADistractor>(HitResult.GetActor()) : nullptr;
 	
-	if (WasHit && Cast<ADistractor>(HitResult.GetActor()) != nullptr)
-		Cast<ADistractor>(HitResult.GetActor())->Distract();
+	const bool IsDistractorVisible = IsThereDistractor && GetWorld()->LineTraceSingleByChannel(HitResult, Camera->GetComponentLocation(), Distractor->GetActorLocation(),
+		ECC_Visibility, { }) && HitResult.GetActor() == Distractor;
+		
+	if (!IsDistractorVisible && CurrentDistractor != nullptr)
+		ClearDistractor();
+	
+	if (IsDistractorVisible && CurrentDistractor != Distractor && Distractor->GetCanDistract())
+		SetDistractor(Distractor);
+}
+
+void UCharacterDistractingComponent::ClearDistractor()
+{
+	if (const auto Mesh = CurrentDistractor->GetComponentByClass<UStaticMeshComponent>(); IsValid(Mesh))
+	{
+		Mesh->SetRenderCustomDepth(false);
+		Mesh->SetCustomDepthStencilValue(0);
+	}
+	
+	CurrentDistractor = nullptr;
+}
+
+void UCharacterDistractingComponent::SetDistractor(ADistractor* NewDistractor)
+{
+	CurrentDistractor = NewDistractor;
+		
+	if (const auto Mesh = CurrentDistractor->GetComponentByClass<UStaticMeshComponent>(); IsValid(Mesh))
+	{
+		Mesh->SetRenderCustomDepth(true);
+		Mesh->SetCustomDepthStencilValue(1);
+	}
 }
 

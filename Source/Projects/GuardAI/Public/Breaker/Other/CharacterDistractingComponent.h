@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Environment/Distractor.h"
 #include "CharacterDistractingComponent.generated.h"
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
@@ -13,6 +14,7 @@ class GUARDAI_API UCharacterDistractingComponent : public UActorComponent
 
 public: 
 	UCharacterDistractingComponent();
+	void Distract();
 
 protected:
 	virtual void BeginPlay() override;
@@ -21,4 +23,13 @@ protected:
 private:
 	UPROPERTY()
 	class ABreakerCharacter *Character = nullptr;
+
+	UPROPERTY(BlueprintReadOnly, meta=(AllowPrivateAccess))
+	ADistractor *CurrentDistractor = nullptr;
+
+	UPROPERTY(EditDefaultsOnly)
+	float CheckingSphereRadius = 300;
+
+	void ClearDistractor();
+	void SetDistractor(ADistractor *NewDistractor);
 };

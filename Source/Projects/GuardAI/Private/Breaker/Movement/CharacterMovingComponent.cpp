@@ -24,5 +24,5 @@ void UCharacterMovingComponent::Move(const FVector2D Input) const
 	Character->AddMovementInput(UKismetMathLibrary::GetForwardVector(Character->GetControlRotation()), Input.Y);
 
 	if (IsMakingNoise && !Character->GetCrouchingComponent()->GetIsCrouching() && !Character->GetCharacterMovement()->IsFalling())
-		UAISense_Hearing::ReportNoiseEvent(GetWorld(), Character->GetActorLocation(), 1, Character, 0);
+		UAISense_Hearing::ReportNoiseEvent(GetWorld(), Character->GetActorLocation(), 1, Character);
 }

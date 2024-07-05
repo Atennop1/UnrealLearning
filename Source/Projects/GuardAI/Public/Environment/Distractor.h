@@ -13,9 +13,21 @@ class GUARDAI_API ADistractor : public AActor
 
 public:
 	ADistractor();
-	void Distract() const;
+
+	bool GetCanDistract() const { return CanDistract; }
+	void Distract();
 
 private:
 	UPROPERTY(EditAnywhere)
 	float Loudness = 1;
+
+	UPROPERTY(EditAnywhere)
+	float DistractingTime;
+
+	UPROPERTY(EditAnywhere)
+	USoundBase *DistractSound = nullptr;
+
+	UPROPERTY(EditInstanceOnly)
+	TArray<AActor*> DistractPositions;
+	bool CanDistract = true;
 };

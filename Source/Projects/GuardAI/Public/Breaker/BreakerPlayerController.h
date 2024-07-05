@@ -39,10 +39,14 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	UInputAction *StopCrouchAction;
 
+	UPROPERTY(EditDefaultsOnly)
+	UInputAction *DistractAction;
+
 	void CallMove(const FInputActionValue &Value);
 	void CallRotate(const FInputActionValue &Value);
 	void CallStartJumping(const FInputActionValue &Value);
 	void CallStopJumping(const FInputActionValue &Value);
 	void CallStartCrouch(const FInputActionValue &Value);
 	void CallStopCrouch(const FInputActionValue &Value);
+	void CallDistract(const FInputActionValue &Value);
 };
