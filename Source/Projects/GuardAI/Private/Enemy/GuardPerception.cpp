@@ -36,7 +36,12 @@ void UGuardPerception::OnPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
 		return;
 
 	if (Stimulus.Type == UAISense::GetSenseID<UAISense_Prediction>())
-		Controller->GetBlackboardComponent()->SetValueAsVector(PredictionLocationVariableName, Stimulus.StimulusLocation);
+	{
+		Controller->GetBlackboardComponent()->SetValueAsBool(IsPredictingPlayerVariableName, Stimulus.WasSuccessfullySensed());
+		
+		if (Stimulus.WasSuccessfullySensed())
+			Controller->GetBlackboardComponent()->SetValueAsVector(PredictionLocationVariableName, Stimulus.StimulusLocation);
+	}
 	
 	if (Stimulus.Type == UAISense::GetSenseID<UAISense_Hearing>())
 	{

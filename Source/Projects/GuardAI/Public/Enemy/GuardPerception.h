@@ -25,6 +25,9 @@ private:
 
 	UPROPERTY(EditDefaultsOnly)
 	FName IsHearingPlayerVariableName = "IsHearingPlayer";
+
+	UPROPERTY(EditDefaultsOnly)
+	FName IsPredictingPlayerVariableName = "IsPredictingPlayer";
 	
 	UPROPERTY(EditDefaultsOnly)
 	FName CanSeePlayerVariableName = "CanSeePlayer";

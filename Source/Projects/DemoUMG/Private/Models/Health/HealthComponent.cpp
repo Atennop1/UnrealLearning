@@ -1,9 +1,9 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
 #include "Models/Health/HealthComponent.h"
-
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/Character.h"
+#include "Kismet/GameplayStatics.h"
 
 UHealthComponent::UHealthComponent()
 {
@@ -31,10 +31,16 @@ void UHealthComponent::Damage(const int DamageAmount)
 	
 	CurrentHealth -= DamageAmount;
 	OnHealthChanged.Execute(CurrentHealth, MaxHealth);
-	
-	if (CurrentHealth > 0)
-		return;
 
+	if (DamageSound != nullptr)
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(), DamageSound, GetOwner()->GetActorLocation());
+	
+	if (CurrentHealth <= 0)
+		Die();
+}
+
+void UHealthComponent::Die()
+{
 	bIsDead = true;
 	CurrentHealth = 0;
 

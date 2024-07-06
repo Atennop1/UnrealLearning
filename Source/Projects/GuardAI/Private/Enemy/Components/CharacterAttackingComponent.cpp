@@ -2,6 +2,7 @@
 
 #include "Enemy/Components/CharacterAttackingComponent.h"
 #include "Enemy/GuardCharacter.h"
+#include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "Models/Health/HealthComponent.h"
 
@@ -45,8 +46,11 @@ void UCharacterAttackingComponent::OnMontageNotifyBegin(FName NotifyName, const 
 		return;
 	
 	FHitResult Hit;
+	TArray<AActor*> Actors;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AGuardCharacter::StaticClass(), Actors);
+	
 	const bool WasHit = UKismetSystemLibrary::SphereTraceSingleForObjects(GetWorld(), Character->GetActorLocation(), Character->GetActorLocation() + Character->GetActorForwardVector() * AttackLength,
-		AttackRadius, TArray<TEnumAsByte<EObjectTypeQuery>> { ObjectTypeQuery3 }, false, { Character }, EDrawDebugTrace::None, Hit, true);
+		AttackRadius, TArray<TEnumAsByte<EObjectTypeQuery>> { ObjectTypeQuery3 }, false, Actors, EDrawDebugTrace::None, Hit, true);
 
 	if (WasHit) if (const auto Health = Hit.GetActor()->GetComponentByClass<UHealthComponent>(); Health != nullptr)
 		Health->Damage(Damage);

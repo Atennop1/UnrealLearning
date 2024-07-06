@@ -32,5 +32,10 @@ private:
 	int MaxHealth = 0;
 	int CurrentHealth = 0;
 
+	UPROPERTY(EditDefaultsOnly)
+	USoundBase *DamageSound = nullptr;
+
+	UFUNCTION()
+	void Die();
 	bool bIsDead = false;
 };
