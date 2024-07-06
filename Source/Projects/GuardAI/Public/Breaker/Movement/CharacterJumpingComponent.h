@@ -26,7 +26,4 @@ private:
 
 	UPROPERTY(EditDefaultsOnly)
 	bool IsMakingNoise = false;
-
-	UFUNCTION()
-	void OnLanded(const FHitResult& Hit);
 };

@@ -24,7 +24,7 @@ public class GuardAI : ModuleRules
                 "CoreUObject",
                 "Engine",
                 "Slate",
-                "SlateCore", "AITestSuite"
+                "SlateCore"
             }
         );
     }

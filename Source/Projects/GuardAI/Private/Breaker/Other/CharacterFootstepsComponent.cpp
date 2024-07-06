@@ -4,6 +4,7 @@
 #include "Components/CapsuleComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "Perception/AISense_Hearing.h"
 
 UCharacterFootstepsComponent::UCharacterFootstepsComponent()
 {
@@ -36,6 +37,7 @@ void UCharacterFootstepsComponent::PlayFootstep()
 	{
 		CanFootstep = false;
 		UGameplayStatics::PlaySoundAtLocation(GetWorld(), FootstepsCue, HitResult.Location);
+		UAISense_Hearing::ReportNoiseEvent(GetWorld(), Character->GetActorLocation(), 1, Character, 0);
 		GetWorld()->GetTimerManager().SetTimer(FootstepCooldownHandle, [&] { CanFootstep = true; }, FootstepCooldown, false);
 	}
 }

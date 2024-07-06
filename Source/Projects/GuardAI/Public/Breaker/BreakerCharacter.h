@@ -10,10 +10,11 @@
 #include "Movement/CharacterMovingComponent.h"
 #include "Movement/CharacterRotatingComponent.h"
 #include "Other/CharacterDistractingComponent.h"
+#include "Perception/AISightTargetInterface.h"
 #include "BreakerCharacter.generated.h"
 
 UCLASS()
-class GUARDAI_API ABreakerCharacter : public ACharacter
+class GUARDAI_API ABreakerCharacter : public ACharacter, public IAISightTargetInterface
 {
 	GENERATED_BODY()
 	
@@ -47,5 +48,7 @@ private:
 	UCharacterDistractingComponent *DistractingComponent = nullptr;
 
 	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess=true))
-	UCharacterGamePausingComponent *GamePausingComponent;
+	UCharacterGamePausingComponent *GamePausingComponent = nullptr;
+
+	virtual bool CanBeSeenFrom(const FVector& ObserverLocation, FVector& OutSeenLocation, int32& NumberOfLoSChecksPerformed, float& OutSightStrength, const AActor* IgnoreActor, const bool* bWasVisible, int32* UserData) const override;
 };

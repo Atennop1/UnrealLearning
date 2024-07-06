@@ -19,5 +19,5 @@ public:
 private:
 	UPROPERTY(EditInstanceOnly, meta=(AllowPrivateAccess))
 	TArray<APatrolPoint*> Points;
-	int CurrentPointIndex = 0;
+	int CurrentPointIndex = -1;
 };

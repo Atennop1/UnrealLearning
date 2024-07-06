@@ -30,6 +30,7 @@ EBTNodeResult::Type UCallForHelpTask::ExecuteTask(UBehaviorTreeComponent& OwnerC
 
 		if (EnemyActor != OwnerComp.GetAIOwner()->GetPawn())
 		{
+			EnemyController->GetBlackboardComponent()->SetValueAsBool(IsCalledForHelpKey.SelectedKeyName, false);
 			EnemyController->GetBlackboardComponent()->SetValueAsBool(IsCalledForHelpKey.SelectedKeyName, true);
 			EnemyController->GetBlackboardComponent()->SetValueAsVector(CallLocationKey.SelectedKeyName, Target->GetActorLocation());
 		}

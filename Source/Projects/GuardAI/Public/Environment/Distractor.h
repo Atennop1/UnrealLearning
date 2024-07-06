@@ -22,9 +22,6 @@ private:
 	float Loudness = 1;
 
 	UPROPERTY(EditAnywhere)
-	float DistractingTime;
-
-	UPROPERTY(EditAnywhere)
 	USoundBase *DistractSound = nullptr;
 
 	UPROPERTY(EditInstanceOnly)

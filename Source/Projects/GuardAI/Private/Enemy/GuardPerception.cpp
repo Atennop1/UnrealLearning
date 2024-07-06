@@ -45,6 +45,7 @@ void UGuardPerception::OnPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
 	
 	if (Stimulus.Type == UAISense::GetSenseID<UAISense_Hearing>())
 	{
+		Controller->GetBlackboardComponent()->SetValueAsBool(IsHearingPlayerVariableName, false);
 		Controller->GetBlackboardComponent()->SetValueAsBool(IsHearingPlayerVariableName, Stimulus.WasSuccessfullySensed());
 		
 		if (Stimulus.WasSuccessfullySensed())
@@ -54,6 +55,9 @@ void UGuardPerception::OnPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
 	if (Cast<ABreakerCharacter>(SensedActor)->IsPlayerControlled() && Stimulus.Type == UAISense::GetSenseID<UAISense_Sight>())
 	{
 		Controller->GetBlackboardComponent()->SetValueAsBool(CanSeePlayerVariableName, Stimulus.WasSuccessfullySensed());
+
+		if (Stimulus.WasSuccessfullySensed())
+			GEngine->AddOnScreenDebugMessage(-1, 9, FColor::Cyan, GetOwner()->GetName());
 		
 		if (Stimulus.WasSuccessfullySensed())
 		{

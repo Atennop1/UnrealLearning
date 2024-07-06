@@ -46,7 +46,7 @@ void UCharacterDistractingComponent::TickComponent(float DeltaTime, ELevelTick T
 	const bool IsDistractorVisible = IsThereDistractor && GetWorld()->LineTraceSingleByChannel(HitResult, Camera->GetComponentLocation(), Distractor->GetActorLocation(),
 		ECC_Visibility, { }) && HitResult.GetActor() == Distractor;
 		
-	if (!IsDistractorVisible && CurrentDistractor != nullptr)
+	if (CurrentDistractor != Distractor && CurrentDistractor != nullptr)
 		ClearDistractor();
 	
 	if (IsDistractorVisible && CurrentDistractor != Distractor && Distractor->GetCanDistract() && UKismetMathLibrary::Vector_Distance(Character->GetActorLocation(), Distractor->GetActorLocation()) <= MaximumDistance)
