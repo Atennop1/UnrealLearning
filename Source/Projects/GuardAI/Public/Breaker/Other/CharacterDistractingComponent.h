@@ -30,6 +30,9 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	float CheckingSphereRadius = 300;
 
+	UPROPERTY(EditDefaultsOnly)
+	float MaximumDistance = 750;
+
 	void ClearDistractor();
 	void SetDistractor(ADistractor *NewDistractor);
 };

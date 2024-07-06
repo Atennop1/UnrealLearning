@@ -4,6 +4,7 @@
 #include "Camera/CameraComponent.h"
 #include "Enemy/GuardCharacter.h"
 #include "Environment/Distractor.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "Kismet/KismetSystemLibrary.h"
 
 UCharacterDistractingComponent::UCharacterDistractingComponent()
@@ -48,7 +49,7 @@ void UCharacterDistractingComponent::TickComponent(float DeltaTime, ELevelTick T
 	if (!IsDistractorVisible && CurrentDistractor != nullptr)
 		ClearDistractor();
 	
-	if (IsDistractorVisible && CurrentDistractor != Distractor && Distractor->GetCanDistract())
+	if (IsDistractorVisible && CurrentDistractor != Distractor && Distractor->GetCanDistract() && UKismetMathLibrary::Vector_Distance(Character->GetActorLocation(), Distractor->GetActorLocation()) <= MaximumDistance)
 		SetDistractor(Distractor);
 }
 

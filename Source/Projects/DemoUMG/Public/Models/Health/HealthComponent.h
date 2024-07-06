@@ -33,9 +33,17 @@ private:
 	int CurrentHealth = 0;
 
 	UPROPERTY(EditDefaultsOnly)
+	float DeathDelay;
+	
+	UPROPERTY(EditDefaultsOnly)
 	USoundBase *DamageSound = nullptr;
 
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<UUserWidget> DeathWidgetClass;
+	
+	FTimerHandle DyingTimerHandle;
+	bool bIsDead = false;
+	
 	UFUNCTION()
 	void Die();
-	bool bIsDead = false;
 };

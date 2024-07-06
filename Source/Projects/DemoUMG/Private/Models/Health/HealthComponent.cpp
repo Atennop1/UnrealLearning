@@ -1,6 +1,8 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
 #include "Models/Health/HealthComponent.h"
+
+#include "Blueprint/UserWidget.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/Character.h"
 #include "Kismet/GameplayStatics.h"
@@ -22,6 +24,7 @@ void UHealthComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	Super::EndPlay(EndPlayReason);
 	OnHealthChanged.Unbind();
+	GetWorld()->GetTimerManager().ClearTimer(DyingTimerHandle);
 }
 
 void UHealthComponent::Damage(const int DamageAmount)
@@ -47,6 +50,15 @@ void UHealthComponent::Die()
 	const ACharacter *Character = Cast<ACharacter>(GetOwner());
 	Character->GetMesh()->SetAllBodiesSimulatePhysics(true);
 	Character->GetCapsuleComponent()->DestroyComponent();
+
+	GetWorld()->GetTimerManager().SetTimer(DyingTimerHandle, [&]
+	{
+		if (DeathWidgetClass == nullptr)
+			return;
+			
+		const auto Widget = CreateWidget(GetWorld(), DeathWidgetClass);
+		Widget->AddToViewport();
+	}, DeathDelay, false);
 }
 
 void UHealthComponent::Heal(const int HealAmount)
