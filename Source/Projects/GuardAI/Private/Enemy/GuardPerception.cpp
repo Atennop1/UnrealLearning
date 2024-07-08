@@ -57,9 +57,6 @@ void UGuardPerception::OnPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
 		Controller->GetBlackboardComponent()->SetValueAsBool(CanSeePlayerVariableName, Stimulus.WasSuccessfullySensed());
 
 		if (Stimulus.WasSuccessfullySensed())
-			GEngine->AddOnScreenDebugMessage(-1, 9, FColor::Cyan, GetOwner()->GetName());
-		
-		if (Stimulus.WasSuccessfullySensed())
 		{
 			GetWorld()->GetTimerManager().ClearTimer(ChasingTimerHandle);
 			Controller->GetBlackboardComponent()->SetValueAsObject(TargetVariableName, SensedActor);
