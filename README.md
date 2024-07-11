@@ -1,1 +1,1 @@
-Project for learning UE5 by practice in different aspects of an engine
+A collection of first steps into various aspects of Unreal and mini-projects that I do to learn the engine
