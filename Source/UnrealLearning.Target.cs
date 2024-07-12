@@ -15,6 +15,6 @@ public class UnrealLearningTarget : TargetRules
 
 	private void RegisterModulesCreatedByRider()
 	{
-		ExtraModuleNames.AddRange(new string[] { "Minecraft", "PickupsTest", "DataTablesTest", "SavingTest", "Portals", "DemoUMG", "GuardAI", "ThirdPerson" });
+		ExtraModuleNames.AddRange(new string[] { "Minecraft", "PickupsTest", "DataTablesTest", "SavingTest", "Portals", "DemoUMG", "GuardAI", "ThirdPerson", "DemoEffects" });
 	}
 }

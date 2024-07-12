@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
 #include "InputActionValue.h"
+#include "GameFramework/Character.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "ThirdPersonCharacter.generated.h"
 
 UCLASS(config=Game)
-class AThirdPersonCharacter : public ACharacter
+class THIRDPERSON_API AThirdPersonCharacter : public ACharacter
 {
 	GENERATED_BODY()
 	
@@ -21,8 +21,8 @@ public:
 	FORCEINLINE UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 
 protected:
-	void Move(const FInputActionValue& Value);
-	void Look(const FInputActionValue& Value);
+	virtual void Move(const FInputActionValue& Value);
+	virtual void Look(const FInputActionValue& Value);
 	
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 	virtual void BeginPlay() override;
