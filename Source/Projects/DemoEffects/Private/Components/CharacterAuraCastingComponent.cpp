@@ -4,7 +4,7 @@
 
 UCharacterAuraCastingComponent::UCharacterAuraCastingComponent()
 {
-	PrimaryComponentTick.bCanEverTick = false;
+	PrimaryComponentTick.bCanEverTick = true;
 }
 
 void UCharacterAuraCastingComponent::BeginPlay()
@@ -15,6 +15,16 @@ void UCharacterAuraCastingComponent::BeginPlay()
 
 	UAnimInstance *AnimationInstance = Character->GetMesh()->GetAnimInstance();
 	AnimationInstance->OnPlayMontageNotifyBegin.AddDynamic(this, &UCharacterAuraCastingComponent::OnMontageNotifyBegin);
+
+	FOnTimelineFloat OnTimelineFloat;
+	OnTimelineFloat.BindUFunction(this, "OnTimelineUpdated");
+	AuraAppearingTimeline.AddInterpFloat(AuraAppearingCurve, OnTimelineFloat);
+}
+
+void UCharacterAuraCastingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+	AuraAppearingTimeline.TickTimeline(DeltaTime);
 }
 
 void UCharacterAuraCastingComponent::CastAura()
@@ -31,21 +41,37 @@ void UCharacterAuraCastingComponent::CastAura()
 
 void UCharacterAuraCastingComponent::OnMontageNotifyBegin(FName NotifyName, const FBranchingPointNotifyPayload& BranchingPointNotifyPayload)
 {
-	if (NotifyName != "Cast")
+	if (NotifyName == "AllowMove")
+	{
+		Character->SetCanMove(true);
+		return;
+	}
+	
+	if (NotifyName != "CastAura")
 		return;
 
 	bIsActive = !bIsActive;
 	bIsCasting = false;
-	Character->SetCanMove(true);      
 	
-	if (bIsActive)
+	if (!bIsActive)
 	{
-		const FTransform SpawnTransform = FTransform(FRotator(), Character->GetActorLocation() + AuraSpawnLocation, AuraSpawnSize);
-		SpawnedAuraActor = GetWorld()->SpawnActor(AuraClass, &SpawnTransform);
-		
-		SpawnedAuraActor->AttachToActor(Character, FAttachmentTransformRules(EAttachmentRule::KeepWorld, EAttachmentRule::KeepWorld, EAttachmentRule::KeepWorld, false));
+		AuraAppearingTimeline.Reverse();
 		return;
 	}
 	
-	GetWorld()->DestroyActor(SpawnedAuraActor);
+	const FVector SpawnLocation = Character->GetActorLocation() + AuraSpawnLocation;
+	SpawnedAuraActor = GetWorld()->SpawnActor(AuraClass, &SpawnLocation);
+		
+	SpawnedAuraActor->AttachToComponent(Character->GetMesh(), FAttachmentTransformRules::KeepWorldTransform);
+	AuraAppearingTimeline.Play();
+}
+
+// ReSharper disable once CppMemberFunctionMayBeConst
+void UCharacterAuraCastingComponent::OnTimelineUpdated(float Alpha)
+{
+	if (IsValid(SpawnedAuraActor))
+		SpawnedAuraActor->SetActorScale3D(AuraSpawnSize * Alpha);
+
+	if (Alpha == 0)
+		GetWorld()->DestroyActor(SpawnedAuraActor);
 }

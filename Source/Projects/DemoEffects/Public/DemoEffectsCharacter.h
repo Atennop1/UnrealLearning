@@ -18,12 +18,13 @@ public:
 	class UCharacterAuraCastingComponent *GetCharacterAuraCastingComponent() const { return CharacterAuraCastingComponent; }
 
 protected:
+	virtual void Jump() override;
 	virtual void Move(const FInputActionValue& Value) override;
 	virtual void BeginPlay() override;
 
 private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess))
-	UCharacterAuraCastingComponent *CharacterAuraCastingComponent;
+	UCharacterAuraCastingComponent *CharacterAuraCastingComponent = nullptr;
 	
 	bool bCanMove = true;
 };

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "DemoEffectsCharacter.h"
 #include "Components/ActorComponent.h"
+#include "Components/TimelineComponent.h"
 #include "CharacterAuraCastingComponent.generated.h"
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
@@ -18,6 +19,7 @@ public:
 
 protected: 
 	virtual void BeginPlay() override;
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
 	UPROPERTY()
@@ -40,6 +42,13 @@ private:
 	bool bIsCasting = false;
 	bool bIsActive = false;
 
+	UPROPERTY(EditDefaultsOnly)
+	UCurveFloat *AuraAppearingCurve = nullptr;
+	FTimeline AuraAppearingTimeline;
+
 	UFUNCTION()
 	void OnMontageNotifyBegin(FName NotifyName, const FBranchingPointNotifyPayload& BranchingPointNotifyPayload);
+
+	UFUNCTION()
+	void OnTimelineUpdated(float Alpha);
 };
