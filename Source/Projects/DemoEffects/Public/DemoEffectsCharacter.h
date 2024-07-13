@@ -15,7 +15,8 @@ public:
 	ADemoEffectsCharacter();
 	void SetCanMove(const bool bNewCanMove) { bCanMove = bNewCanMove; }
 
-	class UCharacterAuraCastingComponent *GetCharacterAuraCastingComponent() const { return CharacterAuraCastingComponent; }
+	class UCharacterAuraCastingComponent *GetAuraCastingComponent() const { return AuraCastingComponent; }
+	class UCharacterBlastingComponent *GetBlastingComponent() const { return BlastingComponent; }
 
 protected:
 	virtual void Jump() override;
@@ -24,7 +25,10 @@ protected:
 
 private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess))
-	UCharacterAuraCastingComponent *CharacterAuraCastingComponent = nullptr;
+	UCharacterAuraCastingComponent *AuraCastingComponent = nullptr;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess))
+	UCharacterBlastingComponent *BlastingComponent = nullptr;
 	
 	bool bCanMove = true;
 };

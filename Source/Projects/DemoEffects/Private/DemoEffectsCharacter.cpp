@@ -2,6 +2,7 @@
 
 #include "DemoEffectsCharacter.h"
 #include "Components/CharacterAuraCastingComponent.h"
+#include "Components/CharacterBlastingComponent.h"
 
 ADemoEffectsCharacter::ADemoEffectsCharacter()
 {
@@ -23,5 +24,6 @@ void ADemoEffectsCharacter::Move(const FInputActionValue& Value)
 void ADemoEffectsCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	check(IsValid(CharacterAuraCastingComponent))
+	check(IsValid(AuraCastingComponent))
+	check(IsValid(BlastingComponent))
 }

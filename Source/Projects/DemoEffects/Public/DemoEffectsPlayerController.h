@@ -25,5 +25,9 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	UInputAction *CastAuraAction;
 
+	UPROPERTY(EditDefaultsOnly)
+	UInputAction *BlastAction;
+
 	void CallCastAura(const FInputActionValue &Value);
+	void CallBlast(const FInputActionValue &Value);
 };
