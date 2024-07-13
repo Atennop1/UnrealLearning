@@ -1,6 +1,7 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
 #include "Components/CharacterBlastingComponent.h"
+#include "Components/CharacterAuraCastingComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 
 UCharacterBlastingComponent::UCharacterBlastingComponent()
@@ -20,7 +21,7 @@ void UCharacterBlastingComponent::BeginPlay()
 
 void UCharacterBlastingComponent::Blast()
 {
-	if (bIsBlasting)
+	if (bIsBlasting  || Character->GetAuraCastingComponent()->GetIsCasting())
 		return;
 
 	bIsBlasting = true;

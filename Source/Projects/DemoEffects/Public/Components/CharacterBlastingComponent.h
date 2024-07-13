@@ -14,7 +14,9 @@ class DEMOEFFECTS_API UCharacterBlastingComponent : public UActorComponent
 
 public: 
 	UCharacterBlastingComponent();
+	
 	void Blast();
+	bool GetIsBlasting() const { return bIsBlasting; }
 
 protected: 
 	virtual void BeginPlay() override;

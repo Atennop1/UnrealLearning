@@ -1,6 +1,7 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
 #include "Components/CharacterAuraCastingComponent.h"
+#include "Components/CharacterBlastingComponent.h"
 
 UCharacterAuraCastingComponent::UCharacterAuraCastingComponent()
 {
@@ -29,7 +30,7 @@ void UCharacterAuraCastingComponent::TickComponent(float DeltaTime, ELevelTick T
 
 void UCharacterAuraCastingComponent::CastAura()
 {
-	if (bIsCasting)
+	if (bIsCasting || Character->GetBlastingComponent()->GetIsBlasting())
 		return;
 
 	bIsCasting = true;           

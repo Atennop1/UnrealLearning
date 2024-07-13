@@ -15,7 +15,9 @@ class DEMOEFFECTS_API UCharacterAuraCastingComponent : public UActorComponent
 
 public: 
 	UCharacterAuraCastingComponent();
+	
 	void CastAura();
+	bool GetIsCasting() const { return bIsCasting; }
 
 protected: 
 	virtual void BeginPlay() override;
