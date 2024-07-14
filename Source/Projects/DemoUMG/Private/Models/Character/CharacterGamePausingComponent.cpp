@@ -11,7 +11,7 @@ UCharacterGamePausingComponent::UCharacterGamePausingComponent()
 }
 
 // ReSharper disable once CppMemberFunctionMayBeConst
-void UCharacterGamePausingComponent::OnPauseActionTriggered(const FInputActionValue& Binding)
+void UCharacterGamePausingComponent::Pause()
 {
 	APlayerController *PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 	

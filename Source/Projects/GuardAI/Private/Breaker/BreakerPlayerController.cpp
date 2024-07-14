@@ -26,7 +26,7 @@ void ABreakerPlayerController::OnPossess(APawn *PossessingPawn)
 	EnhancedInputComponent->BindAction(StartCrouchAction, ETriggerEvent::Triggered, this, &ABreakerPlayerController::CallStartCrouch);
 	EnhancedInputComponent->BindAction(StopCrouchAction, ETriggerEvent::Completed, this, &ABreakerPlayerController::CallStopCrouch);
 	EnhancedInputComponent->BindAction(DistractAction, ETriggerEvent::Triggered, this, &ABreakerPlayerController::CallDistract);
-	EnhancedInputComponent->BindAction(PauseAction, ETriggerEvent::Triggered, PossessedCharacter->GetPausingComponent(), &UCharacterGamePausingComponent::OnPauseActionTriggered);
+	EnhancedInputComponent->BindAction(PauseAction, ETriggerEvent::Triggered, PossessedCharacter->GetPausingComponent(), &UCharacterGamePausingComponent::Pause);
 }
 
 // ReSharper disable once CppMemberFunctionMayBeConst

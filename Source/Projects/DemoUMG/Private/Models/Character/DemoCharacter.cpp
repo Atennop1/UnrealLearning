@@ -25,6 +25,6 @@ void ADemoCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	}
 
 	auto *EnhancedInputComponent = Cast<UEnhancedInputComponent>(InputComponent);
-	EnhancedInputComponent->BindAction(PauseInputAction, ETriggerEvent::Triggered, GamePausingComponent, &UCharacterGamePausingComponent::OnPauseActionTriggered);
+	EnhancedInputComponent->BindAction(PauseInputAction, ETriggerEvent::Triggered, GamePausingComponent, &UCharacterGamePausingComponent::Pause);
 }
 

@@ -13,8 +13,8 @@ class DEMOUMG_API UCharacterGamePausingComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:
-	UFUNCTION()
-	void OnPauseActionTriggered(const FInputActionValue& Binding);
+	UFUNCTION(BlueprintCallable)
+	void Pause();
 	
 	UCharacterGamePausingComponent();
 
