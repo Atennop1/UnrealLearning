@@ -28,7 +28,7 @@ private:
 	ABreakerCharacter *Character = nullptr;
 
 	UPROPERTY(EditDefaultsOnly)
-	USoundCue *FootstepsCue = nullptr;
+	USoundBase *FootstepsSound = nullptr;
 
 	UPROPERTY(EditDefaultsOnly)
 	float FootstepCooldown = 0.2f;

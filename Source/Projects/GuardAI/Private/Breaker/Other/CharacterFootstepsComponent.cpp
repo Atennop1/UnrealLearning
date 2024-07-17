@@ -36,7 +36,7 @@ void UCharacterFootstepsComponent::PlayFootstep()
 	if (WasHit)
 	{
 		CanFootstep = false;
-		UGameplayStatics::PlaySoundAtLocation(GetWorld(), FootstepsCue, HitResult.Location);
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(), FootstepsSound, HitResult.Location);
 		UAISense_Hearing::ReportNoiseEvent(GetWorld(), Character->GetActorLocation(), 1, Character, 0);
 		GetWorld()->GetTimerManager().SetTimer(FootstepCooldownHandle, [&] { CanFootstep = true; }, FootstepCooldown, false);
 	}

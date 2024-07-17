@@ -33,7 +33,7 @@ private:
 	int CurrentHealth = 0;
 
 	UPROPERTY(EditDefaultsOnly)
-	float DeathDelay;
+	float DeathDelay = 3;
 	
 	UPROPERTY(EditDefaultsOnly)
 	USoundBase *DamageSound = nullptr;

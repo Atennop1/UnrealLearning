@@ -17,7 +17,7 @@ void UHealthComponent::BeginPlay()
 {
 	Super::BeginPlay();
 	CurrentHealth = MaxHealth;
-	OnHealthChanged.Execute(CurrentHealth, MaxHealth);
+	OnHealthChanged.ExecuteIfBound(CurrentHealth, MaxHealth);
 }
 
 void UHealthComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
@@ -33,7 +33,7 @@ void UHealthComponent::Damage(const int DamageAmount)
 		return;
 	
 	CurrentHealth -= DamageAmount;
-	OnHealthChanged.Execute(CurrentHealth, MaxHealth);
+	OnHealthChanged.ExecuteIfBound(CurrentHealth, MaxHealth);
 
 	if (DamageSound != nullptr)
 		UGameplayStatics::PlaySoundAtLocation(GetWorld(), DamageSound, GetOwner()->GetActorLocation());
