@@ -13,10 +13,13 @@ class DEMOUMG_API UChangeVolumeWidget : public UUserWidget
 	GENERATED_BODY()
 
 private:
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditInstanceOnly)
+	FString SlotName = "Volume";
+	
+	UPROPERTY(EditAnywhere)
 	USoundMix *SoundMixModifier;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditAnywhere)
 	USoundClass *SoundClass;
 	
 	UPROPERTY(meta=(BindWidget))

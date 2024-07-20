@@ -9,10 +9,10 @@ void UChangeVolumeWidget::NativeConstruct()
 	Super::NativeConstruct();
 	VolumeSlider->OnValueChanged.AddDynamic(this, &UChangeVolumeWidget::OnVolumeChanged);
 
-	if (!UGameplayStatics::DoesSaveGameExist("Volume", 0))
+	if (!UGameplayStatics::DoesSaveGameExist(SlotName, 0))
 		return;
 	
-	const auto Save = Cast<UVolumeSaveGame>(UGameplayStatics::LoadGameFromSlot("Volume", 0));
+	const auto Save = Cast<UVolumeSaveGame>(UGameplayStatics::LoadGameFromSlot(SlotName, 0));
 	VolumeSlider->SetValue(Save->Volume);
 }
 
@@ -24,5 +24,5 @@ void UChangeVolumeWidget::OnVolumeChanged(float Volume)
 
 	const auto Save = Cast<UVolumeSaveGame>(UGameplayStatics::CreateSaveGameObject(UVolumeSaveGame::StaticClass()));
 	Save->Volume = Volume;
-	UGameplayStatics::SaveGameToSlot(Save, "Volume", 0);
+	UGameplayStatics::SaveGameToSlot(Save, SlotName, 0);
 }
