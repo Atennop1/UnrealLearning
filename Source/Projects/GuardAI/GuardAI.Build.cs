@@ -22,6 +22,7 @@ public class GuardAI : ModuleRules
             new string[]
             {
                 "CoreUObject",
+                "PhysicsCore",
                 "Engine",
                 "Slate",
                 "SlateCore"

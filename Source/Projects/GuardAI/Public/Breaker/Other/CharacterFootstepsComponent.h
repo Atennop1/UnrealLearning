@@ -21,17 +21,11 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
-	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 	
 private:
 	UPROPERTY()
 	ABreakerCharacter *Character = nullptr;
 
 	UPROPERTY(EditDefaultsOnly)
-	USoundBase *FootstepsSound = nullptr;
-
-	UPROPERTY(EditDefaultsOnly)
-	float FootstepCooldown = 0.2f;
-	bool CanFootstep = true;
-	FTimerHandle FootstepCooldownHandle;
+	TMap<TEnumAsByte<EPhysicalSurface>, USoundBase*> FootstepsSounds;
 };
