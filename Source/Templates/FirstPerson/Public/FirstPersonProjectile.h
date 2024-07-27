@@ -14,6 +14,7 @@ class FIRSTPERSON_API AFirstPersonProjectile : public AActor
 {
 	GENERATED_BODY()
 
+protected:
 	UPROPERTY(VisibleDefaultsOnly, Category=Projectile)
 	USphereComponent* CollisionComp;
 
