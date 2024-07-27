@@ -21,6 +21,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movement, meta = (AllowPrivateAccess = "true"))
 	UProjectileMovementComponent* ProjectileMovement;
 
+	UPROPERTY(EditDefaultsOnly)
+	float ImpulsePower = 100;
+
 public:
 	AFirstPersonProjectile();
 

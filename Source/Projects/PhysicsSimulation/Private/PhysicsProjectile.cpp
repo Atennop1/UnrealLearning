@@ -22,4 +22,7 @@ void APhysicsProjectile::OnProjectileHit(UPrimitiveComponent* HitComponent, AAct
 	
 	Destructor->SetActorScale3D(DestructorSize);
 	Destructor->SetLifeSpan(1);
+
+	if (const auto MeshComponent = Cast<USkeletalMeshComponent>(OtherComp); IsValid(MeshComponent))
+		MeshComponent->SetSimulatePhysics(true);
 }
