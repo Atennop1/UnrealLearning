@@ -10,7 +10,8 @@ public class PhysicsSimulation : ModuleRules
             new string[]
             {
                 "Core",
-                "FirstPerson"
+                "FirstPerson",
+                "EnhancedInput"
             }
         );
 

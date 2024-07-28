@@ -17,8 +17,8 @@ AFirstPersonProjectile::AFirstPersonProjectile()
 
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileComp"));
 	ProjectileMovement->UpdatedComponent = CollisionComp;
-	ProjectileMovement->InitialSpeed = 300.f;
-	ProjectileMovement->MaxSpeed = 300.f;
+	ProjectileMovement->InitialSpeed = 3000.f;
+	ProjectileMovement->MaxSpeed = 3000.f;
 	ProjectileMovement->bRotationFollowsVelocity = true;
 	ProjectileMovement->bShouldBounce = true;
 
@@ -29,7 +29,7 @@ void AFirstPersonProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherAc
 {
 	if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr) && OtherComp->IsSimulatingPhysics())
 	{
-		//OtherComp->AddImpulseAtLocation(GetVelocity() * ImpulsePower, GetActorLocation());
+		OtherComp->AddImpulseAtLocation(GetVelocity() * ImpulsePower, GetActorLocation());
 		Destroy();
 	}
 }
