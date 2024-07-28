@@ -10,9 +10,6 @@ APressurePlate::APressurePlate()
 	Trigger = CreateDefaultSubobject<UBoxComponent>(TEXT("Trigger"));
 	Button = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Button"));
 	Frame = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Frame"));
-	
-	Frame->AttachToComponent(Trigger, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, false));
-	Button->AttachToComponent(Trigger, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, false));
 }
 
 void APressurePlate::BeginPlay()
@@ -20,6 +17,9 @@ void APressurePlate::BeginPlay()
 	Super::BeginPlay();
 	Activatable.SetObject(ActivatableActor);
 	Activatable.SetInterface(Cast<IActivatable>(ActivatableActor));
+	
+	Frame->AttachToComponent(Trigger, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, false));
+    Button->AttachToComponent(Trigger, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, false));
 	
 	Trigger->OnComponentBeginOverlap.AddDynamic(this, &APressurePlate::OnTriggerBeginOverlap);
 	Trigger->OnComponentEndOverlap.AddDynamic(this, &APressurePlate::OnTriggerEndOverlap);
