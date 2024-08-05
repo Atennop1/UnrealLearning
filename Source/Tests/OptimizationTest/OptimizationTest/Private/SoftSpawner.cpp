@@ -20,7 +20,7 @@ void ASoftSpawner::BeginPlay()
 void ASoftSpawner::OnTriggerBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (const auto Character = Cast<ACharacter>(OtherActor); IsValid(Character) && Character->IsPlayerControlled())
-		UAssetManager::GetStreamableManager().RequestAsyncLoad(ClassToSpawn.ToSoftObjectPath(), FStreamableDelegate::CreateUObject( this, &ASoftSpawner::SpawnActor));
+		UAssetManager::GetStreamableManager().RequestAsyncLoad(ClassToSpawn.ToSoftObjectPath(), FStreamableDelegate::CreateUObject(this, &ASoftSpawner::SpawnActor));
 }
 
 // ReSharper disable once CppMemberFunctionMayBeConst
