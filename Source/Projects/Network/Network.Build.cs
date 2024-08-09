@@ -11,7 +11,6 @@ public class Network : ModuleRules
             {
                 "Core",
                 "EnhancedInput",
-                "GuardAI"
             }
         );
 

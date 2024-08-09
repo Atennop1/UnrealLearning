@@ -4,23 +4,22 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "CharacterJumpingComponent.generated.h"
+#include "NetworkCharacterRotatingComponent.generated.h"
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
-class GUARDAI_API UCharacterJumpingComponent : public UActorComponent
+class NETWORK_API UNetworkCharacterRotatingComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
 public:
-	UCharacterJumpingComponent();
+	UNetworkCharacterRotatingComponent();
 
-	void StartJumping() const;
-	void StopJumping() const;
+	void Rotate(const FVector2D Input) const;	
 
 protected:
 	virtual void BeginPlay() override;
 
 private:
 	UPROPERTY()
-	class ABreakerCharacter *Character = nullptr;
+	class ANetworkCharacter *Character = nullptr;
 };

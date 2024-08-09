@@ -2,7 +2,6 @@
 
 #include "Breaker/Movement/CharacterJumpingComponent.h"
 #include "Breaker/BreakerCharacter.h"
-#include "Perception/AISense_Hearing.h"
 
 UCharacterJumpingComponent::UCharacterJumpingComponent()
 {

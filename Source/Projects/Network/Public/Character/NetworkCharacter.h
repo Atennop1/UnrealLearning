@@ -3,6 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Components/NetworkCharacterCrouchingComponent.h"
+#include "Components/NetworkCharacterJumpingComponent.h"
+#include "Components/NetworkCharacterMovingComponent.h"
+#include "Components/NetworkCharacterRotatingComponent.h"
 #include "GameFramework/Character.h"
 #include "NetworkCharacter.generated.h"
 
@@ -14,24 +18,24 @@ class NETWORK_API ANetworkCharacter : public ACharacter
 public:
 	ANetworkCharacter();
 	
-	class UCharacterMovingComponent *GetMovingComponent() const { return MovingComponent; }
-	class UCharacterRotatingComponent *GetRotatingComponent() const { return RotatingComponent; }
-	class UCharacterCrouchingComponent *GetCrouchingComponent() const { return CrouchingComponent; }
-	class UCharacterJumpingComponent *GetJumpingComponent() const { return JumpingComponent; }
+	UNetworkCharacterMovingComponent *GetMovingComponent() const { return MovingComponent; }
+	UNetworkCharacterRotatingComponent *GetRotatingComponent() const { return RotatingComponent; }
+	UNetworkCharacterCrouchingComponent *GetCrouchingComponent() const { return CrouchingComponent; }
+	UNetworkCharacterJumpingComponent *GetJumpingComponent() const { return JumpingComponent; }
 
 protected:
 	virtual void BeginPlay() override;
 
 private:
 	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess=true))
-	UCharacterMovingComponent *MovingComponent = nullptr;
+	UNetworkCharacterMovingComponent *MovingComponent = nullptr;
 
 	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess=true))
-	UCharacterRotatingComponent *RotatingComponent = nullptr;
+	UNetworkCharacterRotatingComponent *RotatingComponent = nullptr;
 
 	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess=true))
-	UCharacterCrouchingComponent *CrouchingComponent = nullptr;
+	UNetworkCharacterCrouchingComponent *CrouchingComponent = nullptr;
 
 	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess=true))
-	UCharacterJumpingComponent *JumpingComponent = nullptr;
+	UNetworkCharacterJumpingComponent *JumpingComponent = nullptr;
 };

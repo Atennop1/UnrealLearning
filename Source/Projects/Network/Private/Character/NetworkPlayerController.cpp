@@ -3,17 +3,14 @@
 #include "Character/NetworkPlayerController.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
-#include "Breaker/Movement/CharacterCrouchingComponent.h"
-#include "Breaker/Movement/CharacterJumpingComponent.h"
-#include "Breaker/Movement/CharacterMovingComponent.h"
-#include "Breaker/Movement/CharacterRotatingComponent.h"
 
 void ANetworkPlayerController::OnPossess(APawn* PossessingPawn)
 {
 	Super::OnPossess(PossessingPawn);
-	PossessedCharacter = Cast<ANetworkCharacter>(PossessedCharacter);
+	PossessedCharacter = Cast<ANetworkCharacter>(PossessingPawn);
 
-	if (!PossessedCharacter)
+	GEngine->AddOnScreenDebugMessage(-1, 9, FColor::Cyan, "Possess");
+	if (!IsValid(PossessedCharacter) || !IsLocalController() && GetNetMode() != NM_DedicatedServer)
 		return;
 
 	if (const auto Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
@@ -21,18 +18,23 @@ void ANetworkPlayerController::OnPossess(APawn* PossessingPawn)
 		Subsystem->ClearAllMappings();
 		Subsystem->AddMappingContext(InputMappingContext, 0);
 	}
-	
+
+	GEngine->AddOnScreenDebugMessage(-1, 9, FColor::Cyan, "Attach");
 	const auto EnhancedInputComponent = Cast<UEnhancedInputComponent>(InputComponent);
 	EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ANetworkPlayerController::CallMove);
 	EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ANetworkPlayerController::CallRotate);
-	EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ANetworkPlayerController::CallStartJumping);
+	EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ANetworkPlayerController::CallStartJumping);
 	EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ANetworkPlayerController::CallStopJumping);
-	EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Triggered, this, &ANetworkPlayerController::CallStartCrouch);
+	EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Started, this, &ANetworkPlayerController::CallStartCrouch);
 	EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Completed, this, &ANetworkPlayerController::CallStopCrouch);
 }
 
 // ReSharper disable once CppMemberFunctionMayBeConst
-void ANetworkPlayerController::CallMove(const FInputActionValue& Value) { if (IsValid(PossessedCharacter)) PossessedCharacter->GetMovingComponent()->Move(Value.Get<FVector2D>()); }
+void ANetworkPlayerController::CallMove(const FInputActionValue& Value)
+{
+	GEngine->AddOnScreenDebugMessage(-1, 9, FColor::Cyan, "CallMove");
+	if (IsValid(PossessedCharacter)) PossessedCharacter->GetMovingComponent()->Move(Value.Get<FVector2D>());
+}
 
 // ReSharper disable once CppMemberFunctionMayBeConst
 void ANetworkPlayerController::CallRotate(const FInputActionValue& Value) { if (IsValid(PossessedCharacter)) PossessedCharacter->GetRotatingComponent()->Rotate(Value.Get<FVector2D>()); }

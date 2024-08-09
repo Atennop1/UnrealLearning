@@ -4,15 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "CharacterJumpingComponent.generated.h"
+#include "NetworkCharacterJumpingComponent.generated.h"
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
-class GUARDAI_API UCharacterJumpingComponent : public UActorComponent
+class NETWORK_API UNetworkCharacterJumpingComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
 public:
-	UCharacterJumpingComponent();
+	UNetworkCharacterJumpingComponent();
 
 	void StartJumping() const;
 	void StopJumping() const;
@@ -22,5 +22,5 @@ protected:
 
 private:
 	UPROPERTY()
-	class ABreakerCharacter *Character = nullptr;
+	class ANetworkCharacter *Character = nullptr;
 };
