@@ -28,6 +28,10 @@ void ANetworkPlayerController::SetupInputComponent()
 	EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ANetworkPlayerController::CallStopJumping);
 	EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Started, this, &ANetworkPlayerController::CallStartCrouch);
 	EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Completed, this, &ANetworkPlayerController::CallStopCrouch);
+	EnhancedInputComponent->BindAction(PeekLeftAction, ETriggerEvent::Started, this, &ANetworkPlayerController::CallStartPeekingLeft);
+	EnhancedInputComponent->BindAction(PeekLeftAction, ETriggerEvent::Completed, this, &ANetworkPlayerController::CallStopPeekingLeft);
+	EnhancedInputComponent->BindAction(PeekRightAction, ETriggerEvent::Started, this, &ANetworkPlayerController::CallStartPeekingRight);
+	EnhancedInputComponent->BindAction(PeekRightAction, ETriggerEvent::Completed, this, &ANetworkPlayerController::CallStopPeekingRight);
 }
 
 // ReSharper disable once CppMemberFunctionMayBeConst
@@ -47,3 +51,15 @@ void ANetworkPlayerController::CallStartCrouch(const FInputActionValue& Value) {
 
 // ReSharper disable once CppMemberFunctionMayBeConst
 void ANetworkPlayerController::CallStopCrouch(const FInputActionValue& Value) { if (IsValid(PossessedCharacter)) PossessedCharacter->GetCrouchingComponent()->StopCrouching(); }
+
+// ReSharper disable once CppMemberFunctionMayBeConst
+void ANetworkPlayerController::CallStartPeekingLeft(const FInputActionValue& Value) { if (IsValid(PossessedCharacter)) PossessedCharacter->GetPeekingComponent()->StartPeekingLeft(); }
+
+// ReSharper disable once CppMemberFunctionMayBeConst
+void ANetworkPlayerController::CallStopPeekingLeft(const FInputActionValue& Value) { if (IsValid(PossessedCharacter)) PossessedCharacter->GetPeekingComponent()->StopPeekingLeft(); }
+
+// ReSharper disable once CppMemberFunctionMayBeConst
+void ANetworkPlayerController::CallStartPeekingRight(const FInputActionValue& Value) { if (IsValid(PossessedCharacter)) PossessedCharacter->GetPeekingComponent()->StartPeekingRight(); }
+
+// ReSharper disable once CppMemberFunctionMayBeConst
+void ANetworkPlayerController::CallStopPeekingRight(const FInputActionValue& Value) { if (IsValid(PossessedCharacter)) PossessedCharacter->GetPeekingComponent()->StopPeekingRight(); }

@@ -36,10 +36,21 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	UInputAction *CrouchAction;
 
+	UPROPERTY(EditDefaultsOnly)
+	UInputAction *PeekLeftAction;
+	
+	UPROPERTY(EditDefaultsOnly)
+	UInputAction *PeekRightAction;
+
 	void CallMove(const FInputActionValue &Value);
 	void CallRotate(const FInputActionValue &Value);
 	void CallStartJumping(const FInputActionValue &Value);
 	void CallStopJumping(const FInputActionValue &Value);
 	void CallStartCrouch(const FInputActionValue &Value);
 	void CallStopCrouch(const FInputActionValue &Value);
+
+	void CallStartPeekingLeft(const FInputActionValue &Value);
+	void CallStopPeekingLeft(const FInputActionValue &Value);
+	void CallStartPeekingRight(const FInputActionValue &Value);
+	void CallStopPeekingRight(const FInputActionValue &Value);
 };

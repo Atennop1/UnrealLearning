@@ -1,6 +1,6 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
-#include "Character/Components/NetworkCharacterJumpingComponent.h"
+#include "Character/Movement/NetworkCharacterJumpingComponent.h"
 #include "Character/NetworkCharacter.h"
 
 UNetworkCharacterJumpingComponent::UNetworkCharacterJumpingComponent()

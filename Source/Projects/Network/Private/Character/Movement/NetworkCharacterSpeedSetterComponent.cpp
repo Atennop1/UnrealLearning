@@ -1,6 +1,6 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
-#include "Character/Components/NetworkCharacterSpeedSetterComponent.h"
+#include "Character/Movement/NetworkCharacterSpeedSetterComponent.h"
 #include "Character/NetworkCharacter.h"
 #include "GameFramework/CharacterMovementComponent.h"
 

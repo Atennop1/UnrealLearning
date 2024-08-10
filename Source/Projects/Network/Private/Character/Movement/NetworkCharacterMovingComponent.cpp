@@ -1,6 +1,6 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
-#include "Character/Components/NetworkCharacterMovingComponent.h"
+#include "Character/Movement/NetworkCharacterMovingComponent.h"
 #include "Character/NetworkCharacter.h"
 #include "Kismet/KismetMathLibrary.h"
 

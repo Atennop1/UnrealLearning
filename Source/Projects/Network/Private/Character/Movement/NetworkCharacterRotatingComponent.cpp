@@ -1,6 +1,6 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
-#include "Character/Components/NetworkCharacterRotatingComponent.h"
+#include "Character/Movement/NetworkCharacterRotatingComponent.h"
 #include "Character/NetworkCharacter.h"
 
 UNetworkCharacterRotatingComponent::UNetworkCharacterRotatingComponent()

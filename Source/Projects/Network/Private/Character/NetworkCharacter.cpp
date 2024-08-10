@@ -15,4 +15,5 @@ void ANetworkCharacter::BeginPlay()
 	check(RotatingComponent != nullptr)
 	check(CrouchingComponent != nullptr)
 	check(JumpingComponent != nullptr)
+	check(PeekingComponent != nullptr)
 }

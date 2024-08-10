@@ -1,6 +1,6 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
-#include "Character/Components/NetworkCharacterCrouchingComponent.h"
+#include "Character/Movement/NetworkCharacterCrouchingComponent.h"
 #include "Character/NetworkCharacter.h"
 #include "Components/CapsuleComponent.h"
 #include "Net/UnrealNetwork.h"
