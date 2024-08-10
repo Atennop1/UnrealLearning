@@ -4,14 +4,16 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 
-void ANetworkPlayerController::OnPossess(APawn* PossessingPawn)
+void ANetworkPlayerController::BeginPlay()
 {
-	Super::OnPossess(PossessingPawn);
-	PossessedCharacter = Cast<ANetworkCharacter>(PossessingPawn);
+	Super::BeginPlay();
+	SetupInputComponent();
+}
 
-	GEngine->AddOnScreenDebugMessage(-1, 9, FColor::Cyan, "Possess");
-	if (!IsValid(PossessedCharacter) || !IsLocalController() && GetNetMode() != NM_DedicatedServer)
-		return;
+void ANetworkPlayerController::SetupInputComponent()
+{
+	Super::SetupInputComponent();
+	PossessedCharacter = Cast<ANetworkCharacter>(GetPawn());
 
 	if (const auto Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
 	{
@@ -19,7 +21,6 @@ void ANetworkPlayerController::OnPossess(APawn* PossessingPawn)
 		Subsystem->AddMappingContext(InputMappingContext, 0);
 	}
 
-	GEngine->AddOnScreenDebugMessage(-1, 9, FColor::Cyan, "Attach");
 	const auto EnhancedInputComponent = Cast<UEnhancedInputComponent>(InputComponent);
 	EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ANetworkPlayerController::CallMove);
 	EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ANetworkPlayerController::CallRotate);
@@ -30,11 +31,7 @@ void ANetworkPlayerController::OnPossess(APawn* PossessingPawn)
 }
 
 // ReSharper disable once CppMemberFunctionMayBeConst
-void ANetworkPlayerController::CallMove(const FInputActionValue& Value)
-{
-	GEngine->AddOnScreenDebugMessage(-1, 9, FColor::Cyan, "CallMove");
-	if (IsValid(PossessedCharacter)) PossessedCharacter->GetMovingComponent()->Move(Value.Get<FVector2D>());
-}
+void ANetworkPlayerController::CallMove(const FInputActionValue& Value) { if (IsValid(PossessedCharacter)) PossessedCharacter->GetMovingComponent()->Move(Value.Get<FVector2D>()); }
 
 // ReSharper disable once CppMemberFunctionMayBeConst
 void ANetworkPlayerController::CallRotate(const FInputActionValue& Value) { if (IsValid(PossessedCharacter)) PossessedCharacter->GetRotatingComponent()->Rotate(Value.Get<FVector2D>()); }

@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "InputMappingContext.h"
 #include "Components/NetworkCharacterCrouchingComponent.h"
 #include "Components/NetworkCharacterJumpingComponent.h"
 #include "Components/NetworkCharacterMovingComponent.h"

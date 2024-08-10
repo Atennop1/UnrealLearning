@@ -24,6 +24,7 @@ public:
 protected:
 	virtual void BeginPlay() override;
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override; 
 	
 private:
 	UPROPERTY()
@@ -32,6 +33,8 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	UCurveFloat *CrouchingCurve = nullptr;
 	FTimeline CrouchingTimeline;
+
+	UPROPERTY(Replicated)
 	bool IsCrouching = false;
 
 	UPROPERTY(EditDefaultsOnly)
@@ -40,4 +43,16 @@ private:
 
 	UFUNCTION()
 	void CrouchUpdate(float Alpha) const;
+
+	UFUNCTION(Server, Reliable)
+	void ServerStartCrouching();
+	void ServerStartCrouching_Implementation() { StartCrouching(); }
+
+	UFUNCTION(Server, Reliable)
+	void ServerStopCrouching();
+	void ServerStopCrouching_Implementation() { StopCrouching(); }
+
+	UFUNCTION(NetMulticast, Reliable)
+	void MulticastCrouchUpdate(bool NewIsCrouching);
+	void MulticastCrouchUpdate_Implementation(bool NewIsCrouching);
 };

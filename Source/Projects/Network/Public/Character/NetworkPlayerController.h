@@ -13,8 +13,9 @@ class NETWORK_API ANetworkPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 
-public:
-	virtual void OnPossess(APawn* PossessingPawn) override;
+protected:
+	virtual void BeginPlay() override;
+	virtual void SetupInputComponent() override;
 
 private:
 	UPROPERTY()

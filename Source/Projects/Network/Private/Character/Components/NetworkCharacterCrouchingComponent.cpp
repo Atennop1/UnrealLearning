@@ -3,10 +3,12 @@
 #include "Character/Components/NetworkCharacterCrouchingComponent.h"
 #include "Character/NetworkCharacter.h"
 #include "Components/CapsuleComponent.h"
+#include "Net/UnrealNetwork.h"
 
 UNetworkCharacterCrouchingComponent::UNetworkCharacterCrouchingComponent()
 {
 	PrimaryComponentTick.bCanEverTick = true;
+	SetIsReplicatedByDefault(true);
 }
 
 void UNetworkCharacterCrouchingComponent::BeginPlay()
@@ -21,27 +23,56 @@ void UNetworkCharacterCrouchingComponent::BeginPlay()
 	NormalHalfHeight = Character->GetCapsuleComponent()->GetUnscaledCapsuleHalfHeight();
 }
 
-void UNetworkCharacterCrouchingComponent::StartCrouching()
-{	
-	IsCrouching = true;
-	CrouchingTimeline.Play();
-}
-
-void UNetworkCharacterCrouchingComponent::StopCrouching()
+void UNetworkCharacterCrouchingComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
-	IsCrouching = false;
-	CrouchingTimeline.Reverse();
-}
-
-void UNetworkCharacterCrouchingComponent::CrouchUpdate(float Alpha) const
-{
-	const float HalfHeight = FMath::Lerp(NormalHalfHeight, CrouchedHalfHeight, Alpha);
-	Character->GetCapsuleComponent()->SetCapsuleHalfHeight(HalfHeight);
-	Character->GetMesh()->SetRelativeLocation(FVector(0, 0, HalfHeight * -1));
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(UNetworkCharacterCrouchingComponent, IsCrouching);
 }
 
 void UNetworkCharacterCrouchingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 	CrouchingTimeline.TickTimeline(DeltaTime);
+}
+
+void UNetworkCharacterCrouchingComponent::CrouchUpdate(float Alpha) const
+{
+	const float HalfHeight = FMath::Lerp(NormalHalfHeight, CrouchedHalfHeight, Alpha);
+	Character->GetCapsuleComponent()->SetCapsuleHalfHeight(HalfHeight);
+	Character->GetMesh()->SetRelativeLocation(FVector(0, 0, -HalfHeight));
+}
+
+void UNetworkCharacterCrouchingComponent::StartCrouching()
+{	
+	if (GetOwner()->HasAuthority())
+	{
+		MulticastCrouchUpdate(true);
+		return;
+	}
+	
+	ServerStartCrouching();
+}
+
+void UNetworkCharacterCrouchingComponent::StopCrouching()
+{
+	if (GetOwner()->HasAuthority())
+	{
+		MulticastCrouchUpdate(false);
+		return;
+	}
+	
+	ServerStopCrouching();
+}
+
+void UNetworkCharacterCrouchingComponent::MulticastCrouchUpdate_Implementation(bool NewIsCrouching)
+{
+	IsCrouching = NewIsCrouching;
+	
+	if (IsCrouching)
+	{
+		CrouchingTimeline.Play();
+		return;
+	}
+	
+	CrouchingTimeline.Reverse();
 }
