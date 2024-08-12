@@ -15,11 +15,11 @@ class NETWORK_API UNetworkCharacterPeekingComponent : public UActorComponent
 public:
 	UNetworkCharacterPeekingComponent();
 
-	void StartPeekingLeft() { PeekingLeftTimeline.Play(); }
-	void StopPeekingLeft() { PeekingLeftTimeline.Reverse(); }
+	void StartPeekingLeft() { ServerStartPeekingLeft(); }
+	void StopPeekingLeft() { ServerStopPeekingLeft(); }
 
-	void StartPeekingRight() { PeekingRightTimeline.Play(); }
-	void StopPeekingRight() { PeekingRightTimeline.Reverse(); }
+	void StartPeekingRight() { ServerStartPeekingRight(); }
+	void StopPeekingRight() { ServerStopPeekingRight(); }
 	
 protected:
 	virtual void BeginPlay() override;
@@ -45,4 +45,36 @@ private:
 
 	UFUNCTION()
 	void PeekingRightUpdate(float Alpha);
+
+	UFUNCTION(Server, Reliable)
+	void ServerStartPeekingLeft();
+	void ServerStartPeekingLeft_Implementation() { MulticastStartPeekingLeft(); }
+
+	UFUNCTION(Server, Reliable)
+	void ServerStopPeekingLeft();
+	void ServerStopPeekingLeft_Implementation() { MulticastStopPeekingLeft(); }
+
+	UFUNCTION(NetMulticast, Reliable)
+	void MulticastStartPeekingLeft();
+	void MulticastStartPeekingLeft_Implementation() { PeekingLeftTimeline.Play(); }
+
+	UFUNCTION(NetMulticast, Reliable)
+	void MulticastStopPeekingLeft();
+	void MulticastStopPeekingLeft_Implementation() { PeekingLeftTimeline.Reverse(); }
+	
+	UFUNCTION(Server, Reliable)
+	void ServerStartPeekingRight();
+	void ServerStartPeekingRight_Implementation() { MulticastStartPeekingRight(); }
+
+	UFUNCTION(Server, Reliable)
+	void ServerStopPeekingRight();
+	void ServerStopPeekingRight_Implementation() { MulticastStopPeekingRight(); }
+
+	UFUNCTION(NetMulticast, Reliable)
+	void MulticastStartPeekingRight();
+	void MulticastStartPeekingRight_Implementation() { PeekingRightTimeline.Play(); }
+
+	UFUNCTION(NetMulticast, Reliable)
+	void MulticastStopPeekingRight();
+	void MulticastStopPeekingRight_Implementation() { PeekingRightTimeline.Reverse(); }
 };

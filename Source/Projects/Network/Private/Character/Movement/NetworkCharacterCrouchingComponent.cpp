@@ -42,28 +42,6 @@ void UNetworkCharacterCrouchingComponent::CrouchUpdate(float Alpha) const
 	Character->GetMesh()->SetRelativeLocation(FVector(0, 0, -HalfHeight));
 }
 
-void UNetworkCharacterCrouchingComponent::StartCrouching()
-{	
-	if (GetOwner()->HasAuthority())
-	{
-		MulticastCrouchUpdate(true);
-		return;
-	}
-	
-	ServerStartCrouching();
-}
-
-void UNetworkCharacterCrouchingComponent::StopCrouching()
-{
-	if (GetOwner()->HasAuthority())
-	{
-		MulticastCrouchUpdate(false);
-		return;
-	}
-	
-	ServerStopCrouching();
-}
-
 void UNetworkCharacterCrouchingComponent::MulticastCrouchUpdate_Implementation(bool NewIsCrouching)
 {
 	IsCrouching = NewIsCrouching;

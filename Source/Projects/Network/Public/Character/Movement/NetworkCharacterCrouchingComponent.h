@@ -15,8 +15,8 @@ class NETWORK_API UNetworkCharacterCrouchingComponent : public UActorComponent
 public:
 	UNetworkCharacterCrouchingComponent();
 
-	void StartCrouching();
-	void StopCrouching();
+	void StartCrouching() { ServerStartCrouching(); }
+	void StopCrouching() { ServerStopCrouching(); }
 
 	UFUNCTION(BlueprintCallable)
 	bool GetIsCrouching() const { return IsCrouching; }
@@ -46,11 +46,11 @@ private:
 
 	UFUNCTION(Server, Reliable)
 	void ServerStartCrouching();
-	void ServerStartCrouching_Implementation() { StartCrouching(); }
+	void ServerStartCrouching_Implementation() { MulticastCrouchUpdate(true); }
 
 	UFUNCTION(Server, Reliable)
 	void ServerStopCrouching();
-	void ServerStopCrouching_Implementation() { StopCrouching(); }
+	void ServerStopCrouching_Implementation() { MulticastCrouchUpdate(false); }
 
 	UFUNCTION(NetMulticast, Reliable)
 	void MulticastCrouchUpdate(bool NewIsCrouching);
