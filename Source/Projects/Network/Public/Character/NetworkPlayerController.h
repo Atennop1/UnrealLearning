@@ -42,8 +42,12 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	UInputAction *PeekRightAction;
 
+	UPROPERTY(EditDefaultsOnly)
+	UInputAction *ShootAction;
+
 	void CallMove(const FInputActionValue &Value);
 	void CallRotate(const FInputActionValue &Value);
+	void CallShoot(const FInputActionValue &Value);
 	void CallStartJumping(const FInputActionValue &Value);
 	void CallStopJumping(const FInputActionValue &Value);
 	void CallStartCrouch(const FInputActionValue &Value);

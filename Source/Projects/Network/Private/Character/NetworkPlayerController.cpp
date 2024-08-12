@@ -24,6 +24,7 @@ void ANetworkPlayerController::SetupInputComponent()
 	const auto EnhancedInputComponent = Cast<UEnhancedInputComponent>(InputComponent);
 	EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ANetworkPlayerController::CallMove);
 	EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ANetworkPlayerController::CallRotate);
+	EnhancedInputComponent->BindAction(ShootAction, ETriggerEvent::Triggered, this, &ANetworkPlayerController::CallShoot);
 	EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ANetworkPlayerController::CallStartJumping);
 	EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ANetworkPlayerController::CallStopJumping);
 	EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Started, this, &ANetworkPlayerController::CallStartCrouch);
@@ -39,6 +40,9 @@ void ANetworkPlayerController::CallMove(const FInputActionValue& Value) { if (Is
 
 // ReSharper disable once CppMemberFunctionMayBeConst
 void ANetworkPlayerController::CallRotate(const FInputActionValue& Value) { if (IsValid(PossessedCharacter)) PossessedCharacter->GetRotatingComponent()->Rotate(Value.Get<FVector2D>()); }
+
+// ReSharper disable once CppMemberFunctionMayBeConst
+void ANetworkPlayerController::CallShoot(const FInputActionValue& Value) { if (IsValid(PossessedCharacter)) PossessedCharacter->GetShootingComponent()->Shoot(); }
 
 // ReSharper disable once CppMemberFunctionMayBeConst
 void ANetworkPlayerController::CallStartJumping(const FInputActionValue& Value) { if (IsValid(PossessedCharacter)) PossessedCharacter->GetJumpingComponent()->StartJumping(); }

@@ -10,6 +10,7 @@
 #include "Movement/NetworkCharacterRotatingComponent.h"
 #include "GameFramework/Character.h"
 #include "Shooting/NetworkCharacterPeekingComponent.h"
+#include "Shooting/NetworkCharacterShootingComponent.h"
 #include "NetworkCharacter.generated.h"
 
 UCLASS()
@@ -25,6 +26,7 @@ public:
 	UNetworkCharacterCrouchingComponent *GetCrouchingComponent() const { return CrouchingComponent; }
 	UNetworkCharacterJumpingComponent *GetJumpingComponent() const { return JumpingComponent; }
 	UNetworkCharacterPeekingComponent *GetPeekingComponent() const { return PeekingComponent; }
+	UNetworkCharacterShootingComponent *GetShootingComponent() const { return ShootingComponent; }
 
 protected:
 	virtual void BeginPlay() override;
@@ -44,4 +46,7 @@ private:
 
 	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess=true))
 	UNetworkCharacterPeekingComponent *PeekingComponent = nullptr;
+
+	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess=true))
+	UNetworkCharacterShootingComponent *ShootingComponent = nullptr;
 };
