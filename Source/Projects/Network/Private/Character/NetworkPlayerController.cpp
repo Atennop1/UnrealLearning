@@ -19,7 +19,7 @@ void ANetworkPlayerController::SetupInputComponent()
 		Subsystem->ClearAllMappings();
 		Subsystem->AddMappingContext(InputMappingContext, 0);
 	}
-
+	
 	const auto EnhancedInputComponent = Cast<UEnhancedInputComponent>(InputComponent);
 	EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ANetworkPlayerController::CallMove);
 	EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ANetworkPlayerController::CallRotate);

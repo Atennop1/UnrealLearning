@@ -1,6 +1,8 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
 #include "Character/NetworkCharacterHealthComponent.h"
+
+#include "NetworkGameMode.h"
 #include "Character/NetworkCharacter.h"
 #include "Components/CapsuleComponent.h"
 #include "Net/UnrealNetwork.h"
@@ -16,6 +18,12 @@ void UNetworkCharacterHealthComponent::BeginPlay()
 	Super::BeginPlay();
 	Character = Cast<ANetworkCharacter>(GetOwner());
 	check(IsValid(Character));
+}
+
+void UNetworkCharacterHealthComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	Super::EndPlay(EndPlayReason);
+	GetWorld()->GetTimerManager().ClearTimer(RespawningHandle);
 }
 
 void UNetworkCharacterHealthComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -39,6 +47,11 @@ void UNetworkCharacterHealthComponent::MulticastDeath_Implementation(int DamageA
 	CurrentHealth = 0;
 	Character->GetMesh()->SetSimulatePhysics(true);
 	Character->GetCapsuleComponent()->DestroyComponent();
+	
+	GetWorld()->GetTimerManager().SetTimer(RespawningHandle, [&]
+	{
+		Cast<ANetworkGameMode>(GetWorld()->GetAuthGameMode())->Respawn(Character->GetController());
+	}, RespawningTime, false);
 }
 
 void UNetworkCharacterHealthComponent::ServerHeal_Implementation(int HealingAmount)

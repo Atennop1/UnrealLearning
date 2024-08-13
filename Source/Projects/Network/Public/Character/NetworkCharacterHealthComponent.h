@@ -20,6 +20,7 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 private:
@@ -29,6 +30,10 @@ private:
 	UPROPERTY(Replicated)
 	int CurrentHealth;
 	int MaxHealth = 100;
+
+	UPROPERTY(EditDefaultsOnly)
+	int RespawningTime = 5;
+	FTimerHandle RespawningHandle;
 
 	UFUNCTION(Server, Reliable)
 	void ServerTakeDamage(int DamageAmount);
