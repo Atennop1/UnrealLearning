@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "InputMappingContext.h"
+#include "NetworkCharacterHealthComponent.h"
 #include "Movement/NetworkCharacterCrouchingComponent.h"
 #include "Movement/NetworkCharacterJumpingComponent.h"
 #include "Movement/NetworkCharacterMovingComponent.h"
@@ -21,6 +21,7 @@ class NETWORK_API ANetworkCharacter : public ACharacter
 public:
 	ANetworkCharacter();
 	
+	UNetworkCharacterHealthComponent *GetHealthComponent() const { return HealthComponent; }
 	UNetworkCharacterMovingComponent *GetMovingComponent() const { return MovingComponent; }
 	UNetworkCharacterRotatingComponent *GetRotatingComponent() const { return RotatingComponent; }
 	UNetworkCharacterCrouchingComponent *GetCrouchingComponent() const { return CrouchingComponent; }
@@ -32,6 +33,9 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
+	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess=true))
+	UNetworkCharacterHealthComponent *HealthComponent = nullptr;
+	
 	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess=true))
 	UNetworkCharacterMovingComponent *MovingComponent = nullptr;
 

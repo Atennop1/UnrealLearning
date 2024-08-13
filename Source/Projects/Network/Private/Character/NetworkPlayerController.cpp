@@ -4,17 +4,16 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 
-void ANetworkPlayerController::BeginPlay()
+void ANetworkPlayerController::OnRep_PlayerState()
 {
-	Super::BeginPlay();
-	SetupInputComponent();
+	Super::OnRep_PlayerState();
+	PossessedCharacter = Cast<ANetworkCharacter>(GetPawn());
 }
 
 void ANetworkPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
-	PossessedCharacter = Cast<ANetworkCharacter>(GetPawn());
-
+	
 	if (const auto Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
 	{
 		Subsystem->ClearAllMappings();

@@ -17,12 +17,18 @@ void UNetworkCharacterJumpingComponent::BeginPlay()
 
 void UNetworkCharacterJumpingComponent::StartJumping() const
 {
+	if (!Character->GetHealthComponent()->IsAlive())
+		return;
+	
 	if (!Character->GetCrouchingComponent()->GetIsCrouching())
 		Character->Jump();
 }
 
 void UNetworkCharacterJumpingComponent::StopJumping() const
 {
+	if (!Character->GetHealthComponent()->IsAlive())
+		return;
+	
 	if (!Character->GetCrouchingComponent()->GetIsCrouching())
 		Character->StopJumping();
 }

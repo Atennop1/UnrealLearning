@@ -27,6 +27,9 @@ protected:
 	
 private:
 	UPROPERTY()
+	class ANetworkCharacter *Character = nullptr;
+	
+	UPROPERTY()
 	class UCameraComponent *Camera = nullptr;
 	FVector NormalCameraRelativeLocation;
 	
@@ -56,12 +59,12 @@ private:
 
 	UFUNCTION(NetMulticast, Reliable)
 	void MulticastStartPeekingLeft();
-	void MulticastStartPeekingLeft_Implementation() { PeekingLeftTimeline.Play(); }
+	void MulticastStartPeekingLeft_Implementation();
 
 	UFUNCTION(NetMulticast, Reliable)
 	void MulticastStopPeekingLeft();
 	void MulticastStopPeekingLeft_Implementation() { PeekingLeftTimeline.Reverse(); }
-	
+
 	UFUNCTION(Server, Reliable)
 	void ServerStartPeekingRight();
 	void ServerStartPeekingRight_Implementation() { MulticastStartPeekingRight(); }
@@ -72,7 +75,7 @@ private:
 
 	UFUNCTION(NetMulticast, Reliable)
 	void MulticastStartPeekingRight();
-	void MulticastStartPeekingRight_Implementation() { PeekingRightTimeline.Play(); }
+	void MulticastStartPeekingRight_Implementation();
 
 	UFUNCTION(NetMulticast, Reliable)
 	void MulticastStopPeekingRight();

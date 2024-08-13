@@ -14,8 +14,8 @@ class NETWORK_API ANetworkPlayerController : public APlayerController
 	GENERATED_BODY()
 
 protected:
-	virtual void BeginPlay() override;
 	virtual void SetupInputComponent() override;
+	virtual void OnRep_PlayerState() override;
 
 private:
 	UPROPERTY()

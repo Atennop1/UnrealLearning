@@ -26,6 +26,9 @@ private:
 	UPROPERTY()
 	class UCameraComponent *Camera = nullptr;
 
+	UPROPERTY(EditDefaultsOnly)
+	int Damage = 25;
+
 	UFUNCTION(Server, Reliable)
 	void ServerShoot();
 	void ServerShoot_Implementation();

@@ -12,7 +12,10 @@ UNetworkCharacterPeekingComponent::UNetworkCharacterPeekingComponent()
 void UNetworkCharacterPeekingComponent::BeginPlay()
 {
 	Super::BeginPlay();
-	Camera = GetOwner()->GetComponentByClass<UCameraComponent>();
+	Character = Cast<ANetworkCharacter>(GetOwner());
+	check(IsValid(Character))
+	
+	Camera = Character->GetComponentByClass<UCameraComponent>();
 	check(Camera != nullptr)
 	
 	FOnTimelineFloat OnLeftTimelineUpdate;
@@ -42,5 +45,17 @@ void UNetworkCharacterPeekingComponent::PeekingLeftUpdate(float Alpha)
 void UNetworkCharacterPeekingComponent::PeekingRightUpdate(float Alpha)
 {
 	CurrentRightPeekingAmount = Alpha * PeekingAmount;
+}
+
+void UNetworkCharacterPeekingComponent::MulticastStartPeekingLeft_Implementation()
+{
+	if (Character->GetHealthComponent()->IsAlive())
+		PeekingLeftTimeline.Play();
+}
+
+void UNetworkCharacterPeekingComponent::MulticastStartPeekingRight_Implementation()
+{
+	if (Character->GetHealthComponent()->IsAlive())
+		PeekingRightTimeline.Play();
 }
 

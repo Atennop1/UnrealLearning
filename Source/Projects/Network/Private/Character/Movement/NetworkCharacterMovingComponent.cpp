@@ -18,6 +18,9 @@ void UNetworkCharacterMovingComponent::BeginPlay()
 
 void UNetworkCharacterMovingComponent::Move(const FVector2D Input) const
 {
+	if (!Character->GetHealthComponent()->IsAlive())
+		return;
+	
 	Character->AddMovementInput(UKismetMathLibrary::GetRightVector(Character->GetControlRotation()), Input.X);
 	Character->AddMovementInput(UKismetMathLibrary::GetForwardVector(Character->GetControlRotation()), Input.Y);
 }

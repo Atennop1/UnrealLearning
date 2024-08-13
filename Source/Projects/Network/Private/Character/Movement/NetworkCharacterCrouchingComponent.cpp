@@ -44,8 +44,10 @@ void UNetworkCharacterCrouchingComponent::CrouchUpdate(float Alpha) const
 
 void UNetworkCharacterCrouchingComponent::MulticastCrouchUpdate_Implementation(bool NewIsCrouching)
 {
-	IsCrouching = NewIsCrouching;
+	if (!Character->GetHealthComponent()->IsAlive())
+		return;
 	
+	IsCrouching = NewIsCrouching;
 	if (IsCrouching)
 	{
 		CrouchingTimeline.Play();

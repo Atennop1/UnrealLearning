@@ -22,9 +22,15 @@ void UNetworkCharacterShootingComponent::BeginPlay()
 
 void UNetworkCharacterShootingComponent::ServerShoot_Implementation()
 {
+	if (!Character->GetHealthComponent()->IsAlive())
+		return;
+	
 	const FVector Start = Camera->GetComponentLocation();
 	const FVector End = Start + Camera->GetForwardVector() * 30000;
 
 	FHitResult HitResult;
-	UKismetSystemLibrary::LineTraceSingle(GetWorld(), Start, End, TraceTypeQuery1, false, TArray<AActor*> { }, EDrawDebugTrace::ForDuration, HitResult, true);
+	UKismetSystemLibrary::LineTraceSingle(GetWorld(), Start, End, TraceTypeQuery1, false, TArray<AActor*> { Character }, EDrawDebugTrace::ForDuration, HitResult, true);
+
+	if (const auto Enemy = Cast<ANetworkCharacter>(HitResult.GetActor()); Enemy != nullptr)
+		Enemy->GetHealthComponent()->TakeDamage(Damage);
 }
