@@ -18,6 +18,7 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 private:
 	UPROPERTY()
@@ -28,6 +29,11 @@ private:
 
 	UPROPERTY(EditDefaultsOnly)
 	int Damage = 25;
+
+	UPROPERTY(EditDefaultsOnly)
+	float DelayTime = 0.3;
+	bool CanShoot = true;
+	FTimerHandle DelayHandle;
 
 	UFUNCTION(Server, Reliable)
 	void ServerShoot();

@@ -11,6 +11,7 @@ void ANetworkCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
+	check(AmmoComponent != nullptr)
 	check(HealthComponent != nullptr)
 	check(MovingComponent != nullptr)
 	check(RotatingComponent != nullptr)

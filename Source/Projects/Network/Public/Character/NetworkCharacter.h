@@ -3,12 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "NetworkCharacterHealthComponent.h"
 #include "Movement/NetworkCharacterCrouchingComponent.h"
 #include "Movement/NetworkCharacterJumpingComponent.h"
 #include "Movement/NetworkCharacterMovingComponent.h"
 #include "Movement/NetworkCharacterRotatingComponent.h"
 #include "GameFramework/Character.h"
+#include "Resources/NetworkCharacterAmmoComponent.h"
+#include "Resources/NetworkCharacterHealthComponent.h"
 #include "Shooting/NetworkCharacterPeekingComponent.h"
 #include "Shooting/NetworkCharacterShootingComponent.h"
 #include "NetworkCharacter.generated.h"
@@ -22,6 +23,8 @@ public:
 	ANetworkCharacter();
 	
 	UNetworkCharacterHealthComponent *GetHealthComponent() const { return HealthComponent; }
+	UNetworkCharacterAmmoComponent *GetAmmoComponent() const { return AmmoComponent; }
+	
 	UNetworkCharacterMovingComponent *GetMovingComponent() const { return MovingComponent; }
 	UNetworkCharacterRotatingComponent *GetRotatingComponent() const { return RotatingComponent; }
 	UNetworkCharacterCrouchingComponent *GetCrouchingComponent() const { return CrouchingComponent; }
@@ -35,6 +38,9 @@ protected:
 private:
 	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess=true))
 	UNetworkCharacterHealthComponent *HealthComponent = nullptr;
+
+	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess=true))
+	UNetworkCharacterAmmoComponent *AmmoComponent = nullptr;
 	
 	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess=true))
 	UNetworkCharacterMovingComponent *MovingComponent = nullptr;
