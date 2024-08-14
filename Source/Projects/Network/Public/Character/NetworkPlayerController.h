@@ -15,7 +15,7 @@ class NETWORK_API ANetworkPlayerController : public APlayerController
 
 protected:
 	virtual void SetupInputComponent() override;
-	virtual void OnRep_PlayerState() override;
+	virtual void AcknowledgePossession(APawn* InPawn) override;
 
 private:
 	UPROPERTY()

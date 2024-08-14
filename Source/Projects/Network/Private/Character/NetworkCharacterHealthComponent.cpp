@@ -1,7 +1,6 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
 #include "Character/NetworkCharacterHealthComponent.h"
-
 #include "NetworkGameMode.h"
 #include "Character/NetworkCharacter.h"
 #include "Components/CapsuleComponent.h"

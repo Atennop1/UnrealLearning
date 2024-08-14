@@ -4,10 +4,10 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 
-void ANetworkPlayerController::OnRep_PlayerState()
+void ANetworkPlayerController::AcknowledgePossession(APawn* InPawn)
 {
-	Super::OnRep_PlayerState();
-	PossessedCharacter = Cast<ANetworkCharacter>(GetPawn());
+	Super::AcknowledgePossession(InPawn);
+	PossessedCharacter = Cast<ANetworkCharacter>(InPawn);
 }
 
 void ANetworkPlayerController::SetupInputComponent()
