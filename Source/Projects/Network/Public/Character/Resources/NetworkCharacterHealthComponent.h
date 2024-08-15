@@ -6,6 +6,8 @@
 #include "Components/ActorComponent.h"
 #include "NetworkCharacterHealthComponent.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FHealthUpdatingDelegate, int, NewHealth);
+
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class NETWORK_API UNetworkCharacterHealthComponent : public UActorComponent
 {
@@ -13,6 +15,8 @@ class NETWORK_API UNetworkCharacterHealthComponent : public UActorComponent
 
 public:
 	UNetworkCharacterHealthComponent();
+
+	FHealthUpdatingDelegate OnHealthUpdated;
 	bool IsAlive() const { return CurrentHealth > 0; }
 	
 	void TakeDamage(int DamageAmount) { ServerTakeDamage(DamageAmount); }
@@ -27,7 +31,7 @@ private:
 	UPROPERTY()
 	class ANetworkCharacter *Character = nullptr;
 
-	UPROPERTY(Replicated)
+	UPROPERTY(ReplicatedUsing=OnRep_CurrentHealth)
 	int CurrentHealth;
 	int MaxHealth = 100;
 
@@ -35,6 +39,13 @@ private:
 	int RespawningTime = 5;
 	FTimerHandle RespawningHandle;
 
+	UFUNCTION()
+	void OnRep_CurrentHealth() const
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 9, FColor::Cyan, "Ammo");
+		OnHealthUpdated.Broadcast(CurrentHealth);
+	}
+	
 	UFUNCTION(Server, Reliable)
 	void ServerTakeDamage(int DamageAmount);
 	void ServerTakeDamage_Implementation(int DamageAmount);

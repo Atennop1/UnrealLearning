@@ -11,6 +11,7 @@ public class Network : ModuleRules
             {
                 "Core",
                 "EnhancedInput",
+                "UMG",
             }
         );
 
