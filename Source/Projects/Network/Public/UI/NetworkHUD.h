@@ -13,9 +13,12 @@ class NETWORK_API ANetworkHUD : public AHUD
 {
 	GENERATED_BODY()
 
+public:
+	void SpawnUI();
+	void DestroyUI();
+
 protected:
-	virtual void BeginPlay() override;
-	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override { DestroyUI(); }
 
 private:
 	UPROPERTY(EditDefaultsOnly)

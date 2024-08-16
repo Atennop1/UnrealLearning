@@ -7,6 +7,7 @@
 UNetworkCharacterAmmoComponent::UNetworkCharacterAmmoComponent()
 {
 	PrimaryComponentTick.bCanEverTick = false;
+	SetIsReplicatedByDefault(true);
 	CurrentAmmo = MaxAmmo;
 }
 

@@ -3,11 +3,13 @@
 #include "Character/NetworkPlayerController.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "UI/NetworkHUD.h"
 
 void ANetworkPlayerController::AcknowledgePossession(APawn* InPawn)
 {
 	Super::AcknowledgePossession(InPawn);
 	PossessedCharacter = Cast<ANetworkCharacter>(InPawn);
+	Cast<ANetworkHUD>(GetHUD())->SpawnUI();
 }
 
 void ANetworkPlayerController::SetupInputComponent()

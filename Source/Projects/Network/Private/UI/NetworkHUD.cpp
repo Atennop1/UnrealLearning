@@ -3,24 +3,28 @@
 #include "UI/NetworkHUD.h"
 #include "Character/NetworkCharacter.h"
 
-void ANetworkHUD::BeginPlay()
+void ANetworkHUD::SpawnUI()
 {
-	Super::BeginPlay();
-
 	Character = Cast<ANetworkCharacter>(GetOwningPawn());
-	ResourcesWidget = CreateWidget<UNetworkResourcesWidget>(GetWorld(), ResourcesWidgetClass);
+	ResourcesWidget = CreateWidget<UNetworkResourcesWidget>(PlayerOwner, ResourcesWidgetClass);
 	ResourcesWidget->AddToViewport();
 
 	Character->GetHealthComponent()->OnHealthUpdated.AddDynamic(ResourcesWidget, &UNetworkResourcesWidget::UpdateHealthText);
 	Character->GetAmmoComponent()->OnAmmoUpdated.AddDynamic(ResourcesWidget, &UNetworkResourcesWidget::UpdateAmmoText);
 }
 
-void ANetworkHUD::EndPlay(const EEndPlayReason::Type EndPlayReason)
+void ANetworkHUD::DestroyUI()
 {
-	Super::EndPlay(EndPlayReason);
-	Character->GetHealthComponent()->OnHealthUpdated.RemoveDynamic(ResourcesWidget, &UNetworkResourcesWidget::UpdateHealthText);
-	Character->GetAmmoComponent()->OnAmmoUpdated.RemoveDynamic(ResourcesWidget, &UNetworkResourcesWidget::UpdateAmmoText);
+	if (IsValid(Character))
+	{
+		Character->GetHealthComponent()->OnHealthUpdated.RemoveDynamic(ResourcesWidget, &UNetworkResourcesWidget::UpdateHealthText);
+		Character->GetAmmoComponent()->OnAmmoUpdated.RemoveDynamic(ResourcesWidget, &UNetworkResourcesWidget::UpdateAmmoText);
+		Character = nullptr;
+	}
 
 	if (IsValid(ResourcesWidget))
+	{
 		ResourcesWidget->RemoveFromParent();
+		ResourcesWidget = nullptr;
+	}
 }

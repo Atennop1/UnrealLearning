@@ -13,7 +13,10 @@ class NETWORK_API UNetworkResourcesWidget : public UUserWidget
 	GENERATED_BODY()
 
 public:
+	UFUNCTION()
 	void UpdateHealthText(int NewHealth);
+
+	UFUNCTION()
 	void UpdateAmmoText(int NewAmmo);
 	
 private:

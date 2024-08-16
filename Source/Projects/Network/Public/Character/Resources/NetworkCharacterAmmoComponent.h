@@ -35,11 +35,7 @@ private:
 	int MaxAmmo = 25;
 
 	UFUNCTION()
-	void OnRep_CurrentAmmo() const
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 9, FColor::Cyan, "Ammo");
-		OnAmmoUpdated.Broadcast(CurrentAmmo);
-	}
+	void OnRep_CurrentAmmo() const { OnAmmoUpdated.Broadcast(CurrentAmmo); }
 	
 	UFUNCTION(Server, Reliable)
 	void ServerSpend(int AmmoAmount);

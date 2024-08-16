@@ -28,6 +28,8 @@ void UNetworkCharacterShootingComponent::EndPlay(const EEndPlayReason::Type EndP
 
 void UNetworkCharacterShootingComponent::ServerShoot_Implementation()
 {
+	MulticastShoot();
+	
 	if (!Character->GetHealthComponent()->IsAlive() || !Character->GetAmmoComponent()->CanSpend(1) || !CanShoot)
 		return;
 	
@@ -35,7 +37,7 @@ void UNetworkCharacterShootingComponent::ServerShoot_Implementation()
 	const FVector End = Start + Camera->GetForwardVector() * 30000;
 
 	FHitResult HitResult;
-	UKismetSystemLibrary::LineTraceSingle(GetWorld(), Start, End, TraceTypeQuery1, false, TArray<AActor*> { Character }, EDrawDebugTrace::ForDuration, HitResult, true);
+	UKismetSystemLibrary::LineTraceSingle(GetWorld(), Start, End, TraceTypeQuery1, false, TArray<AActor*> { Character }, EDrawDebugTrace::None, HitResult, true);
 	Character->GetAmmoComponent()->Spend(1);
 	
 	if (const auto Enemy = Cast<ANetworkCharacter>(HitResult.GetActor()); Enemy != nullptr)
@@ -44,3 +46,16 @@ void UNetworkCharacterShootingComponent::ServerShoot_Implementation()
 	CanShoot = false;
 	GetWorld()->GetTimerManager().SetTimer(DelayHandle, [&] { CanShoot = true; }, DelayTime, false);
 }
+
+void UNetworkCharacterShootingComponent::MulticastShoot_Implementation()
+{
+	if (!Character->GetHealthComponent()->IsAlive() || !Character->GetAmmoComponent()->CanSpend(1) || !CanShoot)
+		return;
+	
+	const FVector Start = Camera->GetComponentLocation();
+	const FVector End = Start + Camera->GetForwardVector() * 30000;
+
+	FHitResult HitResult;
+	UKismetSystemLibrary::LineTraceSingle(GetWorld(), Start, End, TraceTypeQuery1, false, TArray<AActor*> { Character }, EDrawDebugTrace::ForDuration, HitResult, true);
+}
+

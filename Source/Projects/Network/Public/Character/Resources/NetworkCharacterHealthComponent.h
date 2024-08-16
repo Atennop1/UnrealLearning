@@ -40,19 +40,19 @@ private:
 	FTimerHandle RespawningHandle;
 
 	UFUNCTION()
-	void OnRep_CurrentHealth() const
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 9, FColor::Cyan, "Ammo");
-		OnHealthUpdated.Broadcast(CurrentHealth);
-	}
+	void OnRep_CurrentHealth() const { OnHealthUpdated.Broadcast(CurrentHealth); }
 	
 	UFUNCTION(Server, Reliable)
 	void ServerTakeDamage(int DamageAmount);
 	void ServerTakeDamage_Implementation(int DamageAmount);
 	
 	UFUNCTION(NetMulticast, Reliable)
-	void MulticastDeath(int DamageAmount);
-	void MulticastDeath_Implementation(int DamageAmount);
+	void MulticastRagdoll();
+	void MulticastRagdoll_Implementation();
+
+	UFUNCTION(Client, Reliable)
+	void ClientDeleteUI();
+	void ClientDeleteUI_Implementation();
 
 	UFUNCTION(Server, Reliable)
 	void ServerHeal(int HealingAmount);

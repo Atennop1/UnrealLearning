@@ -5,10 +5,12 @@
 #include "Character/NetworkCharacter.h"
 #include "Components/CapsuleComponent.h"
 #include "Net/UnrealNetwork.h"
+#include "UI/NetworkHUD.h"
 
 UNetworkCharacterHealthComponent::UNetworkCharacterHealthComponent()
 {
 	PrimaryComponentTick.bCanEverTick = false;
+	SetIsReplicatedByDefault(true);
 	CurrentHealth = MaxHealth;
 }
 
@@ -37,20 +39,28 @@ void UNetworkCharacterHealthComponent::ServerTakeDamage_Implementation(int Damag
 		return;
 
 	CurrentHealth -= DamageAmount;
-	if (!IsAlive())
-		MulticastDeath(DamageAmount);
-}
-
-void UNetworkCharacterHealthComponent::MulticastDeath_Implementation(int DamageAmount)
-{
+	if (IsAlive())
+		return;
+	
 	CurrentHealth = 0;
-	Character->GetMesh()->SetSimulatePhysics(true);
-	Character->GetCapsuleComponent()->DestroyComponent();
+	MulticastRagdoll();
+	ClientDeleteUI();
 	
 	GetWorld()->GetTimerManager().SetTimer(RespawningHandle, [&]
 	{
 		Cast<ANetworkGameMode>(GetWorld()->GetAuthGameMode())->Respawn(Character->GetController());
 	}, RespawningTime, false);
+}
+
+void UNetworkCharacterHealthComponent::MulticastRagdoll_Implementation()
+{
+	Character->GetMesh()->SetSimulatePhysics(true);
+	Character->GetCapsuleComponent()->DestroyComponent();
+}
+
+void UNetworkCharacterHealthComponent::ClientDeleteUI_Implementation()
+{
+	CastChecked<ANetworkHUD>(CastChecked<APlayerController>(Character->GetController())->GetHUD())->DestroyUI();
 }
 
 void UNetworkCharacterHealthComponent::ServerHeal_Implementation(int HealingAmount)

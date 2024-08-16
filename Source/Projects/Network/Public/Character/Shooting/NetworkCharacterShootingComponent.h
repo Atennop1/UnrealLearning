@@ -38,4 +38,8 @@ private:
 	UFUNCTION(Server, Reliable)
 	void ServerShoot();
 	void ServerShoot_Implementation();
+
+	UFUNCTION(NetMulticast, Reliable)
+	void MulticastShoot();
+	void MulticastShoot_Implementation();
 };
