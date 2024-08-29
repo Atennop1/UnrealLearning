@@ -9,7 +9,8 @@ public class PostProcessing : ModuleRules
         PublicDependencyModuleNames.AddRange(
             new string[]
             {
-                "Core"
+                "Core",
+                "FirstPerson"
             }
         );
 

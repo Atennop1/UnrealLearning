@@ -31,17 +31,10 @@ private:
 
 	UPROPERTY(EditInstanceOnly)
 	UMaterial *PostProcessMaterial = nullptr;
-
-	UPROPERTY(EditInstanceOnly)
-	UMaterial *DefaultEntryMaterial = nullptr;
-
-	UPROPERTY(EditInstanceOnly)
-	UMaterial *DefaultPostProcessMaterial = nullptr;
 	
 	FVector LastPosition = FVector();
 	bool LastInFront = false;
 	bool IsOverlapping = false;
-	bool IsInverted = false;
 	
 	bool HasCrossedDoor();
 };

@@ -1,6 +1,8 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
 #include "PostProcessingPortal.h"
+
+#include "PostProcessingCharacter.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/Character.h"
 #include "Kismet/GameplayStatics.h"
@@ -23,15 +25,27 @@ void APostProcessingPortal::BeginPlay()
 void APostProcessingPortal::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (!TriggerCollider->IsOverlappingActor(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0)) || !HasCrossedDoor())
+	
+	if (!TriggerCollider->IsOverlappingActor(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0)))
+	{
+		IsOverlapping = false;
+		return;
+	}
+	
+	if (!HasCrossedDoor())
+		return;
+
+	APostProcessingCharacter *Character = Cast<APostProcessingCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+	if (!IsValid(Character))
 		return;
 	
-	IsInverted = !IsInverted;
-	EntryMesh->SetMaterial(0, IsInverted ? DefaultEntryMaterial : EntryMaterial);
+	EntryMesh->SetMaterial(0, Character->CurrentEntryMaterial);
+	std::swap(Character->CurrentEntryMaterial, EntryMaterial);
 
 	FPostProcessSettings PostProcessSettings = FPostProcessSettings();
-	PostProcessSettings.WeightedBlendables = TArray { FWeightedBlendable(1, IsInverted ? PostProcessMaterial : DefaultPostProcessMaterial) };
-	UGameplayStatics::GetPlayerCharacter(GetWorld(), 0)->GetComponentByClass<UCameraComponent>()->PostProcessSettings = PostProcessSettings;
+	PostProcessSettings.WeightedBlendables = TArray { FWeightedBlendable(1, PostProcessMaterial) };
+	Character->GetFirstPersonCameraComponent()->PostProcessSettings = PostProcessSettings;
+	std::swap(Character->CurrentPostProcessMaterial, PostProcessMaterial);
 }
 
 bool APostProcessingPortal::HasCrossedDoor()
