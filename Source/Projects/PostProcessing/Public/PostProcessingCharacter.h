@@ -20,10 +20,10 @@ protected:
 
 private:
 	UPROPERTY(EditAnywhere)
-	UMaterial *CurrentPostProcessMaterial = nullptr;
+	UMaterialInterface *CurrentPostProcessMaterial = nullptr;
 	
 	UPROPERTY(EditAnywhere)
-	UMaterial *CurrentEntryMaterial = nullptr;
+	UMaterialInterface *CurrentEntryMaterial = nullptr;
 
 	friend APostProcessingPortal;
 };

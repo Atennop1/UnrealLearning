@@ -27,10 +27,10 @@ private:
 	UStaticMeshComponent *EntryMesh = nullptr;
 
 	UPROPERTY(EditInstanceOnly)
-	UMaterial *EntryMaterial = nullptr;
+	UMaterialInterface *EntryMaterial = nullptr;
 
 	UPROPERTY(EditInstanceOnly)
-	UMaterial *PostProcessMaterial = nullptr;
+	UMaterialInterface *PostProcessMaterial = nullptr;
 	
 	FVector LastPosition = FVector();
 	bool LastInFront = false;
