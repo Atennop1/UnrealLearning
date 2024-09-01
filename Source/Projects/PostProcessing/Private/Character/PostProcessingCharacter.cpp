@@ -1,6 +1,6 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
-#include "PostProcessingCharacter.h"
+#include "Character/PostProcessingCharacter.h"
 #include "Camera/CameraComponent.h"
 
 APostProcessingCharacter::APostProcessingCharacter()
@@ -11,8 +11,9 @@ APostProcessingCharacter::APostProcessingCharacter()
 void APostProcessingCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	FPostProcessSettings PostProcessSettings = FPostProcessSettings();
+	check(IsValid(WorldUnloadingComponent))
 	
+	FPostProcessSettings PostProcessSettings = FPostProcessSettings();
 	PostProcessSettings.WeightedBlendables = TArray { FWeightedBlendable(1, CurrentPostProcessMaterial) };
 	GetFirstPersonCameraComponent()->PostProcessSettings = PostProcessSettings;
 }

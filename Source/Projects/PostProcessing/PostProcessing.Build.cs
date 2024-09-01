@@ -10,7 +10,8 @@ public class PostProcessing : ModuleRules
             new string[]
             {
                 "Core",
-                "FirstPerson"
+                "FirstPerson",
+                "EnhancedInput"
             }
         );
 

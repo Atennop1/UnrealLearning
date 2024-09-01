@@ -1,8 +1,7 @@
 ﻿// Copyright Atennop. All Rights Reserved.
 
 #include "PostProcessingPortal.h"
-
-#include "PostProcessingCharacter.h"
+#include "Character/PostProcessingCharacter.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/Character.h"
 #include "Kismet/GameplayStatics.h"
