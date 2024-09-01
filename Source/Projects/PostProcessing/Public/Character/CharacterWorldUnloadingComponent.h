@@ -3,22 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "ParameterChangingInfo.h"
 #include "Components/ActorComponent.h"
 #include "Components/TimelineComponent.h"
 #include "CharacterWorldUnloadingComponent.generated.h"
-
-USTRUCT()
-struct FParameterChangingInfo
-{
-	GENERATED_BODY()
-
-public:
-	UPROPERTY(EditDefaultsOnly)
-	FName ParameterName;
-	
-	UPROPERTY(EditDefaultsOnly)
-	UCurveFloat *ChangingCurve;
-};
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class POSTPROCESSING_API UCharacterWorldUnloadingComponent : public UActorComponent

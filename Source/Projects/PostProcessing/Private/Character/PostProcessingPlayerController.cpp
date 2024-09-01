@@ -20,6 +20,7 @@ void APostProcessingPlayerController::OnPossess(APawn* InPawn)
 
 	const auto EnhancedInputComponent = Cast<UEnhancedInputComponent>(InputComponent);
 	EnhancedInputComponent->BindAction(ChangeWorldStateAction, ETriggerEvent::Triggered, this, &APostProcessingPlayerController::CallChangeWorldState);
+	EnhancedInputComponent->BindAction(ChangeMatrixAction, ETriggerEvent::Triggered, this, &APostProcessingPlayerController::CallChangeMatrix);
 }
 
 // ReSharper disable once CppMemberFunctionMayBeConst
@@ -27,4 +28,11 @@ void APostProcessingPlayerController::CallChangeWorldState(const FInputActionVal
 {
 	if (IsValid(PossessedCharacter))
 		PossessedCharacter->GetWorldUnloadingComponent()->ChangeWorldState();
+}
+
+// ReSharper disable once CppMemberFunctionMayBeConst
+void APostProcessingPlayerController::CallChangeMatrix(const FInputActionValue& Value)
+{
+	if (IsValid(PossessedCharacter))
+		PossessedCharacter->GetMatrixComponent()->ChangeMatrix();
 }

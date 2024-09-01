@@ -26,5 +26,9 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	UInputAction *ChangeWorldStateAction;
 
+	UPROPERTY(EditDefaultsOnly)
+	UInputAction *ChangeMatrixAction;
+
 	void CallChangeWorldState(const FInputActionValue &Value);
+	void CallChangeMatrix(const FInputActionValue &Value);
 };

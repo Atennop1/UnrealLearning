@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CharacterMatrixComponent.h"
 #include "CharacterWorldUnloadingComponent.h"
 #include "PostProcessingPortal.h"
 #include "Templates/FirstPerson/Public/FirstPersonCharacter.h"
@@ -17,6 +18,7 @@ public:
 	APostProcessingCharacter();
 
 	UCharacterWorldUnloadingComponent *GetWorldUnloadingComponent() const { return WorldUnloadingComponent; }
+	UCharacterMatrixComponent *GetMatrixComponent() const { return MatrixComponent; }
 
 protected:
 	virtual void BeginPlay() override;
@@ -32,4 +34,7 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess))
 	UCharacterWorldUnloadingComponent *WorldUnloadingComponent = nullptr;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess))
+	UCharacterMatrixComponent *MatrixComponent = nullptr;
 };

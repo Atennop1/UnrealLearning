@@ -12,6 +12,7 @@ void APostProcessingCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	check(IsValid(WorldUnloadingComponent))
+	check(IsValid(MatrixComponent))
 	
 	FPostProcessSettings PostProcessSettings = FPostProcessSettings();
 	PostProcessSettings.WeightedBlendables = TArray { FWeightedBlendable(1, CurrentPostProcessMaterial) };
